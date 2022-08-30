@@ -13,33 +13,43 @@ struct ContentView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedPhotoData: Data? {
         didSet {
-            shouldShowSelectedPhoto = selectedPhotoData != nil
+            withAnimation {
+                shouldShowSelectedPhoto = selectedPhotoData != nil
+            }
         }
     }
     @State private var shouldShowSelectedPhoto = false
 
     var body: some View {
         VStack {
-            if let selectedPhotoData, let image = UIImage(data: selectedPhotoData) {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .clipped()
+            if shouldShowSelectedPhoto {
+                VStack {
+                    Image(uiImage: UIImage(data: selectedPhotoData!)!)
+                        .resizable()
+                        .scaledToFit()
+                        .clipped()
+                }
+                .frame(maxHeight: .infinity)
+                .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
+                    .ignoresSafeArea())
+
             } else {
-                Text("erase objects from images.")
-                    .frame(width: 260, alignment: .leading)
-                    .font(.largeTitle)
-                    .bold()
-                PhotosPicker(
-                    selection: $selectedItem,
-                    matching: .images,
-                    photoLibrary: .shared()
-                ) {
-                    SelectContentView()
+                VStack {
+                    Text("erase objects from images.")
+                        .frame(width: 260, alignment: .leading)
+                        .font(.largeTitle)
+                        .bold()
+                    PhotosPicker(
+                        selection: $selectedItem,
+                        matching: .images,
+                        photoLibrary: .shared()
+                    ) {
+                        SelectContentView()
+                    }
+                    .tint(.black)
                 }
             }
         }
-        .tint(.black)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RiveViewModel(fileName: "shapes").view()
@@ -90,4 +100,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }
