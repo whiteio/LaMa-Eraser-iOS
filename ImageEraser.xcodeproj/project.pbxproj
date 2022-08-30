@@ -11,6 +11,8 @@
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
 		E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307028BEA77100F33E07 /* Assets.xcassets */; };
 		E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307328BEA77100F33E07 /* Preview Assets.xcassets */; };
+		E3B5307C28BEAAE200F33E07 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = E3B5307B28BEAAE200F33E07 /* RiveRuntime */; };
+		E3B5308028BEAB1100F33E07 /* button.riv in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307F28BEAB1100F33E07 /* button.riv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,7 @@
 		E3B5306E28BEA76F00F33E07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E3B5307028BEA77100F33E07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3B5307328BEA77100F33E07 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E3B5307F28BEAB1100F33E07 /* button.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = button.riv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B5307C28BEAAE200F33E07 /* RiveRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +55,7 @@
 		E3B5306B28BEA76F00F33E07 /* ImageEraser */ = {
 			isa = PBXGroup;
 			children = (
+				E3B5307E28BEAAF700F33E07 /* RiveAssets */,
 				E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */,
 				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
 				E3B5307028BEA77100F33E07 /* Assets.xcassets */,
@@ -65,6 +70,14 @@
 				E3B5307328BEA77100F33E07 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E3B5307E28BEAAF700F33E07 /* RiveAssets */ = {
+			isa = PBXGroup;
+			children = (
+				E3B5307F28BEAB1100F33E07 /* button.riv */,
+			);
+			path = RiveAssets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +96,9 @@
 			dependencies = (
 			);
 			name = ImageEraser;
+			packageProductDependencies = (
+				E3B5307B28BEAAE200F33E07 /* RiveRuntime */,
+			);
 			productName = ImageEraser;
 			productReference = E3B5306928BEA76F00F33E07 /* ImageEraser.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +127,9 @@
 				Base,
 			);
 			mainGroup = E3B5306028BEA76F00F33E07;
+			packageReferences = (
+				E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */,
+			);
 			productRefGroup = E3B5306A28BEA76F00F33E07 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B5308028BEAB1100F33E07 /* button.riv in Resources */,
 				E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */,
 				E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */,
 			);
@@ -339,6 +359,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rive-app/rive-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E3B5307B28BEAAE200F33E07 /* RiveRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */;
+			productName = RiveRuntime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E3B5306128BEA76F00F33E07 /* Project object */;
 }
