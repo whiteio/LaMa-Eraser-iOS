@@ -60,12 +60,34 @@ struct ContentView: View {
                 .blur(radius: 50)
                 .offset(x: 200, y: 100)
         )
+        .overlay(alignment: .topTrailing, content: {
+            closeOverlay
+        })
         .onChange(of: selectedItem) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
                     selectedPhotoData = data
                 }
             }
+        }
+    }
+
+    @ViewBuilder private var closeOverlay: some View {
+        if shouldShowSelectedPhoto {
+            Button {
+                withAnimation(.spring()) {
+                    selectedPhotoData = nil
+                    selectedItem = nil
+                }
+            } label: {
+                Image(systemName: "xmark")
+                    .frame(width: 36, height: 36)
+                    .foregroundColor(.black)
+                    .background(.white)
+                    .mask(Circle())
+                    .shadow(color: Color("Shadow").opacity(0.3), radius: 5, x: 0, y: 3)
+            }
+            .padding()
         }
     }
 }
