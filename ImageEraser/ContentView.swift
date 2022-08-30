@@ -22,12 +22,9 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            if shouldShowSelectedPhoto {
+            if shouldShowSelectedPhoto, let data = selectedPhotoData {
                 VStack {
-                    Image(uiImage: UIImage(data: selectedPhotoData!)!)
-                        .resizable()
-                        .scaledToFit()
-                        .clipped()
+                    ImageMaskingView(selectedPhotoData: data)
                 }
                 .frame(maxHeight: .infinity)
                 .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -70,6 +67,52 @@ struct ContentView: View {
                 }
             }
         }
+    }
+}
+
+struct ImageMaskingView: View {
+    var selectedPhotoData: Data
+    @State var points: [CGPoint] = []
+
+    var drag: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                points.append(value.location)
+            }
+            .onEnded { _ in }
+    }
+
+    var body: some View {
+            Image(uiImage: UIImage(data: selectedPhotoData)!)
+                .resizable()
+                .scaledToFit()
+                .clipped()
+                .gesture(drag)
+                .border(.red)
+                .overlay(
+                    DrawShape(points: points)
+                        .stroke(lineWidth: 5)
+                        .foregroundColor(.blue)
+                )
+                .clipped()
+    }
+}
+
+struct DrawShape: Shape {
+
+    var points: [CGPoint]
+
+    // drawing is happening here
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        guard let firstPoint = points.first else { return path }
+
+        path.move(to: firstPoint)
+        for pointIndex in 1..<points.count {
+            path.addLine(to: points[pointIndex])
+
+        }
+        return path
     }
 }
 
