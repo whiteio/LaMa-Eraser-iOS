@@ -91,8 +91,8 @@ struct ImageMaskingView: View {
                 .border(.red)
                 .overlay(
                     DrawShape(points: points)
-                        .stroke(lineWidth: 5)
-                        .foregroundColor(.blue)
+                        .stroke(style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
+                        .foregroundColor(.blue.opacity(0.4))
                 )
                 .clipped()
     }
