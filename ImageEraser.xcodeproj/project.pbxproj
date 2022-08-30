@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
 		E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307028BEA77100F33E07 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEraserApp.swift; sourceTree = "<group>"; };
 		E3B5306E28BEA76F00F33E07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		E3B5307E28BEAAF700F33E07 /* RiveAssets */ = {
 			isa = PBXGroup;
 			children = (
+				E37DFBB428BEAD3A0060AEBF /* shapes.riv */,
 				E3B5307F28BEAB1100F33E07 /* button.riv */,
 			);
 			path = RiveAssets;
@@ -145,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3B5308028BEAB1100F33E07 /* button.riv in Resources */,
+				E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */,
 				E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */,
 				E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */,
 			);
