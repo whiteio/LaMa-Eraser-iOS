@@ -11,19 +11,32 @@ import PhotosUI
 
 struct ContentView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selectedPhotoData: Data? {
+        didSet {
+            shouldShowSelectedPhoto = selectedPhotoData != nil
+        }
+    }
+    @State private var shouldShowSelectedPhoto = false
 
     var body: some View {
         VStack {
-            Text("erase objects from images.")
-                .frame(width: 260, alignment: .leading)
-                .font(.largeTitle)
-                .bold()
-            PhotosPicker(
-                selection: $selectedItem,
-                matching: .images,
-                photoLibrary: .shared()
-            ) {
-                SelectContentView()
+            if let selectedPhotoData, let image = UIImage(data: selectedPhotoData) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .clipped()
+            } else {
+                Text("erase objects from images.")
+                    .frame(width: 260, alignment: .leading)
+                    .font(.largeTitle)
+                    .bold()
+                PhotosPicker(
+                    selection: $selectedItem,
+                    matching: .images,
+                    photoLibrary: .shared()
+                ) {
+                    SelectContentView()
+                }
             }
         }
         .tint(.black)
@@ -40,6 +53,13 @@ struct ContentView: View {
                 .blur(radius: 50)
                 .offset(x: 200, y: 100)
         )
+        .onChange(of: selectedItem) { newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    selectedPhotoData = data
+                }
+            }
+        }
     }
 }
 
