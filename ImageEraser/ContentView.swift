@@ -20,11 +20,14 @@ struct ContentView: View {
     }
     @State private var shouldShowSelectedPhoto = false
 
+    @State var points: [CGPoint] = []
+    @State var previousPointsSegments: [[CGPoint]] = []
+
     var body: some View {
         VStack {
             if shouldShowSelectedPhoto, let data = selectedPhotoData {
                 VStack {
-                    ImageMaskingView(selectedPhotoData: data)
+                    ImageMaskingView(selectedPhotoData: data, points: $points, previousPointsSegments: $previousPointsSegments)
                 }
                 .frame(maxHeight: .infinity)
                 .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -63,6 +66,9 @@ struct ContentView: View {
         .overlay(alignment: .topTrailing, content: {
             closeOverlay
         })
+        .overlay(alignment: .bottomTrailing) {
+            undoOverlay
+        }
         .onChange(of: selectedItem) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
@@ -87,6 +93,22 @@ struct ContentView: View {
                     .mask(Circle())
                     .shadow(color: Color("Shadow").opacity(0.3), radius: 5, x: 0, y: 3)
             }
+            .shadow(radius: 4)
+            .padding()
+        }
+    }
+
+    @ViewBuilder private var undoOverlay: some View {
+        if shouldShowSelectedPhoto {
+            Button(action: {
+                previousPointsSegments.removeLast()
+            }
+                   , label: {
+                Image(systemName: "arrow.uturn.backward")
+                    .font(.title)
+            })
+            .disabled(previousPointsSegments.isEmpty)
+            .buttonStyle(.borderedProminent)
             .padding()
         }
     }
@@ -94,8 +116,8 @@ struct ContentView: View {
 
 struct ImageMaskingView: View {
     var selectedPhotoData: Data
-    @State var points: [CGPoint] = []
-    @State var previousPointsSegments: [[CGPoint]] = []
+    @Binding var points: [CGPoint]
+    @Binding var previousPointsSegments: [[CGPoint]]
 
     var drag: some Gesture {
         DragGesture()
@@ -109,6 +131,7 @@ struct ImageMaskingView: View {
     }
 
     var body: some View {
+        VStack(alignment: .trailing) {
             Image(uiImage: UIImage(data: selectedPhotoData)!)
                 .resizable()
                 .scaledToFit()
@@ -120,6 +143,7 @@ struct ImageMaskingView: View {
                         .foregroundColor(.blue.opacity(0.4))
                 )
                 .clipped()
+        }
     }
 }
 
@@ -139,7 +163,6 @@ struct DrawShape: Shape {
             path.move(to: firstPoint)
             for pointIndex in 1..<segment.count {
                 path.addLine(to: segment[pointIndex])
-
             }
         }
 
