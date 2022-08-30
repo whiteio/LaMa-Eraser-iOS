@@ -73,13 +73,17 @@ struct ContentView: View {
 struct ImageMaskingView: View {
     var selectedPhotoData: Data
     @State var points: [CGPoint] = []
+    @State var previousPointsSegments: [[CGPoint]] = []
 
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
                 points.append(value.location)
             }
-            .onEnded { _ in }
+            .onEnded { _ in
+                previousPointsSegments.append(points)
+                points = []
+            }
     }
 
     var body: some View {
@@ -88,9 +92,8 @@ struct ImageMaskingView: View {
                 .scaledToFit()
                 .clipped()
                 .gesture(drag)
-                .border(.red)
                 .overlay(
-                    DrawShape(points: points)
+                    DrawShape(previousPointsSegments: previousPointsSegments, currentPointsSegment: points)
                         .stroke(style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
                         .foregroundColor(.blue.opacity(0.4))
                 )
@@ -99,17 +102,30 @@ struct ImageMaskingView: View {
 }
 
 struct DrawShape: Shape {
-
-    var points: [CGPoint]
+    var previousPointsSegments: [[CGPoint]]
+    var currentPointsSegment: [CGPoint]
 
     // drawing is happening here
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        guard let firstPoint = points.first else { return path }
 
-        path.move(to: firstPoint)
-        for pointIndex in 1..<points.count {
-            path.addLine(to: points[pointIndex])
+        for segment in previousPointsSegments {
+            guard let firstPoint = segment.first else { return path }
+
+            path.move(to: firstPoint)
+
+            path.move(to: firstPoint)
+            for pointIndex in 1..<segment.count {
+                path.addLine(to: segment[pointIndex])
+
+            }
+        }
+
+        guard let currentSegmentFirstPoint = currentPointsSegment.first else { return path }
+
+        path.move(to: currentSegmentFirstPoint)
+        for pointIndex in 1..<currentPointsSegment.count {
+            path.addLine(to: currentPointsSegment[pointIndex])
 
         }
         return path
