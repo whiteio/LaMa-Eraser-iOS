@@ -11,6 +11,7 @@ import PhotosUI
 
 struct ContentView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
+    @State var selectedEditIndex = 0
     @State private var selectedPhotoData: Data? {
         didSet {
             withAnimation {
@@ -72,8 +73,11 @@ struct ContentView: View {
         .overlay(alignment: .topLeading) {
             undoOverlay
         }
-        .overlay(alignment: .bottomTrailing) {
-            brushSizeOverlay
+        .overlay(alignment: .bottom) {
+            if shouldShowSelectedPhoto {
+                SegmentedControlView(selectedIndex: $selectedEditIndex, items: [("Test", "plus.magnifyingglass"), ("Test", "plus.magnifyingglass")])
+                    .padding(.bottom)
+            }
         }
         .onChange(of: selectedItem) { newItem in
             Task {
