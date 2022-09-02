@@ -23,11 +23,14 @@ struct ContentView: View {
     @State var points: [CGPoint] = []
     @State var previousPointsSegments: [[CGPoint]] = []
 
+    @State private var brushSize = 30.0
+    @State var showSheet = true
+
     var body: some View {
         VStack {
             if shouldShowSelectedPhoto, let data = selectedPhotoData {
                 VStack {
-                    ImageMaskingView(selectedPhotoData: data, points: $points, previousPointsSegments: $previousPointsSegments)
+                    ImageMaskingView(selectedPhotoData: data, points: $points, previousPointsSegments: $previousPointsSegments, brushSize: $brushSize)
                 }
                 .frame(maxHeight: .infinity)
                 .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -66,8 +69,11 @@ struct ContentView: View {
         .overlay(alignment: .topTrailing, content: {
             closeOverlay
         })
-        .overlay(alignment: .bottomTrailing) {
+        .overlay(alignment: .topLeading) {
             undoOverlay
+        }
+        .overlay(alignment: .bottomTrailing) {
+            brushSizeOverlay
         }
         .onChange(of: selectedItem) { newItem in
             Task {
@@ -75,6 +81,25 @@ struct ContentView: View {
                     selectedPhotoData = data
                 }
             }
+        }
+    }
+
+    @State private var isEditing = false
+    @ViewBuilder private var brushSizeOverlay: some View {
+        if shouldShowSelectedPhoto {
+            LabeledContent("Brush size", content: {
+                Slider(
+                    value: $brushSize,
+                    in: 10...50,
+                    onEditingChanged: { editing in
+                        isEditing = editing
+                    }
+                )
+                .frame(width: 100)
+                .padding()
+            })
+            .foregroundColor(.white)
+            .padding()
         }
     }
 
@@ -118,6 +143,7 @@ struct ImageMaskingView: View {
     var selectedPhotoData: Data
     @Binding var points: [CGPoint]
     @Binding var previousPointsSegments: [[CGPoint]]
+    @Binding var brushSize: Double
 
     var drag: some Gesture {
         DragGesture()
@@ -139,7 +165,7 @@ struct ImageMaskingView: View {
                 .gesture(drag)
                 .overlay(
                     DrawShape(previousPointsSegments: previousPointsSegments, currentPointsSegment: points)
-                        .stroke(style: StrokeStyle(lineWidth: 30, lineCap: .round, lineJoin: .round))
+                        .stroke(style: StrokeStyle(lineWidth: brushSize, lineCap: .round, lineJoin: .round))
                         .foregroundColor(.blue.opacity(0.4))
                 )
                 .clipped()
