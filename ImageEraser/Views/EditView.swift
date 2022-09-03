@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-struct Coordinates {
-    var xCoordinate: CGFloat
-    var yCoordinate: CGFloat
-}
-
 struct EditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
