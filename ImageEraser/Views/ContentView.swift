@@ -28,8 +28,6 @@ struct ContentView: View {
     @State var points: [CGPoint] = []
     @State var previousPointsSegments: [[CGPoint]] = []
 
-    @State private var brushSize = 30.0
-
     @State private var paths: [Route] = []
 
     var body: some View {
@@ -70,23 +68,6 @@ struct ContentView: View {
     }
 
     @State private var isEditing = false
-    @ViewBuilder private var brushSizeOverlay: some View {
-        if shouldShowSelectedPhoto {
-            LabeledContent("Brush size", content: {
-                Slider(
-                    value: $brushSize,
-                    in: 10...50,
-                    onEditingChanged: { editing in
-                        isEditing = editing
-                    }
-                )
-                .frame(width: 100)
-                .padding()
-            })
-            .foregroundColor(.white)
-            .padding()
-        }
-    }
 
     @ViewBuilder private var undoOverlay: some View {
         if shouldShowSelectedPhoto {

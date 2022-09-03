@@ -19,6 +19,10 @@ struct EditView: View {
     @State var redoDisabled = true
     var photoData: Data
 
+    @State var maskPoints: [CGPoint] = []
+    @State var previousPointsSegments: [[CGPoint]] = []
+    @State var brushSize: Double = 30
+
     init(photoData: Data) {
         self.photoData = photoData
     }
@@ -29,9 +33,10 @@ struct EditView: View {
     var body: some View {
         VStack {
             ZoomableScrollView {
-                Image(uiImage: UIImage(data: photoData)!)
-                    .resizable()
-                    .scaledToFit()
+                ImageMaskingView(selectedPhotoData: photoData,
+                                 points: $maskPoints,
+                                 previousPointsSegments: $previousPointsSegments,
+                                 brushSize: $brushSize)
             }
         }
         .navigationTitle("ERASE")
