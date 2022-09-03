@@ -10,6 +10,7 @@
 		E35232B628C28373008DB14B /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B528C28373008DB14B /* SegmentedControlView.swift */; };
 		E35232B828C2948D008DB14B /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B728C2948D008DB14B /* EditView.swift */; };
 		E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B928C376B7008DB14B /* ZoomableScrollView.swift */; };
+		E35232C028C38B6F008DB14B /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E35232BF28C38B6F008DB14B /* swiftlint.yml */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E37DFBB728BEB6E10060AEBF /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37DFBB628BEB6E10060AEBF /* Test.swift */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
@@ -24,6 +25,7 @@
 		E35232B528C28373008DB14B /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		E35232B728C2948D008DB14B /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		E35232B928C376B7008DB14B /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
+		E35232BF28C38B6F008DB14B /* swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E37DFBB628BEB6E10060AEBF /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +51,7 @@
 		E3B5306028BEA76F00F33E07 = {
 			isa = PBXGroup;
 			children = (
+				E35232BF28C38B6F008DB14B /* swiftlint.yml */,
 				E3B5306B28BEA76F00F33E07 /* ImageEraser */,
 				E3B5306A28BEA76F00F33E07 /* Products */,
 			);
@@ -102,6 +105,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3B5307728BEA77100F33E07 /* Build configuration list for PBXNativeTarget "ImageEraser" */;
 			buildPhases = (
+				E35232BB28C389DC008DB14B /* ShellScript */,
 				E3B5306528BEA76F00F33E07 /* Sources */,
 				E3B5306628BEA76F00F33E07 /* Frameworks */,
 				E3B5306728BEA76F00F33E07 /* Resources */,
@@ -160,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3B5308028BEAB1100F33E07 /* button.riv in Resources */,
+				E35232C028C38B6F008DB14B /* swiftlint.yml in Resources */,
 				E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */,
 				E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */,
 				E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */,
@@ -167,6 +172,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E35232BB28C389DC008DB14B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E3B5306528BEA76F00F33E07 /* Sources */ = {

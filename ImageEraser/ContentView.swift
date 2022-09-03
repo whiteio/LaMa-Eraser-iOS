@@ -14,7 +14,7 @@ enum Route: Hashable {
 }
 
 struct ContentView: View {
-    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selectedItem: PhotosPickerItem?
     @State var selectedEditIndex = 0
     @State private var selectedPhotoData: Data? {
         didSet {
@@ -35,17 +35,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $paths) {
             VStack {
-//                if shouldShowSelectedPhoto, let data = selectedPhotoData {
-//                    VStack {
-//                        ImageMaskingView(selectedPhotoData: data, points: $points, previousPointsSegments: $previousPointsSegments, brushSize: $brushSize)
-//                    }
-//                    .frame(maxHeight: .infinity)
-//                    .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
-//                        .ignoresSafeArea())
-//
-//                } else {
-//                    SplashscreenContentView(selectedItem: $selectedItem)
-//                }
                 SplashscreenContentView(selectedItem: $selectedItem)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -122,8 +111,7 @@ struct ContentView: View {
         if shouldShowSelectedPhoto {
             Button(action: {
                 previousPointsSegments.removeLast()
-            }
-                   , label: {
+            }, label: {
                 Image(systemName: "arrow.uturn.backward")
                     .font(.title)
             })
@@ -230,7 +218,10 @@ struct ContentView_Previews: PreviewProvider {
 struct VisualEffectView: UIViewRepresentable {
     var effect: UIVisualEffect?
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
-    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
+    func updateUIView(_ uiView: UIVisualEffectView,
+                      context: UIViewRepresentableContext<Self>) {
+        uiView.effect = effect
+    }
 }
 
 struct SplashscreenContentView: View {

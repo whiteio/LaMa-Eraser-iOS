@@ -3,7 +3,7 @@ import SwiftUI
 struct SegmentedControlView: View {
     @Binding private var selectedIndex: Int
 
-    @State private var frames: Array<CGRect>
+    @State private var frames: [CGRect]
     @State private var backgroundFrame = CGRect.zero
     @State private var isScrollable = true
 
@@ -12,17 +12,27 @@ struct SegmentedControlView: View {
     init(selectedIndex: Binding<Int>, items: [(String, String)]) {
         self._selectedIndex = selectedIndex
         self.items = items
-        frames = Array<CGRect>(repeating: .zero, count: items.count)
+        frames = [CGRect](repeating: .zero, count: items.count)
     }
 
     var body: some View {
         VStack {
             if isScrollable {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    SegmentedControlButtonView(selectedIndex: $selectedIndex, frames: $frames, backgroundFrame: $backgroundFrame, isScrollable: $isScrollable, checkIsScrollable: checkIsScrollable, items: items)
+                    SegmentedControlButtonView(selectedIndex: $selectedIndex,
+                                               frames: $frames,
+                                               backgroundFrame: $backgroundFrame,
+                                               isScrollable: $isScrollable,
+                                               checkIsScrollable: checkIsScrollable,
+                                               items: items)
                 }
             } else {
-                SegmentedControlButtonView(selectedIndex: $selectedIndex, frames: $frames, backgroundFrame: $backgroundFrame, isScrollable: $isScrollable, checkIsScrollable: checkIsScrollable, items: items)
+                SegmentedControlButtonView(selectedIndex: $selectedIndex,
+                                           frames: $frames,
+                                           backgroundFrame: $backgroundFrame,
+                                           isScrollable: $isScrollable,
+                                           checkIsScrollable: checkIsScrollable,
+                                           items: items)
             }
         }
         .background(
@@ -36,29 +46,22 @@ struct SegmentedControlView: View {
         .cornerRadius(12)
     }
 
-    private func setBackgroundFrame(frame: CGRect)
-    {
+    private func setBackgroundFrame(frame: CGRect) {
         backgroundFrame = frame
         checkIsScrollable()
     }
 
-    private func checkIsScrollable()
-    {
-        if frames[frames.count - 1].width > .zero
-        {
+    private func checkIsScrollable() {
+        if frames[frames.count - 1].width > .zero {
             var width = CGFloat.zero
 
-            for frame in frames
-            {
+            for frame in frames {
                 width += frame.width
             }
 
-            if isScrollable && width <= backgroundFrame.width
-            {
+            if isScrollable && width <= backgroundFrame.width {
                 isScrollable = false
-            }
-            else if !isScrollable && width > backgroundFrame.width
-            {
+            } else if !isScrollable && width > backgroundFrame.width {
                 isScrollable = true
             }
         }
@@ -74,8 +77,12 @@ private struct SegmentedControlButtonView: View {
     private let items: [(String, String)]
     let checkIsScrollable: (() -> Void)
 
-    init(selectedIndex: Binding<Int>, frames: Binding<[CGRect]>, backgroundFrame: Binding<CGRect>, isScrollable: Binding<Bool>, checkIsScrollable: (@escaping () -> Void), items: [(String, String)])
-    {
+    init(selectedIndex: Binding<Int>,
+         frames: Binding<[CGRect]>,
+         backgroundFrame: Binding<CGRect>,
+         isScrollable: Binding<Bool>,
+         checkIsScrollable: (@escaping () -> Void),
+         items: [(String, String)]) {
         _selectedIndex = selectedIndex
         _frames = frames
         _backgroundFrame = backgroundFrame
@@ -92,8 +99,7 @@ private struct SegmentedControlButtonView: View {
                     withAnimation {
                         selectedIndex = index
                     }
-                })
-                {
+                }, label: {
                     HStack {
                         VStack {
                             Image(systemName: items[index].1)
@@ -103,7 +109,7 @@ private struct SegmentedControlButtonView: View {
                             Text(items[index].0)
                         }
                     }
-                }
+                })
                 .buttonStyle(CustomSegmentButtonStyle())
                 .background(
                     GeometryReader { geoReader in
@@ -135,14 +141,12 @@ private struct CustomSegmentButtonStyle: ButtonStyle {
     }
 }
 
-struct RectPreferenceKey: PreferenceKey
-{
+struct RectPreferenceKey: PreferenceKey {
     typealias Value = CGRect
 
     static var defaultValue = CGRect.zero
 
-    static func reduce(value: inout CGRect, nextValue: () -> CGRect)
-    {
+    static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
         value = nextValue()
     }
 }
@@ -150,6 +154,10 @@ struct RectPreferenceKey: PreferenceKey
 struct SegmentedControlView_Previews: PreviewProvider {
     @State static var selectedIndex = 0
     static var previews: some View {
-        SegmentedControlView(selectedIndex: $selectedIndex, items: [("Test", "plus.magnifyingglass"), ("Test", "plus.magnifyingglass")])
+        SegmentedControlView(selectedIndex: $selectedIndex,
+                             items: [
+                                ("Test", "plus.magnifyingglass"),
+                                ("Test", "plus.magnifyingglass")
+                             ])
     }
 }
