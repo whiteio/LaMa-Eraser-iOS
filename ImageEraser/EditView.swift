@@ -23,12 +23,16 @@ struct EditView: View {
 
     @State var scale: CGFloat = 1.0
     @State var offset: Coordinates = Coordinates(x: 0, y: 0)
+    @State var imageTopPadding: CGFloat = 0.0
 
     var body: some View {
         VStack {
             ZoomableScrollView {
                 Rectangle()
-                    .padding()
+                    .padding(.top, imageTopPadding)
+                    .background(NavBarAccessor { navBar in
+                        imageTopPadding = navBar.frame.height
+                    })
             }
         }
         .ignoresSafeArea()
@@ -68,6 +72,33 @@ struct EditView_Previews: PreviewProvider {
         NavigationView {
             EditView(photoData: Data())
                 .preferredColorScheme(.dark)
+        }
+    }
+}
+
+struct NavBarAccessor: UIViewControllerRepresentable {
+    var callback: (UINavigationBar) -> Void
+    private let proxyController = ViewController()
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<NavBarAccessor>) ->
+    UIViewController {
+        proxyController.callback = callback
+        return proxyController
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavBarAccessor>) {
+    }
+
+    typealias UIViewControllerType = UIViewController
+
+    private class ViewController: UIViewController {
+        var callback: (UINavigationBar) -> Void = { _ in }
+
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            if let navBar = self.navigationController {
+                self.callback(navBar.navigationBar)
+            }
         }
     }
 }
