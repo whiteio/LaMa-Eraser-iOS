@@ -13,6 +13,8 @@ struct Coordinates {
 }
 
 struct EditView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @State var undoDisabled = true
     @State var redoDisabled = true
     var photoData: Data
@@ -51,7 +53,9 @@ struct EditView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                Button(action: {}, label: {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
                     Text("Cancel")
                 })
                 Spacer()
