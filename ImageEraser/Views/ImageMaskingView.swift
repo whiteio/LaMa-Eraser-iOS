@@ -12,6 +12,7 @@ struct ImageMaskingView: View {
     @Binding var points: [CGPoint]
     @Binding var previousPointsSegments: [[CGPoint]]
     @Binding var brushSize: Double
+    @Binding var redoableSegments: [[CGPoint]]
 
     var drag: some Gesture {
         DragGesture()
@@ -20,6 +21,7 @@ struct ImageMaskingView: View {
             }
             .onEnded { _ in
                 previousPointsSegments.append(points)
+                redoableSegments.removeAll()
                 points = []
             }
     }

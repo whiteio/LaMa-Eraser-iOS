@@ -23,6 +23,8 @@ struct EditView: View {
     @State var previousPointsSegments: [[CGPoint]] = []
     @State var brushSize: Double = 30
 
+    @State var redoableSegments: [[CGPoint]] = []
+
     init(photoData: Data) {
         self.photoData = photoData
     }
@@ -36,7 +38,8 @@ struct EditView: View {
                 ImageMaskingView(selectedPhotoData: photoData,
                                  points: $maskPoints,
                                  previousPointsSegments: $previousPointsSegments,
-                                 brushSize: $brushSize)
+                                 brushSize: $brushSize,
+                                 redoableSegments: $redoableSegments)
             }
         }
         .navigationTitle("ERASE")
@@ -44,12 +47,16 @@ struct EditView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
-                Button(action: {}, label: {
+                Button(action: {
+                    redoableSegments.append(previousPointsSegments.removeLast())
+                }, label: {
                     Image(systemName: "arrow.uturn.backward.circle")
                 })
                 .tint(.white)
                 .disabled(undoDisabled)
-                Button(action: {}, label: {
+                Button(action: {
+                    previousPointsSegments.append(redoableSegments.removeLast())
+                }, label: {
                     Image(systemName: "arrow.uturn.forward.circle")
                 })
                 .tint(.white)
@@ -68,6 +75,12 @@ struct EditView: View {
                     Text("Save")
                 })
             }
+        }
+        .onChange(of: redoableSegments) { undoneSegments in
+            redoDisabled = undoneSegments.isEmpty
+        }
+        .onChange(of: previousPointsSegments) { segments in
+            undoDisabled = segments.isEmpty
         }
     }
 }
