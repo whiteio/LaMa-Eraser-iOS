@@ -7,45 +7,59 @@
 
 import SwiftUI
 
+struct Coordinates {
+    var x: CGFloat
+    var y: CGFloat
+}
+
 struct EditView: View {
-    @State var undoDisabled = false
+    @State var undoDisabled = true
     @State var redoDisabled = true
     var photoData: Data
 
     init(photoData: Data) {
         self.photoData = photoData
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
     }
 
+    @State var scale: CGFloat = 1.0
+    @State var offset: Coordinates = Coordinates(x: 0, y: 0)
+
     var body: some View {
-        Rectangle()
-            .navigationTitle("ERASE")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button(action: {}, label: {
-                        Image(systemName: "arrow.uturn.backward.circle")
-                    })
-                    .tint(.white)
-                    .disabled(undoDisabled)
-                    Button(action: {}, label: {
-                        Image(systemName: "arrow.uturn.forward.circle")
-                    })
-                    .tint(.white)
-                    .disabled(redoDisabled)
-                }
+        VStack {
+            ZoomableScrollView {
+                Rectangle()
+                    .padding()
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    Button(action: {}, label: {
-                        Text("Cancel")
-                    })
-                    Spacer()
-                    Button(action: {}, label: {
-                        Text("Save")
-                    })
-                }
+        }
+        .ignoresSafeArea()
+        .navigationTitle("ERASE")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Button(action: {}, label: {
+                    Image(systemName: "arrow.uturn.backward.circle")
+                })
+                .tint(.white)
+                .disabled(undoDisabled)
+                Button(action: {}, label: {
+                    Image(systemName: "arrow.uturn.forward.circle")
+                })
+                .tint(.white)
+                .disabled(redoDisabled)
             }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Button(action: {}, label: {
+                    Text("Cancel")
+                })
+                Spacer()
+                Button(action: {}, label: {
+                    Text("Save")
+                })
+            }
+        }
     }
 }
 
