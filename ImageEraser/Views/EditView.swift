@@ -42,7 +42,7 @@ struct EditView: View {
                                  redoableSegments: $redoableSegments)
             }
         }
-        .navigationTitle("ERASE")
+        .navigationTitle("ERASER")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -72,7 +72,7 @@ struct EditView: View {
                 })
                 Spacer()
                 Button(action: {}, label: {
-                    Text("Save")
+                    Text("Erase!")
                 })
             }
         }
