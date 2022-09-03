@@ -16,7 +16,10 @@ struct ImageMaskingView: View {
     @Binding var brushSize: Double
     @Binding var redoableSegments: [[CGPoint]]
 
-    init(selectedPhotoData: Data, points: Binding<[CGPoint]>, previousPointsSegments: Binding<[[CGPoint]]>, brushSize: Binding<Double>, redoableSegments: Binding<[[CGPoint]]>) {
+    init(selectedPhotoData: Data, points: Binding<[CGPoint]>,
+         previousPointsSegments: Binding<[[CGPoint]]>,
+         brushSize: Binding<Double>,
+         redoableSegments: Binding<[[CGPoint]]>) {
         self._points = points
         self._previousPointsSegments = previousPointsSegments
         self._brushSize = brushSize
