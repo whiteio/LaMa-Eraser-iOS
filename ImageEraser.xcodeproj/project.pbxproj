@@ -46,6 +46,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E35232C228C3906F008DB14B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */,
+				E35232B528C28373008DB14B /* SegmentedControlView.swift */,
+				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
+				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
+				E35232B728C2948D008DB14B /* EditView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E3B5306028BEA76F00F33E07 = {
 			isa = PBXGroup;
 			children = (
@@ -66,14 +78,10 @@
 		E3B5306B28BEA76F00F33E07 /* ImageEraser */ = {
 			isa = PBXGroup;
 			children = (
+				E35232C228C3906F008DB14B /* Views */,
 				E3B5307E28BEAAF700F33E07 /* RiveAssets */,
-				E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */,
-				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
 				E3B5307028BEA77100F33E07 /* Assets.xcassets */,
 				E3B5307228BEA77100F33E07 /* Preview Content */,
-				E35232B528C28373008DB14B /* SegmentedControlView.swift */,
-				E35232B728C2948D008DB14B /* EditView.swift */,
-				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
 			);
 			path = ImageEraser;
 			sourceTree = "<group>";
