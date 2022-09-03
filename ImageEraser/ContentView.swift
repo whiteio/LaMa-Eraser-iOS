@@ -9,6 +9,10 @@ import SwiftUI
 import RiveRuntime
 import PhotosUI
 
+enum Route: Hashable {
+    case editPhoto(Data)
+}
+
 struct ContentView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
     @State var selectedEditIndex = 0
@@ -25,66 +29,53 @@ struct ContentView: View {
     @State var previousPointsSegments: [[CGPoint]] = []
 
     @State private var brushSize = 30.0
-    @State var showSheet = true
+
+    @State private var paths: [Route] = []
 
     var body: some View {
-        VStack {
-            if shouldShowSelectedPhoto, let data = selectedPhotoData {
-                VStack {
-                    ImageMaskingView(selectedPhotoData: data, points: $points, previousPointsSegments: $previousPointsSegments, brushSize: $brushSize)
-                }
-                .frame(maxHeight: .infinity)
-                .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
-                    .ignoresSafeArea())
-
-            } else {
-                VStack {
-                    Text("erase objects from images.")
-                        .frame(width: 260, alignment: .leading)
-                        .font(.largeTitle)
-                        .bold()
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images,
-                        photoLibrary: .shared()
-                    ) {
-                        SelectContentView()
+        NavigationStack(path: $paths) {
+            VStack {
+//                if shouldShowSelectedPhoto, let data = selectedPhotoData {
+//                    VStack {
+//                        ImageMaskingView(selectedPhotoData: data, points: $points, previousPointsSegments: $previousPointsSegments, brushSize: $brushSize)
+//                    }
+//                    .frame(maxHeight: .infinity)
+//                    .background(VisualEffectView(effect: UIBlurEffect(style: .dark))
+//                        .ignoresSafeArea())
+//
+//                } else {
+//                    SplashscreenContentView(selectedItem: $selectedItem)
+//                }
+                SplashscreenContentView(selectedItem: $selectedItem)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                RiveViewModel(fileName: "shapes").view()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+                    .blur(radius: 30)
+                    .blendMode(.hardLight)
+            )
+            .background(
+                Image("Spline")
+                    .blur(radius: 50)
+                    .offset(x: 200, y: 100)
+            )
+            .onChange(of: selectedItem) { newItem in
+                Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                        selectedPhotoData = data
+                        paths.append(.editPhoto(data))
                     }
-                    .tint(.black)
                 }
             }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            RiveViewModel(fileName: "shapes").view()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
-                .blur(radius: 30)
-                .blendMode(.hardLight)
-        )
-        .background(
-            Image("Spline")
-                .blur(radius: 50)
-                .offset(x: 200, y: 100)
-        )
-        .overlay(alignment: .topTrailing, content: {
-            closeOverlay
-        })
-        .overlay(alignment: .topLeading) {
-            undoOverlay
-        }
-        .overlay(alignment: .bottom) {
-            if shouldShowSelectedPhoto {
-                SegmentedControlView(selectedIndex: $selectedEditIndex, items: [("Test", "plus.magnifyingglass"), ("Test", "plus.magnifyingglass")])
-                    .padding(.bottom)
-            }
-        }
-        .onChange(of: selectedItem) { newItem in
-            Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    selectedPhotoData = data
+            .navigationDestination(for: Route.self) { route in
+                switch route {
+                case let .editPhoto(photoData):
+                    EditView(photoData: photoData)
                 }
             }
+            .toolbar(.hidden)
         }
     }
 
@@ -240,4 +231,25 @@ struct VisualEffectView: UIViewRepresentable {
     var effect: UIVisualEffect?
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
     func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
+}
+
+struct SplashscreenContentView: View {
+    @Binding var selectedItem: PhotosPickerItem?
+
+    var body: some View {
+        VStack {
+            Text("erase objects from images.")
+                .frame(width: 260, alignment: .leading)
+                .font(.largeTitle)
+                .bold()
+            PhotosPicker(
+                selection: $selectedItem,
+                matching: .images,
+                photoLibrary: .shared()
+            ) {
+                SelectContentView()
+            }
+            .tint(.black)
+        }
+    }
 }

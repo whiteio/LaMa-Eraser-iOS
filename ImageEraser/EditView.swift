@@ -10,6 +10,12 @@ import SwiftUI
 struct EditView: View {
     @State var undoDisabled = false
     @State var redoDisabled = true
+    var photoData: Data
+
+    init(photoData: Data) {
+        self.photoData = photoData
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+    }
 
     var body: some View {
         Rectangle()
@@ -46,7 +52,7 @@ struct EditView: View {
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EditView()
+            EditView(photoData: Data())
                 .preferredColorScheme(.dark)
         }
     }
