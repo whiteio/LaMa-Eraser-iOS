@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E35232B628C28373008DB14B /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B528C28373008DB14B /* SegmentedControlView.swift */; };
+		E35232B828C2948D008DB14B /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B728C2948D008DB14B /* EditView.swift */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E37DFBB728BEB6E10060AEBF /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37DFBB628BEB6E10060AEBF /* Test.swift */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		E35232B528C28373008DB14B /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
+		E35232B728C2948D008DB14B /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E37DFBB628BEB6E10060AEBF /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				E3B5307228BEA77100F33E07 /* Preview Content */,
 				E37DFBB628BEB6E10060AEBF /* Test.swift */,
 				E35232B528C28373008DB14B /* SegmentedControlView.swift */,
+				E35232B728C2948D008DB14B /* EditView.swift */,
 			);
 			path = ImageEraser;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E35232B628C28373008DB14B /* SegmentedControlView.swift in Sources */,
+				E35232B828C2948D008DB14B /* EditView.swift in Sources */,
 				E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */,
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
 				E37DFBB728BEB6E10060AEBF /* Test.swift in Sources */,
