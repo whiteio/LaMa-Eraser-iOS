@@ -17,20 +17,20 @@ struct EditView: View {
 
     @State var undoDisabled = true
     @State var redoDisabled = true
-    @State var photoData: Data
+    @State var submitButtonDisabled = true
 
+
+    @State var photoData: Data
     @State var maskPoints: [CGPoint] = []
     @State var previousPointsSegments: [[CGPoint]] = []
     @State var brushSize: Double = 30
-
     @State var redoableSegments: [[CGPoint]] = []
+    @State var scale: CGFloat = 1.0
+    @State var offset: Coordinates = Coordinates(xCoordinate: 0, yCoordinate: 0)
 
     init(photoData: Data) {
         self._photoData = State(initialValue: photoData)
     }
-
-    @State var scale: CGFloat = 1.0
-    @State var offset: Coordinates = Coordinates(xCoordinate: 0, yCoordinate: 0)
 
     var body: some View {
         VStack {
@@ -71,11 +71,10 @@ struct EditView: View {
                     Text("Cancel")
                 })
                 Spacer()
-                Button(action: {
-
-                }, label: {
+                Button(action: addPathToImageData, label: {
                     Text("Erase!")
                 })
+                .disabled(submitButtonDisabled)
             }
         }
         .onChange(of: redoableSegments) { undoneSegments in
@@ -83,7 +82,12 @@ struct EditView: View {
         }
         .onChange(of: previousPointsSegments) { segments in
             undoDisabled = segments.isEmpty
+            submitButtonDisabled = segments.isEmpty
         }
+    }
+
+    func addPathToImageData() {
+
     }
 }
 
