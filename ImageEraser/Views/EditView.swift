@@ -17,7 +17,7 @@ struct EditView: View {
 
     @State var undoDisabled = true
     @State var redoDisabled = true
-    var photoData: Data
+    @State var photoData: Data
 
     @State var maskPoints: [CGPoint] = []
     @State var previousPointsSegments: [[CGPoint]] = []
@@ -26,7 +26,7 @@ struct EditView: View {
     @State var redoableSegments: [[CGPoint]] = []
 
     init(photoData: Data) {
-        self.photoData = photoData
+        self._photoData = State(initialValue: photoData)
     }
 
     @State var scale: CGFloat = 1.0
@@ -71,7 +71,9 @@ struct EditView: View {
                     Text("Cancel")
                 })
                 Spacer()
-                Button(action: {}, label: {
+                Button(action: {
+
+                }, label: {
                     Text("Erase!")
                 })
             }
