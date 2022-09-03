@@ -19,6 +19,7 @@
 		E35232CF28C3974C008DB14B /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = E35232CE28C3974C008DB14B /* FirebaseAuthCombine-Community */; };
 		E35232D128C3974C008DB14B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = E35232D028C3974C008DB14B /* FirebaseCrashlytics */; };
 		E35232D328C3974C008DB14B /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = E35232D228C3974C008DB14B /* FirebasePerformance */; };
+		E35232D728C3BCEA008DB14B /* ImageMaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
@@ -34,6 +35,7 @@
 		E35232B928C376B7008DB14B /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		E35232BF28C38B6F008DB14B /* swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		E35232C328C396A9008DB14B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMaskingView.swift; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEraserApp.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
 				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
 				E35232B728C2948D008DB14B /* EditView.swift */,
+				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E35232B628C28373008DB14B /* SegmentedControlView.swift in Sources */,
+				E35232D728C3BCEA008DB14B /* ImageMaskingView.swift in Sources */,
 				E35232B828C2948D008DB14B /* EditView.swift in Sources */,
 				E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */,
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
