@@ -65,9 +65,10 @@ struct ContentView: View {
                 }
             }
             .toolbar(.hidden)
+            .ignoresSafeArea()
         }
     }
-
+    
     @State private var isEditing = false
     @ViewBuilder private var brushSizeOverlay: some View {
         if shouldShowSelectedPhoto {
