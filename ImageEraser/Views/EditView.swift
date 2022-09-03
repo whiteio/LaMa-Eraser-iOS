@@ -19,14 +19,11 @@ struct EditView: View {
     @State var redoDisabled = true
     @State var submitButtonDisabled = true
 
-
     @State var photoData: Data
     @State var maskPoints: [CGPoint] = []
     @State var previousPointsSegments: [[CGPoint]] = []
     @State var brushSize: Double = 30
     @State var redoableSegments: [[CGPoint]] = []
-    @State var scale: CGFloat = 1.0
-    @State var offset: Coordinates = Coordinates(xCoordinate: 0, yCoordinate: 0)
 
     init(photoData: Data) {
         self._photoData = State(initialValue: photoData)
