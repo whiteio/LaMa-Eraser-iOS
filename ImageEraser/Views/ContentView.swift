@@ -87,26 +87,6 @@ struct ContentView: View {
         }
     }
 
-    @ViewBuilder private var closeOverlay: some View {
-        if shouldShowSelectedPhoto {
-            Button {
-                withAnimation(.spring()) {
-                    selectedPhotoData = nil
-                    selectedItem = nil
-                }
-            } label: {
-                Image(systemName: "xmark")
-                    .frame(width: 36, height: 36)
-                    .foregroundColor(.black)
-                    .background(.white)
-                    .mask(Circle())
-                    .shadow(color: Color("Shadow").opacity(0.3), radius: 5, x: 0, y: 3)
-            }
-            .shadow(radius: 4)
-            .padding()
-        }
-    }
-
     @ViewBuilder private var undoOverlay: some View {
         if shouldShowSelectedPhoto {
             Button(action: {
