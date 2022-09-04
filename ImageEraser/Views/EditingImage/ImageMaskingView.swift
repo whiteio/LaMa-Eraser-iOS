@@ -32,16 +32,15 @@ struct ImageMaskingView: View {
     }
 
     @State var imageSize: CGSize
-    @State var imageViewSize: CGSize = CGSize(width: 0, height: 0)
     @Binding var imageState: ImageState
 
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
                 guard value.location.y >= 0,
-                      value.location.y <= imageViewSize.height,
+                      value.location.y <= imageState.rectSize.height,
                       value.location.x >= 0,
-                      value.location.x <= imageViewSize.width else { return }
+                      value.location.x <= imageState.rectSize.width else { return }
 
                 points.rectPoints.append(value.location)
 
@@ -53,7 +52,6 @@ struct ImageMaskingView: View {
             }
             .onEnded { _ in
                 imageState.imageSize = imageSize
-                imageState.rectSize = imageViewSize
 
                 points.configuration = SegmentConfiguration(brushSize: brushSize)
 
@@ -84,7 +82,7 @@ struct ImageMaskingView: View {
                         GeometryReader { geometry in
                             Color.clear
                                 .onAppear {
-                                    imageViewSize = geometry.size
+                                    imageState.rectSize = geometry.size
                                 }
                         }
                     )
@@ -92,22 +90,11 @@ struct ImageMaskingView: View {
     }
 
     var heightScale: CGFloat {
-        imageSize.height / imageViewSize.height
+        imageSize.height / imageState.rectSize.height
     }
 
     var widthScale: CGFloat {
-        imageSize.width / imageViewSize.width
-    }
-}
-
-extension Data {
-    func getSize() -> CGSize {
-        let image = UIImage(data: self)
-        if let cgImage = image?.cgImage {
-            return CGSize(width: cgImage.width, height: cgImage.height)
-        }
-
-        return CGSize(width: 0, height: 0)
+        imageSize.width / imageState.rectSize.width
     }
 }
 
