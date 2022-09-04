@@ -9,10 +9,6 @@ import SwiftUI
 import RiveRuntime
 import PhotosUI
 
-enum Route: Hashable {
-    case editPhoto(Data)
-}
-
 struct ContentView: View {
     @EnvironmentObject var store: Store
 
@@ -30,10 +26,8 @@ struct ContentView: View {
     @State var points: [CGPoint] = []
     @State var previousPointsSegments: [[CGPoint]] = []
 
-    @State private var paths: [Route] = []
-
     var body: some View {
-        NavigationStack(path: $paths) {
+        NavigationStack(path: $store.paths) {
             VStack {
                 SplashscreenContentView(selectedItem: $selectedItem)
             }
@@ -54,7 +48,7 @@ struct ContentView: View {
                 Task {
                     if let data = try? await newItem?.loadTransferable(type: Data.self) {
                         selectedPhotoData = data
-                        paths.append(.editPhoto(data))
+                        store.navigateToPath(.editPhoto(data))
                     }
                 }
             }
@@ -66,22 +60,6 @@ struct ContentView: View {
             }
             .toolbar(.hidden)
             .ignoresSafeArea()
-        }
-    }
-
-    @State private var isEditing = false
-
-    @ViewBuilder private var undoOverlay: some View {
-        if shouldShowSelectedPhoto {
-            Button(action: {
-                previousPointsSegments.removeLast()
-            }, label: {
-                Image(systemName: "arrow.uturn.backward")
-                    .font(.title)
-            })
-            .disabled(previousPointsSegments.isEmpty)
-            .buttonStyle(.borderedProminent)
-            .padding()
         }
     }
 }

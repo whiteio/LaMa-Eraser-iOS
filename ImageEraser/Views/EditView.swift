@@ -98,7 +98,6 @@ struct EditView: View {
                                           y: previousPointsSegments.first!.imageSize.height)
         var concatenated = mirror.concatenating(translate)
 
-
         if let cgPath = path.cgPath.copy(using: &concatenated) {
             return cgPath
         } else {

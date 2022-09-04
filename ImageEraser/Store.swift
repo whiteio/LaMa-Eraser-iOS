@@ -9,5 +9,9 @@ import Foundation
 import SwiftUI
 
 class Store: ObservableObject {
-    
+    @Published var paths: [Route] = []
+
+    func navigateToPath(_ route: Route) {
+        paths.append(route)
+    }
 }
