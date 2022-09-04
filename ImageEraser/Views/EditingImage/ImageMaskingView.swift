@@ -50,15 +50,13 @@ struct ImageMaskingView: View {
                 let scaledY = location.y * heightScale
                 let scaledPoint = CGPoint(x: scaledX, y: scaledY)
                 points.scaledPoints.append(scaledPoint)
-                print("====================")
-                print("Image size: \(imageSize)")
-                print("X: \(location.x), scaled X: \(scaledX)")
-                print("Y: \(location.y), scaled Y: \(scaledY)")
             }
             .onEnded { _ in
                 imageState.imageSize = imageSize
                 imageState.rectSize = imageViewSize
-                
+
+                points.configuration = SegmentConfiguration(brushSize: brushSize)
+
                 previousPointsSegments.append(points)
                 redoableSegments.removeAll()
                 points.scaledPoints = []

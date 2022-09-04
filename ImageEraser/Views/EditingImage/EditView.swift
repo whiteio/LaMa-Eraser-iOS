@@ -16,10 +16,11 @@ struct EditView: View {
 
     @State var imageState: ImageState = ImageState(imageSize: .zero, rectSize: .zero)
     @State var photoData: Data
-    @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [],
+    @State var maskPoints: PointsSegment = PointsSegment(configuration: SegmentConfiguration(brushSize: 30),
+                                                         rectPoints: [],
                                                          scaledPoints: [])
     @State var previousPointsSegments: [PointsSegment] = []
-    @State var brushSize: Double = 30
+    @State var currentBrushSize: Double = 30
     @State var redoableSegments: [PointsSegment] = []
 
     init(photoData: Data) {
@@ -33,7 +34,7 @@ struct EditView: View {
                                  selectedPhotoData: photoData,
                                  points: $maskPoints,
                                  previousPointsSegments: $previousPointsSegments,
-                                 brushSize: $brushSize,
+                                 brushSize: $currentBrushSize,
                                  redoableSegments: $redoableSegments)
             }
         }
@@ -87,7 +88,7 @@ struct EditView: View {
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.addPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
-                                            lineWidth: brushSize) {
+                                            lineWidth: currentBrushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
                 photoData = newData

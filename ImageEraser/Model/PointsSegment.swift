@@ -9,6 +9,10 @@ import Foundation
 import CoreGraphics
 
 struct PointsSegment: Equatable {
+    var configuration: SegmentConfiguration
+
     var rectPoints: [CGPoint]
     var scaledPoints: [CGPoint]
 }
+
+
