@@ -78,11 +78,11 @@ struct EditView: View {
         }
     }
 
-    var scaledSegmentsToPath: Path {
+    var scaledSegmentsToPath: CGPath {
         var path = Path()
 
         for segment in previousPointsSegments {
-            guard let firstPoint = segment.scaledPoints.first else { return path }
+            guard let firstPoint = segment.scaledPoints.first else { return path.cgPath }
 
             path.move(to: firstPoint)
 
@@ -92,7 +92,18 @@ struct EditView: View {
             }
         }
 
-        return path
+        let mirror = CGAffineTransform(scaleX: 1,
+                                       y: -1)
+        let translate = CGAffineTransform(translationX: 0,
+                                          y: previousPointsSegments.first!.imageSize.height)
+        var concatenated = mirror.concatenating(translate)
+
+
+        if let cgPath = path.cgPath.copy(using: &concatenated) {
+            return cgPath
+        } else {
+            return path.cgPath
+        }
     }
 
     func addPathToImageData() {

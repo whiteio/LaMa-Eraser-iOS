@@ -109,7 +109,7 @@ extension Data {
 }
 
 extension CGImage {
-    public func addPath(_ path: Path) -> CGImage? {
+    public func addPath(_ path: CGPath) -> CGImage? {
         let width = self.width
         let height = self.height
 
@@ -125,7 +125,7 @@ extension CGImage {
 
 //        bmContext.addRect(rectangle)
 
-        bmContext.addPath(path.cgPath)
+        bmContext.addPath(path)
         bmContext.drawPath(using: .fillStroke)
 //        bmContext.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
 
