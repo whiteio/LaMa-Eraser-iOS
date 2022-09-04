@@ -13,18 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var store: Store
 
     @State private var selectedItem: PhotosPickerItem?
-    @State var selectedEditIndex = 0
-    @State private var selectedPhotoData: Data? {
-        didSet {
-            withAnimation {
-                shouldShowSelectedPhoto = selectedPhotoData != nil
-            }
-        }
-    }
-    @State private var shouldShowSelectedPhoto = false
-
-    @State var points: [CGPoint] = []
-    @State var previousPointsSegments: [[CGPoint]] = []
+    @State private var selectedPhotoData: Data?
 
     var body: some View {
         NavigationStack(path: $store.paths) {
