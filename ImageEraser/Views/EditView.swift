@@ -92,17 +92,6 @@ struct EditView: View {
             }
         }
 
-//        let shapeBounds = shapeLayer.bounds
-//        let mirror = CGAffineTransform(scaleX: 1,
-//                                       y: -1)
-//        let translate = CGAffineTransform(translationX: 0,
-//                                          y: shapeBounds.size.height)
-//        let concatenated = mirror.concatenating(translate)
-//
-//        bezierPath.apply(concatenated)
-//
-//        shapeLayer.path = bezierPath.cgPath
-
         return path
     }
 
