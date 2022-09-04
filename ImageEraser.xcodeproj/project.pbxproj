@@ -99,6 +99,16 @@
 			path = Shapes;
 			sourceTree = "<group>";
 		};
+		E35232E028C4A707008DB14B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E35232C328C396A9008DB14B /* GoogleService-Info.plist */,
+				E3B5307E28BEAAF700F33E07 /* RiveAssets */,
+				E3B5307028BEA77100F33E07 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E3B5306028BEA76F00F33E07 = {
 			isa = PBXGroup;
 			children = (
@@ -119,13 +129,11 @@
 		E3B5306B28BEA76F00F33E07 /* ImageEraser */ = {
 			isa = PBXGroup;
 			children = (
+				E35232E028C4A707008DB14B /* Resources */,
 				E35232DD28C4A688008DB14B /* Shapes */,
 				E35232DA28C4A4B4008DB14B /* Model */,
-				E35232C328C396A9008DB14B /* GoogleService-Info.plist */,
-				E35232C228C3906F008DB14B /* Views */,
-				E3B5307E28BEAAF700F33E07 /* RiveAssets */,
-				E3B5307028BEA77100F33E07 /* Assets.xcassets */,
 				E3B5307228BEA77100F33E07 /* Preview Content */,
+				E35232C228C3906F008DB14B /* Views */,
 				E35232D828C4A451008DB14B /* Store.swift */,
 			);
 			path = ImageEraser;
