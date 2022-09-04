@@ -14,11 +14,10 @@ struct EditView: View {
     @State var redoDisabled = true
     @State var submitButtonDisabled = true
 
+    @State var imageState: ImageState = ImageState(imageSize: .zero, rectSize: .zero)
     @State var photoData: Data
     @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [],
-                                                         scaledPoints: [],
-                                                         imageSize: .zero,
-                                                         rectSize: .zero)
+                                                         scaledPoints: [])
     @State var previousPointsSegments: [PointsSegment] = []
     @State var brushSize: Double = 30
     @State var redoableSegments: [PointsSegment] = []
@@ -30,7 +29,8 @@ struct EditView: View {
     var body: some View {
         VStack {
             ZoomableScrollView {
-                ImageMaskingView(selectedPhotoData: photoData,
+                ImageMaskingView(imageState: $imageState,
+                                 selectedPhotoData: photoData,
                                  points: $maskPoints,
                                  previousPointsSegments: $previousPointsSegments,
                                  brushSize: $brushSize,
@@ -84,15 +84,13 @@ struct EditView: View {
     func addPathToImageData() {
         let data = photoData
         let image = UIImage(data: data)
-        let cgImage = image?.cgImage
 
-        if let cgImage = cgImage {
-            let newCGImage = cgImage.addPath(previousPointsSegments.scaledSegmentsToPath(), lineWidth: brushSize)
-            if let newCGImage = newCGImage {
-                let newImage = UIImage(cgImage: newCGImage)
-                if let newData = newImage.pngData() {
-                    photoData = newData
-                }
+        if let cgImage = image?.cgImage,
+           let newCGImage = cgImage.addPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+                                            lineWidth: brushSize) {
+            let newImage = UIImage(cgImage: newCGImage)
+            if let newData = newImage.pngData() {
+                photoData = newData
             }
         }
     }

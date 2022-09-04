@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Array where Element == PointsSegment {
-    func scaledSegmentsToPath() -> CGPath {
+    func scaledSegmentsToPath(imageState: ImageState) -> CGPath {
         var path = Path()
 
         for point in self {
@@ -25,7 +25,7 @@ extension Array where Element == PointsSegment {
         let mirror = CGAffineTransform(scaleX: 1,
                                        y: -1)
         let translate = CGAffineTransform(translationX: 0,
-                                          y: self.first!.imageSize.height)
+                                          y: imageState.imageSize.height)
         var concatenated = mirror.concatenating(translate)
 
         if let cgPath = path.cgPath.copy(using: &concatenated) {

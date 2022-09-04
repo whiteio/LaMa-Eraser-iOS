@@ -11,7 +11,4 @@ import CoreGraphics
 struct PointsSegment: Equatable {
     var rectPoints: [CGPoint]
     var scaledPoints: [CGPoint]
-
-    var imageSize: CGSize
-    var rectSize: CGSize
 }

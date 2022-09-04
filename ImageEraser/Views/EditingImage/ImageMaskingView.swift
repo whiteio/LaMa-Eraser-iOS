@@ -16,7 +16,9 @@ struct ImageMaskingView: View {
     @Binding var brushSize: Double
     @Binding var redoableSegments: [PointsSegment]
 
-    init(selectedPhotoData: Data, points: Binding<PointsSegment>,
+    init(imageState: Binding<ImageState>,
+         selectedPhotoData: Data,
+         points: Binding<PointsSegment>,
          previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
          redoableSegments: Binding<[PointsSegment]>) {
@@ -26,10 +28,12 @@ struct ImageMaskingView: View {
         self._redoableSegments = redoableSegments
         self.selectedPhotoData = selectedPhotoData
         self._imageSize = State(initialValue: selectedPhotoData.getSize())
+        self._imageState = imageState
     }
 
     @State var imageSize: CGSize
     @State var imageViewSize: CGSize = CGSize(width: 0, height: 0)
+    @Binding var imageState: ImageState
 
     var drag: some Gesture {
         DragGesture()
@@ -52,8 +56,8 @@ struct ImageMaskingView: View {
                 print("Y: \(location.y), scaled Y: \(scaledY)")
             }
             .onEnded { _ in
-                points.imageSize = imageSize
-                points.rectSize = imageViewSize
+                imageState.imageSize = imageSize
+                imageState.rectSize = imageViewSize
                 
                 previousPointsSegments.append(points)
                 redoableSegments.removeAll()
