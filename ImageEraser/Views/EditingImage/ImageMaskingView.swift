@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreGraphics
-import Accelerate
 
 struct ImageMaskingView: View {
     var selectedPhotoData: Data
