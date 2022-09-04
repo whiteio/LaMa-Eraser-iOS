@@ -75,13 +75,9 @@
 		E35232C228C3906F008DB14B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E35232E428C4A91A008DB14B /* EditingImage */,
+				E35232E328C4A900008DB14B /* Landing */,
 				E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */,
-				E35232B528C28373008DB14B /* SegmentedControlView.swift */,
-				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
-				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
-				E35232B728C2948D008DB14B /* EditView.swift */,
-				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
-				E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -110,6 +106,26 @@
 				E3B5307028BEA77100F33E07 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E35232E328C4A900008DB14B /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
+				E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */,
+			);
+			path = Landing;
+			sourceTree = "<group>";
+		};
+		E35232E428C4A91A008DB14B /* EditingImage */ = {
+			isa = PBXGroup;
+			children = (
+				E35232B528C28373008DB14B /* SegmentedControlView.swift */,
+				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
+				E35232B728C2948D008DB14B /* EditView.swift */,
+				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
+			);
+			path = EditingImage;
 			sourceTree = "<group>";
 		};
 		E3B5306028BEA76F00F33E07 = {

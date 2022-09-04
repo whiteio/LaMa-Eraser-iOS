@@ -14,4 +14,8 @@ class Store: ObservableObject {
     func navigateToPath(_ route: Route) {
         paths.append(route)
     }
+
+    func dismissView() {
+        paths.removeLast()
+    }
 }

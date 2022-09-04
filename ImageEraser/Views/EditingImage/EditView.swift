@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct EditView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var store: Store
 
     @State var undoDisabled = true
     @State var redoDisabled = true
     @State var submitButtonDisabled = true
 
     @State var photoData: Data
-    @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [], scaledPoints: [], imageSize: .zero, rectSize: .zero)
+    @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [],
+                                                         scaledPoints: [],
+                                                         imageSize: .zero,
+                                                         rectSize: .zero)
     @State var previousPointsSegments: [PointsSegment] = []
     @State var brushSize: Double = 30
     @State var redoableSegments: [PointsSegment] = []
@@ -58,7 +61,7 @@ struct EditView: View {
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    store.dismissView()
                 }, label: {
                     Text("Cancel")
                 })
