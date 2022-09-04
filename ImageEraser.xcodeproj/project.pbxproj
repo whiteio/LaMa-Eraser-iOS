@@ -23,6 +23,7 @@
 		E35232D928C4A451008DB14B /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232D828C4A451008DB14B /* Store.swift */; };
 		E35232DC28C4A4C6008DB14B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232DB28C4A4C6008DB14B /* Route.swift */; };
 		E35232DF28C4A691008DB14B /* GestureMaskShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232DE28C4A691008DB14B /* GestureMaskShape.swift */; };
+		E35232E228C4A81B008DB14B /* SplashscreenContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
@@ -42,6 +43,7 @@
 		E35232D828C4A451008DB14B /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		E35232DB28C4A4C6008DB14B /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		E35232DE28C4A691008DB14B /* GestureMaskShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureMaskShape.swift; sourceTree = "<group>"; };
+		E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashscreenContentView.swift; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEraserApp.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
 				E35232B728C2948D008DB14B /* EditView.swift */,
 				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
+				E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				E35232DC28C4A4C6008DB14B /* Route.swift in Sources */,
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
 				E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */,
+				E35232E228C4A81B008DB14B /* SplashscreenContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

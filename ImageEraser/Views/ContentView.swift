@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RiveRuntime
-import PhotosUI
 
 struct ContentView: View {
     @EnvironmentObject var store: Store
@@ -78,35 +77,5 @@ struct VisualEffectView: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView,
                       context: UIViewRepresentableContext<Self>) {
         uiView.effect = effect
-    }
-}
-
-struct SplashscreenContentView: View {
-    @EnvironmentObject var store: Store
-    
-    @State var selectedItem: PhotosPickerItem?
-
-    var body: some View {
-        VStack {
-            Text("erase objects from images.")
-                .frame(width: 260, alignment: .leading)
-                .font(.largeTitle)
-                .bold()
-            PhotosPicker(
-                selection: $selectedItem,
-                matching: .images,
-                photoLibrary: .shared()
-            ) {
-                SelectContentView()
-            }
-            .tint(.black)
-            .onChange(of: selectedItem) { newItem in
-                Task {
-                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                        store.navigateToPath(.editPhoto(data))
-                    }
-                }
-            }
-        }
     }
 }
