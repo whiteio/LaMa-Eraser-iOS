@@ -50,8 +50,6 @@ struct ImageMaskingView: View {
                 points.rectPoints.append(value.location)
 
                 let location = value.location
-                let heightScale = imageSize.height / imageViewSize.height
-                let widthScale = imageSize.width / imageViewSize.width
                 let scaledX = location.x * widthScale
                 let scaledY = location.y * heightScale
                 let scaledPoint = CGPoint(x: scaledX, y: scaledY)
@@ -95,6 +93,14 @@ struct ImageMaskingView: View {
                     )
         }
     }
+
+    var heightScale: CGFloat {
+        imageSize.height / imageViewSize.height
+    }
+
+    var widthScale: CGFloat {
+        imageSize.width / imageViewSize.width
+    }
 }
 
 extension Data {
@@ -109,7 +115,31 @@ extension Data {
 }
 
 extension CGImage {
-    public func addPath(_ path: CGPath) -> CGImage? {
+    // NOTE: - This is an example of how to do lasso path
+//    public func addPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
+//        let width = self.width
+//        let height = self.height
+//
+//        guard let bmContext = CGContext.ARGBBitmapContext(width: width, height: height, withAlpha: true) else {
+//            return nil
+//        }
+//
+//        let rectangle = CGRect(x: 0, y: 0, width: width, height: height)
+//
+//        bmContext.setFillColor(UIColor.red.cgColor)
+//        bmContext.setStrokeColor(UIColor.yellow.cgColor)
+//        bmContext.setLineWidth(lineWidth)
+//
+//        //        bmContext.addRect(rectangle)
+//
+//        bmContext.addPath(path)
+//        bmContext.drawPath(using: .fillStroke)
+//        //        bmContext.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
+//
+//        return bmContext.makeImage()
+//    }
+
+    public func addPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
         let width = self.width
         let height = self.height
 
@@ -117,14 +147,9 @@ extension CGImage {
             return nil
         }
 
-        let rectangle = CGRect(x: 0, y: 0, width: width, height: height)
-
         bmContext.setFillColor(UIColor.red.cgColor)
         bmContext.setStrokeColor(UIColor.yellow.cgColor)
-        bmContext.setLineWidth(10)
-
-//        bmContext.addRect(rectangle)
-
+        bmContext.setLineWidth(lineWidth)
         bmContext.addPath(path)
         bmContext.drawPath(using: .fillStroke)
 //        bmContext.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))

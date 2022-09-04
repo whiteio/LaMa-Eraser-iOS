@@ -46,9 +46,9 @@
             filePath = "ImageEraser/Views/ImageMaskingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "addPath(_:)"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "addPath(_:lineWidth:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,9 +62,9 @@
             filePath = "ImageEraser/Views/ImageMaskingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "addPath(_:)"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "addPath(_:lineWidth:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

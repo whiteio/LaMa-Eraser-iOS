@@ -112,7 +112,7 @@ struct EditView: View {
         let cgImage = image?.cgImage
 
         if let cgImage = cgImage {
-            let newCGImage = cgImage.addPath(scaledSegmentsToPath)
+            let newCGImage = cgImage.addPath(scaledSegmentsToPath, lineWidth: brushSize)
             if let newCGImage = newCGImage {
                 let newImage = UIImage(cgImage: newCGImage)
                 if let newData = newImage.pngData() {

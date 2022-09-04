@@ -14,6 +14,8 @@ enum Route: Hashable {
 }
 
 struct ContentView: View {
+    @EnvironmentObject var store: Store
+
     @State private var selectedItem: PhotosPickerItem?
     @State var selectedEditIndex = 0
     @State private var selectedPhotoData: Data? {
