@@ -85,29 +85,29 @@ struct ContentView: View {
 }
 
 struct DrawShape: Shape {
-    var previousPointsSegments: [[CGPoint]]
-    var currentPointsSegment: [CGPoint]
+    var previousPointsSegments: [PointsSegment]
+    var currentPointsSegment: PointsSegment
 
     // drawing is happening here
     func path(in rect: CGRect) -> Path {
         var path = Path()
 
         for segment in previousPointsSegments {
-            guard let firstPoint = segment.first else { return path }
+            guard let firstPoint = segment.rectPoints.first else { return path }
 
             path.move(to: firstPoint)
 
             path.move(to: firstPoint)
-            for pointIndex in 1..<segment.count {
-                path.addLine(to: segment[pointIndex])
+            for pointIndex in 1..<segment.rectPoints.count {
+                path.addLine(to: segment.rectPoints[pointIndex])
             }
         }
 
-        guard let currentSegmentFirstPoint = currentPointsSegment.first else { return path }
+        guard let currentSegmentFirstPoint = currentPointsSegment.rectPoints.first else { return path }
 
         path.move(to: currentSegmentFirstPoint)
-        for pointIndex in 1..<currentPointsSegment.count {
-            path.addLine(to: currentPointsSegment[pointIndex])
+        for pointIndex in 1..<currentPointsSegment.rectPoints.count {
+            path.addLine(to: currentPointsSegment.rectPoints[pointIndex])
 
         }
         return path

@@ -15,10 +15,10 @@ struct EditView: View {
     @State var submitButtonDisabled = true
 
     @State var photoData: Data
-    @State var maskPoints: [CGPoint] = []
-    @State var previousPointsSegments: [[CGPoint]] = []
+    @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [], scaledPoints: [])
+    @State var previousPointsSegments: [PointsSegment] = []
     @State var brushSize: Double = 30
-    @State var redoableSegments: [[CGPoint]] = []
+    @State var redoableSegments: [PointsSegment] = []
 
     init(photoData: Data) {
         self._photoData = State(initialValue: photoData)
@@ -79,7 +79,19 @@ struct EditView: View {
     }
 
     func addPathToImageData() {
+        let data = photoData
+        let image = UIImage(data: data)
+        let cgImage = image?.cgImage
 
+        if let cgImage = cgImage {
+//            let newCGImage = cgImage.addPath(segmentsConvertedToPath)
+//            if let newCGImage = newCGImage {
+//                let newImage = UIImage(cgImage: newCGImage)
+//                if let newData = newImage.pngData() {
+//                    photoData = newData
+//                }
+//            }
+        }
     }
 }
 

@@ -9,17 +9,22 @@ import SwiftUI
 import CoreGraphics
 import Accelerate
 
+struct PointsSegment: Equatable {
+    var rectPoints: [CGPoint]
+    var scaledPoints: [CGPoint]
+}
+
 struct ImageMaskingView: View {
     var selectedPhotoData: Data
-    @Binding var points: [CGPoint]
-    @Binding var previousPointsSegments: [[CGPoint]]
+    @Binding var points: PointsSegment
+    @Binding var previousPointsSegments: [PointsSegment]
     @Binding var brushSize: Double
-    @Binding var redoableSegments: [[CGPoint]]
+    @Binding var redoableSegments: [PointsSegment]
 
-    init(selectedPhotoData: Data, points: Binding<[CGPoint]>,
-         previousPointsSegments: Binding<[[CGPoint]]>,
+    init(selectedPhotoData: Data, points: Binding<PointsSegment>,
+         previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
-         redoableSegments: Binding<[[CGPoint]]>) {
+         redoableSegments: Binding<[PointsSegment]>) {
         self._points = points
         self._previousPointsSegments = previousPointsSegments
         self._brushSize = brushSize
@@ -27,32 +32,17 @@ struct ImageMaskingView: View {
         self.selectedPhotoData = selectedPhotoData
     }
 
-    var segmentsConvertedToPath: Path {
-        var path = Path()
-
-        for segment in previousPointsSegments {
-            guard let firstPoint = segment.first else { return path }
-
-            path.move(to: firstPoint)
-
-            path.move(to: firstPoint)
-            for pointIndex in 1..<segment.count {
-                path.addLine(to: segment[pointIndex])
-            }
-        }
-
-        return path
-    }
-
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
-                points.append(value.location)
+                points.rectPoints.append(value.location)
+                points.scaledPoints.append(value.location)
             }
             .onEnded { _ in
                 previousPointsSegments.append(points)
                 redoableSegments.removeAll()
-                points = []
+                points.scaledPoints = []
+                points.rectPoints = []
             }
     }
 
@@ -86,13 +76,14 @@ extension CGImage {
         let rectangle = CGRect(x: 0, y: 0, width: width, height: height)
 
         bmContext.setFillColor(UIColor.red.cgColor)
-        bmContext.setStrokeColor(UIColor.black.cgColor)
+        bmContext.setStrokeColor(UIColor.yellow.cgColor)
         bmContext.setLineWidth(10)
 
-        bmContext.addRect(rectangle)
-        bmContext.drawPath(using: .fillStroke)
+//        bmContext.addRect(rectangle)
 
-        bmContext.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
+        bmContext.addPath(path.cgPath)
+        bmContext.drawPath(using: .fillStroke)
+//        bmContext.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
 
         return bmContext.makeImage()
     }
