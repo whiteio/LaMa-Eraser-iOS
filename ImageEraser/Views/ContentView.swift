@@ -12,13 +12,10 @@ import PhotosUI
 struct ContentView: View {
     @EnvironmentObject var store: Store
 
-    @State private var selectedItem: PhotosPickerItem?
-    @State private var selectedPhotoData: Data?
-
     var body: some View {
         NavigationStack(path: $store.paths) {
             VStack {
-                SplashscreenContentView(selectedItem: $selectedItem)
+                SplashscreenContentView()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
@@ -33,14 +30,6 @@ struct ContentView: View {
                     .blur(radius: 50)
                     .offset(x: 200, y: 100)
             )
-            .onChange(of: selectedItem) { newItem in
-                Task {
-                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                        selectedPhotoData = data
-                        store.navigateToPath(.editPhoto(data))
-                    }
-                }
-            }
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case let .editPhoto(photoData):
@@ -93,7 +82,9 @@ struct VisualEffectView: UIViewRepresentable {
 }
 
 struct SplashscreenContentView: View {
-    @Binding var selectedItem: PhotosPickerItem?
+    @EnvironmentObject var store: Store
+    
+    @State var selectedItem: PhotosPickerItem?
 
     var body: some View {
         VStack {
@@ -109,6 +100,13 @@ struct SplashscreenContentView: View {
                 SelectContentView()
             }
             .tint(.black)
+            .onChange(of: selectedItem) { newItem in
+                Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                        store.navigateToPath(.editPhoto(data))
+                    }
+                }
+            }
         }
     }
 }
