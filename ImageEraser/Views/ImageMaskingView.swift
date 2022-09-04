@@ -12,6 +12,9 @@ import Accelerate
 struct PointsSegment: Equatable {
     var rectPoints: [CGPoint]
     var scaledPoints: [CGPoint]
+
+    var imageSize: CGSize
+    var rectSize: CGSize
 }
 
 struct ImageMaskingView: View {
@@ -43,7 +46,7 @@ struct ImageMaskingView: View {
                       value.location.y <= imageViewSize.height,
                       value.location.x >= 0,
                       value.location.x <= imageViewSize.width else { return }
-                
+
                 points.rectPoints.append(value.location)
 
                 let location = value.location
@@ -59,6 +62,9 @@ struct ImageMaskingView: View {
                 print("Y: \(location.y), scaled Y: \(scaledY)")
             }
             .onEnded { _ in
+                points.imageSize = imageSize
+                points.rectSize = imageViewSize
+                
                 previousPointsSegments.append(points)
                 redoableSegments.removeAll()
                 points.scaledPoints = []

@@ -15,7 +15,7 @@ struct EditView: View {
     @State var submitButtonDisabled = true
 
     @State var photoData: Data
-    @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [], scaledPoints: [])
+    @State var maskPoints: PointsSegment = PointsSegment(rectPoints: [], scaledPoints: [], imageSize: .zero, rectSize: .zero)
     @State var previousPointsSegments: [PointsSegment] = []
     @State var brushSize: Double = 30
     @State var redoableSegments: [PointsSegment] = []
@@ -78,19 +78,47 @@ struct EditView: View {
         }
     }
 
+    var scaledSegmentsToPath: Path {
+        var path = Path()
+
+        for segment in previousPointsSegments {
+            guard let firstPoint = segment.scaledPoints.first else { return path }
+
+            path.move(to: firstPoint)
+
+            path.move(to: firstPoint)
+            for pointIndex in 1..<segment.scaledPoints.count {
+                path.addLine(to: segment.scaledPoints[pointIndex])
+            }
+        }
+
+//        let shapeBounds = shapeLayer.bounds
+//        let mirror = CGAffineTransform(scaleX: 1,
+//                                       y: -1)
+//        let translate = CGAffineTransform(translationX: 0,
+//                                          y: shapeBounds.size.height)
+//        let concatenated = mirror.concatenating(translate)
+//
+//        bezierPath.apply(concatenated)
+//
+//        shapeLayer.path = bezierPath.cgPath
+
+        return path
+    }
+
     func addPathToImageData() {
         let data = photoData
         let image = UIImage(data: data)
         let cgImage = image?.cgImage
 
         if let cgImage = cgImage {
-//            let newCGImage = cgImage.addPath(segmentsConvertedToPath)
-//            if let newCGImage = newCGImage {
-//                let newImage = UIImage(cgImage: newCGImage)
-//                if let newData = newImage.pngData() {
-//                    photoData = newData
-//                }
-//            }
+            let newCGImage = cgImage.addPath(scaledSegmentsToPath)
+            if let newCGImage = newCGImage {
+                let newImage = UIImage(cgImage: newCGImage)
+                if let newData = newImage.pngData() {
+                    photoData = newData
+                }
+            }
         }
     }
 }
