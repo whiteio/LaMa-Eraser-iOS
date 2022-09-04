@@ -24,7 +24,6 @@
 		E35232DC28C4A4C6008DB14B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232DB28C4A4C6008DB14B /* Route.swift */; };
 		E35232DF28C4A691008DB14B /* GestureMaskShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232DE28C4A691008DB14B /* GestureMaskShape.swift */; };
 		E35232E228C4A81B008DB14B /* SplashscreenContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */; };
-		E35232E828C4AB7D008DB14B /* EditorStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232E728C4AB7D008DB14B /* EditorStore.swift */; };
 		E35232EC28C4ACBF008DB14B /* PointsSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232EB28C4ACBF008DB14B /* PointsSegment.swift */; };
 		E35232EF28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232EE28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift */; };
 		E35232F128C4B066008DB14B /* ImageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232F028C4B066008DB14B /* ImageState.swift */; };
@@ -54,7 +53,6 @@
 		E35232DB28C4A4C6008DB14B /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		E35232DE28C4A691008DB14B /* GestureMaskShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureMaskShape.swift; sourceTree = "<group>"; };
 		E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashscreenContentView.swift; sourceTree = "<group>"; };
-		E35232E728C4AB7D008DB14B /* EditorStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorStore.swift; sourceTree = "<group>"; };
 		E35232EB28C4ACBF008DB14B /* PointsSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsSegment.swift; sourceTree = "<group>"; };
 		E35232EE28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PointsSegment_Array+Extras.swift"; sourceTree = "<group>"; };
 		E35232F028C4B066008DB14B /* ImageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageState.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				E35232D828C4A451008DB14B /* NavigationStore.swift */,
-				E35232E728C4AB7D008DB14B /* EditorStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 				E35232F128C4B066008DB14B /* ImageState.swift in Sources */,
 				E35232FB28C4BFB5008DB14B /* CGImage+Extras.swift in Sources */,
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
-				E35232E828C4AB7D008DB14B /* EditorStore.swift in Sources */,
 				E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */,
 				E35232FD28C4C091008DB14B /* ImagePixelConstants.swift in Sources */,
 				E35232EF28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift in Sources */,
