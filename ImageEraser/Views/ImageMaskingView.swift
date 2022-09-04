@@ -30,13 +30,33 @@ struct ImageMaskingView: View {
         self._brushSize = brushSize
         self._redoableSegments = redoableSegments
         self.selectedPhotoData = selectedPhotoData
+        self._imageSize = State(initialValue: selectedPhotoData.getSize())
     }
+
+    @State var imageSize: CGSize
+    @State var imageViewSize: CGSize = CGSize(width: 0, height: 0)
 
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
+                guard value.location.y >= 0,
+                      value.location.y <= imageViewSize.height,
+                      value.location.x >= 0,
+                      value.location.x <= imageViewSize.width else { return }
+                
                 points.rectPoints.append(value.location)
-                points.scaledPoints.append(value.location)
+
+                let location = value.location
+                let heightScale = imageSize.height / imageViewSize.height
+                let widthScale = imageSize.width / imageViewSize.width
+                let scaledX = location.x * widthScale
+                let scaledY = location.y * heightScale
+                let scaledPoint = CGPoint(x: scaledX, y: scaledY)
+                points.scaledPoints.append(scaledPoint)
+                print("====================")
+                print("Image size: \(imageSize)")
+                print("X: \(location.x), scaled X: \(scaledX)")
+                print("Y: \(location.y), scaled Y: \(scaledY)")
             }
             .onEnded { _ in
                 previousPointsSegments.append(points)
@@ -48,21 +68,39 @@ struct ImageMaskingView: View {
 
     var body: some View {
         VStack(alignment: .trailing) {
-            Image(uiImage: UIImage(data: selectedPhotoData)!)
-                .resizable()
-                .scaledToFit()
-                .clipped()
-                .gesture(drag)
-                .overlay(
-                    DrawShape(previousPointsSegments: previousPointsSegments, currentPointsSegment: points)
-                        .stroke(style: StrokeStyle(lineWidth: brushSize, lineCap: .round, lineJoin: .round))
-                        .foregroundColor(.blue.opacity(0.4))
-                )
-                .clipped()
+                Image(uiImage: UIImage(data: selectedPhotoData)!)
+                    .resizable()
+                    .scaledToFit()
+                    .clipped()
+                    .gesture(drag)
+                    .overlay(
+                        DrawShape(previousPointsSegments: previousPointsSegments, currentPointsSegment: points)
+                            .stroke(style: StrokeStyle(lineWidth: brushSize, lineCap: .round, lineJoin: .round))
+                            .foregroundColor(.blue.opacity(0.4))
+                    )
+                    .clipped()
+                    .background(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .onAppear {
+                                    imageViewSize = geometry.size
+                                }
+                        }
+                    )
         }
     }
 }
 
+extension Data {
+    func getSize() -> CGSize {
+        let image = UIImage(data: self)
+        if let cgImage = image?.cgImage {
+            return CGSize(width: cgImage.width, height: cgImage.height)
+        }
+
+        return CGSize(width: 0, height: 0)
+    }
+}
 
 extension CGImage {
     public func addPath(_ path: Path) -> CGImage? {
