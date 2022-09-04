@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class Store: ObservableObject {
+class NavigationStore: ObservableObject {
     @Published var paths: [Route] = []
 
     func navigateToPath(_ route: Route) {

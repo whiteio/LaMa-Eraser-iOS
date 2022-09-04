@@ -24,7 +24,7 @@ struct ImageEraserApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(Store())
+                .environmentObject(NavigationStore())
                 .preferredColorScheme(.dark)
         }
     }

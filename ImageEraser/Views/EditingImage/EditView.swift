@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var navigationStore: NavigationStore
 
     @State var undoDisabled = true
     @State var redoDisabled = true
@@ -61,7 +61,7 @@ struct EditView: View {
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Button(action: {
-                    store.dismissView()
+                    navigationStore.dismissView()
                 }, label: {
                     Text("Cancel")
                 })

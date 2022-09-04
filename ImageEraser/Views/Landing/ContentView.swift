@@ -9,10 +9,10 @@ import SwiftUI
 import RiveRuntime
 
 struct ContentView: View {
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var navigationStore: NavigationStore
 
     var body: some View {
-        NavigationStack(path: $store.paths) {
+        NavigationStack(path: $navigationStore.paths) {
             VStack {
                 SplashscreenContentView()
             }
