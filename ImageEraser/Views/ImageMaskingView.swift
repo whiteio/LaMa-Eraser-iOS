@@ -78,8 +78,11 @@ struct ImageMaskingView: View {
                     .clipped()
                     .gesture(drag)
                     .overlay(
-                        DrawShape(previousPointsSegments: previousPointsSegments, currentPointsSegment: points)
-                            .stroke(style: StrokeStyle(lineWidth: brushSize, lineCap: .round, lineJoin: .round))
+                        GestureMaskShape(previousPointsSegments: previousPointsSegments,
+                                         currentPointsSegment: points)
+                            .stroke(style: StrokeStyle(lineWidth: brushSize,
+                                                       lineCap: .round,
+                                                       lineJoin: .round))
                             .foregroundColor(.blue.opacity(0.4))
                     )
                     .clipped()
