@@ -81,40 +81,13 @@ struct EditView: View {
         }
     }
 
-    var scaledSegmentsToPath: CGPath {
-        var path = Path()
-
-        for segment in previousPointsSegments {
-            guard let firstPoint = segment.scaledPoints.first else { return path.cgPath }
-
-            path.move(to: firstPoint)
-
-            path.move(to: firstPoint)
-            for pointIndex in 1..<segment.scaledPoints.count {
-                path.addLine(to: segment.scaledPoints[pointIndex])
-            }
-        }
-
-        let mirror = CGAffineTransform(scaleX: 1,
-                                       y: -1)
-        let translate = CGAffineTransform(translationX: 0,
-                                          y: previousPointsSegments.first!.imageSize.height)
-        var concatenated = mirror.concatenating(translate)
-
-        if let cgPath = path.cgPath.copy(using: &concatenated) {
-            return cgPath
-        } else {
-            return path.cgPath
-        }
-    }
-
     func addPathToImageData() {
         let data = photoData
         let image = UIImage(data: data)
         let cgImage = image?.cgImage
 
         if let cgImage = cgImage {
-            let newCGImage = cgImage.addPath(scaledSegmentsToPath, lineWidth: brushSize)
+            let newCGImage = cgImage.addPath(previousPointsSegments.scaledSegmentsToPath(), lineWidth: brushSize)
             if let newCGImage = newCGImage {
                 let newImage = UIImage(cgImage: newCGImage)
                 if let newData = newImage.pngData() {

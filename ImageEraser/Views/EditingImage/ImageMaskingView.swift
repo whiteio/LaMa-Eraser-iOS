@@ -9,14 +9,6 @@ import SwiftUI
 import CoreGraphics
 import Accelerate
 
-struct PointsSegment: Equatable {
-    var rectPoints: [CGPoint]
-    var scaledPoints: [CGPoint]
-
-    var imageSize: CGSize
-    var rectSize: CGSize
-}
-
 struct ImageMaskingView: View {
     var selectedPhotoData: Data
     @Binding var points: PointsSegment
