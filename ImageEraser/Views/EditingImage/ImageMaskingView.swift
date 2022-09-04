@@ -36,10 +36,7 @@ struct ImageMaskingView: View {
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
-                guard value.location.y >= 0,
-                      value.location.y <= imageState.rectSize.height,
-                      value.location.x >= 0,
-                      value.location.x <= imageState.rectSize.width else { return }
+                guard value.location.isInBounds(imageState.rectSize) else { return }
 
                 points.rectPoints.append(value.location)
 

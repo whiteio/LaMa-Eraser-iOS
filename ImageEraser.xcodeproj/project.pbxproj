@@ -33,6 +33,7 @@
 		E35232FB28C4BFB5008DB14B /* CGImage+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232FA28C4BFB5008DB14B /* CGImage+Extras.swift */; };
 		E35232FD28C4C091008DB14B /* ImagePixelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232FC28C4C091008DB14B /* ImagePixelConstants.swift */; };
 		E35232FF28C4C0B3008DB14B /* CGContext+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232FE28C4C0B3008DB14B /* CGContext+Extras.swift */; };
+		E352330128C4C18B008DB14B /* CGPoint+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E352330028C4C18B008DB14B /* CGPoint+Extras.swift */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
@@ -62,6 +63,7 @@
 		E35232FA28C4BFB5008DB14B /* CGImage+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extras.swift"; sourceTree = "<group>"; };
 		E35232FC28C4C091008DB14B /* ImagePixelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePixelConstants.swift; sourceTree = "<group>"; };
 		E35232FE28C4C0B3008DB14B /* CGContext+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGContext+Extras.swift"; sourceTree = "<group>"; };
+		E352330028C4C18B008DB14B /* CGPoint+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extras.swift"; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEraserApp.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				E35232F828C4BF23008DB14B /* Data+Extras.swift */,
 				E35232FA28C4BFB5008DB14B /* CGImage+Extras.swift */,
 				E35232FE28C4C0B3008DB14B /* CGContext+Extras.swift */,
+				E352330028C4C18B008DB14B /* CGPoint+Extras.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */,
 				E35232FD28C4C091008DB14B /* ImagePixelConstants.swift in Sources */,
 				E35232EF28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift in Sources */,
+				E352330128C4C18B008DB14B /* CGPoint+Extras.swift in Sources */,
 				E35232EC28C4ACBF008DB14B /* PointsSegment.swift in Sources */,
 				E35232E228C4A81B008DB14B /* SplashscreenContentView.swift in Sources */,
 			);
