@@ -14,5 +14,3 @@ struct PointsSegment: Equatable {
     var rectPoints: [CGPoint]
     var scaledPoints: [CGPoint]
 }
-
-
