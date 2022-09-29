@@ -33,7 +33,7 @@ extension CGImage {
     //        return bmContext.makeImage()
     //    }
 
-    public func addPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
+    public func addLassoPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
         let width = self.width
         let height = self.height
 
@@ -44,9 +44,29 @@ extension CGImage {
         bmContext.setFillColor(UIColor.red.cgColor)
         bmContext.setStrokeColor(UIColor.yellow.cgColor)
         bmContext.setLineWidth(lineWidth)
+        bmContext.setLineCap(.round)
+        bmContext.setLineJoin(.round)
         bmContext.addPath(path)
         bmContext.drawPath(using: .fillStroke)
         //        bmContext.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
+
+        return bmContext.makeImage()
+    }
+
+    public func addPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
+        let width = self.width
+        let height = self.height
+
+        guard let bmContext = CGContext.ARGBBitmapContext(width: width, height: height, withAlpha: true) else {
+            return nil
+        }
+
+        bmContext.setStrokeColor(UIColor.yellow.cgColor)
+        bmContext.setLineWidth(lineWidth)
+        bmContext.setLineCap(.round)
+        bmContext.setLineJoin(.round)
+        bmContext.addPath(path)
+        bmContext.drawPath(using: .stroke)
 
         return bmContext.makeImage()
     }

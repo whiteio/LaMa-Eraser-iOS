@@ -110,6 +110,7 @@ struct EditView: View {
                     request.response { response in
                         print("Response is \(response)")
                     }
+                    addPathToImageData()
                 }, label: {
                     Text("Test request")
                 })
@@ -130,6 +131,20 @@ struct EditView: View {
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.addPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+                                            lineWidth: maskPoints.configuration.brushSize) {
+            let newImage = UIImage(cgImage: newCGImage)
+            if let newData = newImage.pngData() {
+                photoData = newData
+            }
+        }
+    }
+
+    func addLassoPathToImageData() {
+        let data = photoData
+        let image = UIImage(data: data)
+
+        if let cgImage = image?.cgImage,
+           let newCGImage = cgImage.addLassoPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
                                             lineWidth: currentBrushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {

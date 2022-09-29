@@ -49,7 +49,7 @@ struct ImageMaskingView: View {
             .onEnded { _ in
                 imageState.imageSize = imageSize
 
-                points.configuration = SegmentConfiguration(brushSize: brushSize)
+                points.configuration = SegmentConfiguration(brushSize: brushSize * widthScale)
 
                 previousPointsSegments.append(points)
                 redoableSegments.removeAll()
