@@ -68,52 +68,10 @@ struct EditView: View {
                     Text("Cancel")
                 })
                 Spacer()
-                Button(action: addPathToImageData, label: {
+                Button(action: submitForInpainting, label: {
                     Text("Erase!")
                 })
                 .disabled(submitButtonDisabled)
-                Button(action: {
-                    guard let dogPhotoURL =
-                            Bundle.main.url(forResource: "dog_photo",
-                                            withExtension: "png"),
-                          let maskerImageURL =
-                            Bundle.main.url(forResource: "masker_image",
-                                            withExtension: "png") else {
-                        return
-                    }
-
-                    guard let dogPhotoData = try? Data(contentsOf: dogPhotoURL) else { return }
-                    guard let maskerImageData = try? Data(contentsOf: maskerImageURL) else { return }
-
-                    guard let image = UIImage(data: dogPhotoData) else { return }
-                    guard let masker = UIImage(data: maskerImageData) else { return }
-
-                    let imageData = image.pngData()!
-                    let maskerData = masker.pngData()!
-
-                    let request = AF.upload(
-                        multipartFormData: { multipartFormData in
-                            multipartFormData.append(imageData,
-                                                     withName: "image",
-                                                     fileName: "dog_photo.png",
-                                                     mimeType: "image/png")
-                            multipartFormData.append(maskerData,
-                                                     withName: "mask",
-                                                     fileName: "masker_image.png",
-                                                     mimeType: "image/png")
-
-                        }, to: "http://127.0.0.1:9001/inpaint",
-                        method: .post
-                    )
-
-                    print(request.description)
-                    request.response { response in
-                        print("Response is \(response)")
-                    }
-                    addPathToImageData()
-                }, label: {
-                    Text("Test request")
-                })
             }
         }
         .onChange(of: redoableSegments) { undoneSegments in
@@ -123,6 +81,44 @@ struct EditView: View {
             undoDisabled = segments.isEmpty
             submitButtonDisabled = segments.isEmpty
         }
+    }
+
+    func submitForInpainting() {
+        guard let dogPhotoURL =
+                Bundle.main.url(forResource: "dog_photo",
+                                withExtension: "png"),
+              let maskerImageURL =
+                Bundle.main.url(forResource: "masker_image",
+                                withExtension: "png") else {
+            return
+        }
+
+        guard let dogPhotoData = try? Data(contentsOf: dogPhotoURL) else { return }
+        guard let maskerImageData = try? Data(contentsOf: maskerImageURL) else { return }
+
+        guard let image = UIImage(data: dogPhotoData) else { return }
+        guard let masker = UIImage(data: maskerImageData) else { return }
+
+        let imageData = image.pngData()!
+        let maskerData = masker.pngData()!
+
+        let request = AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData,
+                                         withName: "image",
+                                         fileName: "dog_photo.png",
+                                         mimeType: "image/png")
+                multipartFormData.append(maskerData,
+                                         withName: "mask",
+                                         fileName: "masker_image.png",
+                                         mimeType: "image/png")
+
+            }, to: "http://127.0.0.1:9001/inpaint",
+            method: .post
+        )
+
+        addPathToImageData()
+        previousPointsSegments.removeAll()
     }
 
     func addPathToImageData() {
