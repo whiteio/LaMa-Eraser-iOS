@@ -126,7 +126,7 @@ struct EditView: View {
         let image = UIImage(data: data)
 
         if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.addPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+           let newCGImage = cgImage.createMaskFromPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
                                             lineWidth: maskPoints.configuration.brushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
@@ -140,7 +140,7 @@ struct EditView: View {
         let image = UIImage(data: data)
 
         if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.addLassoPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+           let newCGImage = cgImage.createMaskFromLassoPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
                                             lineWidth: currentBrushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
