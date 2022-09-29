@@ -33,6 +33,9 @@
 		E35232FD28C4C091008DB14B /* ImagePixelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232FC28C4C091008DB14B /* ImagePixelConstants.swift */; };
 		E35232FF28C4C0B3008DB14B /* CGContext+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232FE28C4C0B3008DB14B /* CGContext+Extras.swift */; };
 		E352330128C4C18B008DB14B /* CGPoint+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E352330028C4C18B008DB14B /* CGPoint+Extras.swift */; };
+		E365F00828E5FDB4005CC28A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E365F00728E5FDB4005CC28A /* Alamofire */; };
+		E365F00A28E6031A005CC28A /* masker_image.png in Resources */ = {isa = PBXBuildFile; fileRef = E365F00928E6031A005CC28A /* masker_image.png */; };
+		E365F00C28E60322005CC28A /* dog_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E365F00B28E60322005CC28A /* dog_photo.png */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
@@ -62,6 +65,8 @@
 		E35232FC28C4C091008DB14B /* ImagePixelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePixelConstants.swift; sourceTree = "<group>"; };
 		E35232FE28C4C0B3008DB14B /* CGContext+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGContext+Extras.swift"; sourceTree = "<group>"; };
 		E352330028C4C18B008DB14B /* CGPoint+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extras.swift"; sourceTree = "<group>"; };
+		E365F00928E6031A005CC28A /* masker_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = masker_image.png; sourceTree = "<group>"; };
+		E365F00B28E60322005CC28A /* dog_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog_photo.png; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEraserApp.swift; sourceTree = "<group>"; };
@@ -76,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E365F00828E5FDB4005CC28A /* Alamofire in Frameworks */,
 				E35232C728C3974C008DB14B /* FirebaseAnalyticsSwift in Frameworks */,
 				E35232CF28C3974C008DB14B /* FirebaseAuthCombine-Community in Frameworks */,
 				E35232CD28C3974C008DB14B /* FirebaseAuth in Frameworks */,
@@ -123,6 +129,8 @@
 		E35232E028C4A707008DB14B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E365F00B28E60322005CC28A /* dog_photo.png */,
+				E365F00928E6031A005CC28A /* masker_image.png */,
 				E35232C328C396A9008DB14B /* GoogleService-Info.plist */,
 				E3B5307E28BEAAF700F33E07 /* RiveAssets */,
 				E3B5307028BEA77100F33E07 /* Assets.xcassets */,
@@ -178,13 +186,6 @@
 			path = Array;
 			sourceTree = "<group>";
 		};
-		E35232F528C4B79C008DB14B /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Dependencies;
-			sourceTree = "<group>";
-		};
 		E3B5306028BEA76F00F33E07 = {
 			isa = PBXGroup;
 			children = (
@@ -205,7 +206,6 @@
 		E3B5306B28BEA76F00F33E07 /* ImageEraser */ = {
 			isa = PBXGroup;
 			children = (
-				E35232F528C4B79C008DB14B /* Dependencies */,
 				E35232E928C4ABBF008DB14B /* Extensions */,
 				E35232E528C4AA0F008DB14B /* Store */,
 				E35232E028C4A707008DB14B /* Resources */,
@@ -260,6 +260,7 @@
 				E35232CE28C3974C008DB14B /* FirebaseAuthCombine-Community */,
 				E35232D028C3974C008DB14B /* FirebaseCrashlytics */,
 				E35232D228C3974C008DB14B /* FirebasePerformance */,
+				E365F00728E5FDB4005CC28A /* Alamofire */,
 			);
 			productName = ImageEraser;
 			productReference = E3B5306928BEA76F00F33E07 /* ImageEraser.app */;
@@ -292,6 +293,7 @@
 			packageReferences = (
 				E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */,
 				E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E3B5306A28BEA76F00F33E07 /* Products */;
 			projectDirPath = "";
@@ -310,9 +312,11 @@
 				E3B5308028BEAB1100F33E07 /* button.riv in Resources */,
 				E35232C028C38B6F008DB14B /* swiftlint.yml in Resources */,
 				E35232C428C396A9008DB14B /* GoogleService-Info.plist in Resources */,
+				E365F00C28E60322005CC28A /* dog_photo.png in Resources */,
 				E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */,
 				E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */,
 				E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */,
+				E365F00A28E6031A005CC28A /* masker_image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +577,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rive-app/rive-ios.git";
@@ -618,6 +630,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebasePerformance;
+		};
+		E365F00728E5FDB4005CC28A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		E3B5307B28BEAAE200F33E07 /* RiveRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
