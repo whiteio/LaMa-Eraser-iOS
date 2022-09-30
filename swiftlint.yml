@@ -14,10 +14,6 @@ only_rules:
   - void_return
   - custom_rules
 
-excluded:
-  - Carthage
-  - Pods
-
 colon:
   apply_to_dictionaries: false
 

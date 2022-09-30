@@ -72,7 +72,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E80D771D-1A84-4669-9CAF-309E9F31D5B1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ImageEraser/Extensions/CGImage+Extras.swift"
@@ -81,6 +81,22 @@
             startingLineNumber = "52"
             endingLineNumber = "52"
             landmarkName = "createMaskFromPath(_:lineWidth:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8CE293E0-A928-4B69-BD77-D1BA20D91656"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImageEraser/Views/EditingImage/EditView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "submitForInpainting()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

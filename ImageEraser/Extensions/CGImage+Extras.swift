@@ -19,8 +19,8 @@ extension CGImage {
             return nil
         }
 
-        bmContext.setFillColor(UIColor.white.cgColor)
-        bmContext.setStrokeColor(UIColor.white.cgColor)
+        bmContext.setFillColor(UIColor.yellow.cgColor)
+        bmContext.setStrokeColor(UIColor.red.cgColor)
         bmContext.setLineWidth(lineWidth)
         bmContext.setLineCap(.round)
         bmContext.setLineJoin(.round)
@@ -38,7 +38,7 @@ extension CGImage {
             return nil
         }
 
-        bmContext.setStrokeColor(UIColor.white.cgColor)
+        bmContext.setStrokeColor(UIColor.yellow.cgColor)
         bmContext.setLineWidth(lineWidth)
         bmContext.setLineCap(.round)
         bmContext.setLineJoin(.round)
@@ -73,9 +73,9 @@ extension CGImage {
         let divisor: Int32 = 0x1000
         let fDivisor = Float(divisor)
 
-        let redCoefficient: Float = 0.2126
-        let greenCoefficient: Float = 0.7152
-        let blueCoefficient: Float = 0.0722
+        let redCoefficient: Float = 1
+        let greenCoefficient: Float = 1
+        let blueCoefficient: Float = 1
 
         var coefficientsMatrix = [
             Int16(redCoefficient * fDivisor),

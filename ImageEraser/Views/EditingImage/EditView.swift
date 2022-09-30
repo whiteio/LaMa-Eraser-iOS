@@ -9,6 +9,8 @@ import SwiftUI
 import Alamofire
 
 struct EditView: View {
+    var showDebugMask = true
+
     @EnvironmentObject var navigationStore: NavigationStore
 
     @State var undoDisabled = true
@@ -84,31 +86,20 @@ struct EditView: View {
     }
 
     func submitForInpainting() {
-        guard let dogPhotoURL =
-                Bundle.main.url(forResource: "dog_photo",
-                                withExtension: "png"),
-              let maskerImageURL =
-                Bundle.main.url(forResource: "masker_image",
-                                withExtension: "png") else {
-            return
+        guard let maskImageData = getMaskImageDataFromPath() else { return }
+        let originalImageData = photoData
+
+        if showDebugMask {
+            debugAddPathToImageData()
         }
-
-        guard let dogPhotoData = try? Data(contentsOf: dogPhotoURL) else { return }
-        guard let maskerImageData = try? Data(contentsOf: maskerImageURL) else { return }
-
-        guard let image = UIImage(data: dogPhotoData) else { return }
-        guard let masker = UIImage(data: maskerImageData) else { return }
-
-        let imageData = image.pngData()!
-        let maskerData = masker.pngData()!
 
         let request = AF.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append(imageData,
+                multipartFormData.append(originalImageData,
                                          withName: "image",
                                          fileName: "dog_photo.png",
                                          mimeType: "image/png")
-                multipartFormData.append(maskerData,
+                multipartFormData.append(maskImageData,
                                          withName: "mask",
                                          fileName: "masker_image.png",
                                          mimeType: "image/png")
@@ -117,11 +108,15 @@ struct EditView: View {
             method: .post
         )
 
-        addPathToImageData()
+        request.response { response in
+            guard let data = response.data else { return }
+            photoData = data
+        }
+
         previousPointsSegments.removeAll()
     }
 
-    func addPathToImageData() {
+    func debugAddPathToImageData() {
         let data = photoData
         let image = UIImage(data: data)
 
@@ -133,6 +128,22 @@ struct EditView: View {
                 photoData = newData
             }
         }
+    }
+
+    func getMaskImageDataFromPath() -> Data? {
+        let data = photoData
+        let image = UIImage(data: data)
+
+        if let cgImage = image?.cgImage,
+           let newCGImage = cgImage.createMaskFromPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+                                                       lineWidth: maskPoints.configuration.brushSize) {
+            let newImage = UIImage(cgImage: newCGImage)
+            if let newData = newImage.pngData() {
+                return newData
+            }
+        }
+
+        return nil
     }
 
     func addLassoPathToImageData() {
