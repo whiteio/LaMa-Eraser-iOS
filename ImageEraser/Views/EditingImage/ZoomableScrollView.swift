@@ -3,10 +3,11 @@ import UIKit
 
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
     private var content: Content
-    @State var contentScale: CGFloat = 1
+    @Binding var contentScale: CGFloat
 
-    init(@ViewBuilder content: () -> Content) {
+    init(contentScale: Binding<CGFloat>, @ViewBuilder content: () -> Content) {
         self.content = content()
+        self._contentScale = contentScale
     }
 
     func makeUIView(context: Context) -> UIScrollView {

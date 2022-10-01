@@ -25,6 +25,8 @@ struct EditView: View {
     @State var previousPointsSegments: [PointsSegment] = []
     @State var currentBrushSize: Double = 30
     @State var redoableSegments: [PointsSegment] = []
+    @State var baseBrushSize = 30.0
+    @State var scrollViewScale: CGFloat = 1.0
 
     init(photoData: Data) {
         self._photoData = State(initialValue: photoData)
@@ -32,7 +34,7 @@ struct EditView: View {
 
     var body: some View {
         VStack {
-            ZoomableScrollView {
+            ZoomableScrollView(contentScale: $scrollViewScale) {
                 ImageMaskingView(imageState: $imageState,
                                  selectedPhotoData: photoData,
                                  points: $maskPoints,
@@ -40,6 +42,9 @@ struct EditView: View {
                                  brushSize: $currentBrushSize,
                                  redoableSegments: $redoableSegments)
             }
+            .onChange(of: scrollViewScale, perform: { newValue in
+                currentBrushSize = baseBrushSize / newValue
+            })
         }
         .navigationTitle("ERASER")
         .navigationBarTitleDisplayMode(.inline)
