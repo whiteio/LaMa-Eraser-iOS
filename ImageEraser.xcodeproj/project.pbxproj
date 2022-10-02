@@ -37,6 +37,11 @@
 		E365F00A28E6031A005CC28A /* masker_image.png in Resources */ = {isa = PBXBuildFile; fileRef = E365F00928E6031A005CC28A /* masker_image.png */; };
 		E365F00C28E60322005CC28A /* dog_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E365F00B28E60322005CC28A /* dog_photo.png */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
+		E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404328E9F95700FC7801 /* ContentViewController.swift */; };
+		E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404528E9F97600FC7801 /* View+Modifiers.swift */; };
+		E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */; };
+		E3A9404A28E9F9A800FC7801 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404928E9F9A800FC7801 /* UIView+Extension.swift */; };
+		E3A9404D28E9FA0300FC7801 /* BrushPropertiesContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404C28E9FA0300FC7801 /* BrushPropertiesContentView.swift */; };
 		E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */; };
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
 		E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307028BEA77100F33E07 /* Assets.xcassets */; };
@@ -68,6 +73,11 @@
 		E365F00928E6031A005CC28A /* masker_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = masker_image.png; sourceTree = "<group>"; };
 		E365F00B28E60322005CC28A /* dog_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog_photo.png; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
+		E3A9404328E9F95700FC7801 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		E3A9404528E9F97600FC7801 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
+		E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysPopoverModifier.swift; sourceTree = "<group>"; };
+		E3A9404928E9F9A800FC7801 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		E3A9404C28E9FA0300FC7801 /* BrushPropertiesContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushPropertiesContentView.swift; sourceTree = "<group>"; };
 		E3B5306928BEA76F00F33E07 /* ImageEraser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageEraser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEraserApp.swift; sourceTree = "<group>"; };
 		E3B5306E28BEA76F00F33E07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +109,7 @@
 		E35232C228C3906F008DB14B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E3A9404028E9F8C700FC7801 /* AlwaysPopover */,
 				E35232E428C4A91A008DB14B /* EditingImage */,
 				E35232E328C4A900008DB14B /* Landing */,
 				E3B5306C28BEA76F00F33E07 /* ImageEraserApp.swift */,
@@ -150,6 +161,7 @@
 		E35232E428C4A91A008DB14B /* EditingImage */ = {
 			isa = PBXGroup;
 			children = (
+				E3A9404B28E9F9DF00FC7801 /* BrushProperties */,
 				E35232B528C28373008DB14B /* SegmentedControlView.swift */,
 				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
 				E35232B728C2948D008DB14B /* EditView.swift */,
@@ -184,6 +196,25 @@
 				E35232EE28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift */,
 			);
 			path = Array;
+			sourceTree = "<group>";
+		};
+		E3A9404028E9F8C700FC7801 /* AlwaysPopover */ = {
+			isa = PBXGroup;
+			children = (
+				E3A9404328E9F95700FC7801 /* ContentViewController.swift */,
+				E3A9404528E9F97600FC7801 /* View+Modifiers.swift */,
+				E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */,
+				E3A9404928E9F9A800FC7801 /* UIView+Extension.swift */,
+			);
+			path = AlwaysPopover;
+			sourceTree = "<group>";
+		};
+		E3A9404B28E9F9DF00FC7801 /* BrushProperties */ = {
+			isa = PBXGroup;
+			children = (
+				E3A9404C28E9FA0300FC7801 /* BrushPropertiesContentView.swift */,
+			);
+			path = BrushProperties;
 			sourceTree = "<group>";
 		};
 		E3B5306028BEA76F00F33E07 = {
@@ -348,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */,
 				E35232D928C4A451008DB14B /* NavigationStore.swift in Sources */,
 				E35232B628C28373008DB14B /* SegmentedControlView.swift in Sources */,
 				E35232F728C4B87A008DB14B /* SegmentConfiguration.swift in Sources */,
@@ -361,9 +393,13 @@
 				E35232F128C4B066008DB14B /* ImageState.swift in Sources */,
 				E35232FB28C4BFB5008DB14B /* CGImage+Extras.swift in Sources */,
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
+				E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */,
 				E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */,
+				E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */,
+				E3A9404A28E9F9A800FC7801 /* UIView+Extension.swift in Sources */,
 				E35232FD28C4C091008DB14B /* ImagePixelConstants.swift in Sources */,
 				E35232EF28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift in Sources */,
+				E3A9404D28E9FA0300FC7801 /* BrushPropertiesContentView.swift in Sources */,
 				E352330128C4C18B008DB14B /* CGPoint+Extras.swift in Sources */,
 				E35232EC28C4ACBF008DB14B /* PointsSegment.swift in Sources */,
 				E35232E228C4A81B008DB14B /* SplashscreenContentView.swift in Sources */,

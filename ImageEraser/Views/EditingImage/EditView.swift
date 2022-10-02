@@ -37,6 +37,7 @@ struct EditView: View {
     @State var baseBrushSize = 30.0
     @State var scrollViewScale: CGFloat = 1.0
     @State var imageIsBeingProcessed = false
+    @State var shouldShowBrushPopover = false
 
     var currentlyEditablePhoto: EditableImage {
         guard let image = UIImage(data: photoData) else { return EditableImage(image: Image(""), caption: "") }
@@ -84,6 +85,19 @@ struct EditView: View {
                 })
                 .tint(.white)
                 .disabled(redoDisabled)
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: {
+                    shouldShowBrushPopover = true
+                }, label: {
+                    Text("Brush Size")
+                        .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
+                            BrushPropertiesContentView(brushSize: $currentBrushSize)
+                                .padding()
+                        })
+                })
             }
         }
         .toolbar {
