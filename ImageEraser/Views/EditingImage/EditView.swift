@@ -115,13 +115,20 @@ struct EditView: View {
     @ViewBuilder func loadingSpinnerView() -> some View {
         if imageIsBeingProcessed {
             ProgressView("Loading")
-                .tint(Color.purple)
+                .tint(Color.white)
+                .padding()
+                .background(Color.black)
+                .cornerRadius(12)
         }
     }
 
     func submitForInpainting() {
         guard let maskImageData = getMaskImageDataFromPath() else { return }
-        imageIsBeingProcessed = true
+
+        withAnimation(.easeInOut(duration: 0.1)) {
+            imageIsBeingProcessed = true
+        }
+
         let originalImageData = photoData
 
         if showDebugMask {
@@ -145,7 +152,11 @@ struct EditView: View {
 
         request.response { response in
             guard let data = response.data else { return }
-            imageIsBeingProcessed = false
+
+            withAnimation(.easeInOut(duration: 0.1)) {
+                imageIsBeingProcessed = false
+            }
+
             redoablePhotoData.removeAll()
             oldPhotoData.append(photoData)
             photoData = data
