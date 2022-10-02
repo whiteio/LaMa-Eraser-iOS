@@ -41,7 +41,8 @@ struct EditView: View {
                                  points: $maskPoints,
                                  previousPointsSegments: $previousPointsSegments,
                                  brushSize: $currentBrushSize,
-                                 redoableSegments: $redoableSegments)
+                                 redoableSegments: $redoableSegments,
+                                 imageIsProcessing: $imageIsBeingProcessed)
                     .overlay(loadingSpinnerView())
             }
             .onChange(of: scrollViewScale, perform: { newValue in

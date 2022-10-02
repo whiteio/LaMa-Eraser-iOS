@@ -5,8 +5,8 @@
 //  Created by Christopher White on 03/09/2022.
 //
 
-import SwiftUI
 import CoreGraphics
+import SwiftUI
 
 struct ImageMaskingView: View {
     var selectedPhotoData: Data
@@ -14,20 +14,24 @@ struct ImageMaskingView: View {
     @Binding var previousPointsSegments: [PointsSegment]
     @Binding var brushSize: Double
     @Binding var redoableSegments: [PointsSegment]
+    @Binding var imageIsProcessing: Bool
 
     init(imageState: Binding<ImageState>,
          selectedPhotoData: Data,
          points: Binding<PointsSegment>,
          previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
-         redoableSegments: Binding<[PointsSegment]>) {
-        self._points = points
-        self._previousPointsSegments = previousPointsSegments
-        self._brushSize = brushSize
-        self._redoableSegments = redoableSegments
+         redoableSegments: Binding<[PointsSegment]>,
+         imageIsProcessing: Binding<Bool>)
+    {
+        _points = points
+        _previousPointsSegments = previousPointsSegments
+        _brushSize = brushSize
+        _redoableSegments = redoableSegments
         self.selectedPhotoData = selectedPhotoData
-        self._imageSize = State(initialValue: selectedPhotoData.getSize())
-        self._imageState = imageState
+        _imageSize = State(initialValue: selectedPhotoData.getSize())
+        _imageState = imageState
+        _imageIsProcessing = imageIsProcessing
     }
 
     @State var imageSize: CGSize
@@ -36,6 +40,7 @@ struct ImageMaskingView: View {
     var drag: some Gesture {
         DragGesture()
             .onChanged { value in
+                guard !imageIsProcessing else { return }
                 guard value.location.isInBounds(imageState.rectSize) else { return }
 
                 points.rectPoints.append(value.location)
@@ -47,6 +52,8 @@ struct ImageMaskingView: View {
                 points.scaledPoints.append(scaledPoint)
             }
             .onEnded { _ in
+                guard !imageIsProcessing else { return }
+
                 imageState.imageSize = imageSize
 
                 points.configuration = SegmentConfiguration(brushSize: brushSize * widthScale)
@@ -60,28 +67,28 @@ struct ImageMaskingView: View {
 
     var body: some View {
         VStack(alignment: .trailing) {
-                Image(uiImage: UIImage(data: selectedPhotoData)!)
-                    .resizable()
-                    .scaledToFit()
-                    .clipped()
-                    .gesture(drag)
-                    .overlay(
-                        GestureMaskShape(previousPointsSegments: previousPointsSegments,
-                                         currentPointsSegment: points)
-                            .stroke(style: StrokeStyle(lineWidth: brushSize,
-                                                       lineCap: .round,
-                                                       lineJoin: .round))
-                            .foregroundColor(.blue.opacity(0.4))
-                    )
-                    .clipped()
-                    .background(
-                        GeometryReader { geometry in
-                            Color.clear
-                                .onAppear {
-                                    imageState.rectSize = geometry.size
-                                }
-                        }
-                    )
+            Image(uiImage: UIImage(data: selectedPhotoData)!)
+                .resizable()
+                .scaledToFit()
+                .clipped()
+                .gesture(drag)
+                .overlay(
+                    GestureMaskShape(previousPointsSegments: previousPointsSegments,
+                                     currentPointsSegment: points)
+                        .stroke(style: StrokeStyle(lineWidth: brushSize,
+                                                   lineCap: .round,
+                                                   lineJoin: .round))
+                        .foregroundColor(.blue.opacity(0.4))
+                )
+                .clipped()
+                .background(
+                    GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                imageState.rectSize = geometry.size
+                            }
+                    }
+                )
         }
     }
 
