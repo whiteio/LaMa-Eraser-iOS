@@ -9,7 +9,7 @@ import Alamofire
 import SwiftUI
 
 struct EditView: View {
-    var showDebugMask = true
+    var showDebugMask = false
 
     @EnvironmentObject var navigationStore: NavigationStore
 
@@ -17,6 +17,8 @@ struct EditView: View {
     @State var redoDisabled = true
     @State var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)
     @State var photoData: Data
+    @State var oldPhotoData: [Data] = []
+    @State var redoablePhotoData: [Data] = []
     @State var maskPoints: PointsSegment = .init(configuration: SegmentConfiguration(brushSize: 30),
                                                  rectPoints: [],
                                                  scaledPoints: [])
@@ -52,14 +54,16 @@ struct EditView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button(action: {
-                    redoableSegments.append(previousPointsSegments.removeLast())
+                    redoablePhotoData.append(photoData)
+                    photoData = oldPhotoData.removeLast()
                 }, label: {
                     Image(systemName: "arrow.uturn.backward.circle")
                 })
                 .tint(.white)
                 .disabled(undoDisabled)
                 Button(action: {
-                    previousPointsSegments.append(redoableSegments.removeLast())
+                    oldPhotoData.append(photoData)
+                    photoData = redoablePhotoData.removeLast()
                 }, label: {
                     Image(systemName: "arrow.uturn.forward.circle")
                 })
@@ -77,12 +81,13 @@ struct EditView: View {
                 Spacer()
             }
         }
-        .onChange(of: redoableSegments) { undoneSegments in
-            redoDisabled = undoneSegments.isEmpty
+        .onChange(of: redoablePhotoData) { newValue in
+            redoDisabled = newValue.isEmpty
         }
+        .onChange(of: oldPhotoData, perform: { newValue in
+            undoDisabled = newValue.isEmpty
+        })
         .onChange(of: previousPointsSegments) { segments in
-            undoDisabled = segments.isEmpty
-
             if !segments.isEmpty {
                 submitForInpainting()
             }
@@ -123,6 +128,8 @@ struct EditView: View {
         request.response { response in
             guard let data = response.data else { return }
             imageIsBeingProcessed = false
+            redoablePhotoData.removeAll()
+            oldPhotoData.append(photoData)
             photoData = data
         }
 
