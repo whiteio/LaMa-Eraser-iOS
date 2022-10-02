@@ -15,7 +15,6 @@ struct EditView: View {
 
     @State var undoDisabled = true
     @State var redoDisabled = true
-    @State var submitButtonDisabled = true
     @State var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)
     @State var photoData: Data
     @State var maskPoints: PointsSegment = .init(configuration: SegmentConfiguration(brushSize: 30),
@@ -76,10 +75,6 @@ struct EditView: View {
                     Text("Cancel")
                 })
                 Spacer()
-                Button(action: submitForInpainting, label: {
-                    Text("Erase!")
-                })
-                .disabled(submitButtonDisabled)
             }
         }
         .onChange(of: redoableSegments) { undoneSegments in
@@ -87,7 +82,10 @@ struct EditView: View {
         }
         .onChange(of: previousPointsSegments) { segments in
             undoDisabled = segments.isEmpty
-            submitButtonDisabled = segments.isEmpty
+
+            if !segments.isEmpty {
+                submitForInpainting()
+            }
         }
     }
 
