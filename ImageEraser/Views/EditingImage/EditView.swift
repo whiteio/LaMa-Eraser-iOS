@@ -38,6 +38,7 @@ struct EditView: View {
     @State var scrollViewScale: CGFloat = 1.0
     @State var imageIsBeingProcessed = false
     @State var shouldShowBrushPopover = false
+    @State var selectedIndex = 1
 
     var currentlyEditablePhoto: EditableImage {
         guard let image = UIImage(data: photoData) else { return EditableImage(image: Image(""), caption: "") }
@@ -49,21 +50,19 @@ struct EditView: View {
     }
 
     var body: some View {
-        VStack {
-            ZoomableScrollView(contentScale: $scrollViewScale) {
-                ImageMaskingView(imageState: $imageState,
-                                 selectedPhotoData: photoData,
-                                 points: $maskPoints,
-                                 previousPointsSegments: $previousPointsSegments,
-                                 brushSize: $currentBrushSize,
-                                 redoableSegments: $redoableSegments,
-                                 imageIsProcessing: $imageIsBeingProcessed)
-                    .overlay(loadingSpinnerView())
-            }
-            .onChange(of: scrollViewScale, perform: { newValue in
-                currentBrushSize = baseBrushSize / newValue
-            })
+        ZoomableScrollView(contentScale: $scrollViewScale) {
+            ImageMaskingView(imageState: $imageState,
+                             selectedPhotoData: photoData,
+                             points: $maskPoints,
+                             previousPointsSegments: $previousPointsSegments,
+                             brushSize: $currentBrushSize,
+                             redoableSegments: $redoableSegments,
+                             imageIsProcessing: $imageIsBeingProcessed)
+                .overlay(loadingSpinnerView())
         }
+        .onChange(of: scrollViewScale, perform: { newValue in
+            currentBrushSize = baseBrushSize / newValue
+        })
         .navigationTitle("ERASER")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -234,6 +233,15 @@ struct EditView_Previews: PreviewProvider {
         NavigationView {
             EditView(photoData: Data())
                 .preferredColorScheme(.dark)
+        }
+    }
+}
+
+struct VerticalLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack {
+            configuration.icon
+            configuration.title
         }
     }
 }
