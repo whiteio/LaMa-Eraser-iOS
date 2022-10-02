@@ -28,6 +28,8 @@ struct EditView: View {
     @State var baseBrushSize = 30.0
     @State var scrollViewScale: CGFloat = 1.0
 
+    @State var imageIsBeingProcessed = false
+
     init(photoData: Data) {
         self._photoData = State(initialValue: photoData)
     }
@@ -41,6 +43,7 @@ struct EditView: View {
                                  previousPointsSegments: $previousPointsSegments,
                                  brushSize: $currentBrushSize,
                                  redoableSegments: $redoableSegments)
+                .overlay(loadingSpinnerView())
             }
             .onChange(of: scrollViewScale, perform: { newValue in
                 currentBrushSize = baseBrushSize / newValue
@@ -90,8 +93,16 @@ struct EditView: View {
         }
     }
 
+    @ViewBuilder func loadingSpinnerView() -> some View {
+        if imageIsBeingProcessed {
+            ProgressView("Loading")
+                .tint(Color.purple)
+        }
+    }
+
     func submitForInpainting() {
         guard let maskImageData = getMaskImageDataFromPath() else { return }
+        imageIsBeingProcessed = true
         let originalImageData = photoData
 
         if showDebugMask {
@@ -115,6 +126,7 @@ struct EditView: View {
 
         request.response { response in
             guard let data = response.data else { return }
+            imageIsBeingProcessed = false
             photoData = data
         }
 
