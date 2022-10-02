@@ -8,6 +8,15 @@
 import Alamofire
 import SwiftUI
 
+struct EditableImage: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.image)
+    }
+
+    public var image: Image
+    public var caption: String
+}
+
 struct EditView: View {
     var showDebugMask = false
 
@@ -28,6 +37,11 @@ struct EditView: View {
     @State var baseBrushSize = 30.0
     @State var scrollViewScale: CGFloat = 1.0
     @State var imageIsBeingProcessed = false
+
+    var currentlyEditablePhoto: EditableImage {
+        guard let image = UIImage(data: photoData) else { return EditableImage(image: Image(""), caption: "") }
+        return EditableImage(image: Image(uiImage: image), caption: "Eraser image!")
+    }
 
     init(photoData: Data) {
         _photoData = State(initialValue: photoData)
@@ -80,6 +94,9 @@ struct EditView: View {
                     Text("Cancel")
                 })
                 Spacer()
+                ShareLink(item: currentlyEditablePhoto,
+                          preview: SharePreview("Photo selected",
+                                                image: currentlyEditablePhoto.image))
             }
         }
         .onChange(of: redoablePhotoData) { newValue in
