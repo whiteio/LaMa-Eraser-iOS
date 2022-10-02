@@ -5,8 +5,8 @@
 //  Created by Christopher White on 02/09/2022.
 //
 
-import SwiftUI
 import Alamofire
+import SwiftUI
 
 struct EditView: View {
     var showDebugMask = true
@@ -16,22 +16,20 @@ struct EditView: View {
     @State var undoDisabled = true
     @State var redoDisabled = true
     @State var submitButtonDisabled = true
-
-    @State var imageState: ImageState = ImageState(imageSize: .zero, rectSize: .zero)
+    @State var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)
     @State var photoData: Data
-    @State var maskPoints: PointsSegment = PointsSegment(configuration: SegmentConfiguration(brushSize: 30),
-                                                         rectPoints: [],
-                                                         scaledPoints: [])
+    @State var maskPoints: PointsSegment = .init(configuration: SegmentConfiguration(brushSize: 30),
+                                                 rectPoints: [],
+                                                 scaledPoints: [])
     @State var previousPointsSegments: [PointsSegment] = []
     @State var currentBrushSize: Double = 30
     @State var redoableSegments: [PointsSegment] = []
     @State var baseBrushSize = 30.0
     @State var scrollViewScale: CGFloat = 1.0
-
     @State var imageIsBeingProcessed = false
 
     init(photoData: Data) {
-        self._photoData = State(initialValue: photoData)
+        _photoData = State(initialValue: photoData)
     }
 
     var body: some View {
@@ -43,7 +41,7 @@ struct EditView: View {
                                  previousPointsSegments: $previousPointsSegments,
                                  brushSize: $currentBrushSize,
                                  redoableSegments: $redoableSegments)
-                .overlay(loadingSpinnerView())
+                    .overlay(loadingSpinnerView())
             }
             .onChange(of: scrollViewScale, perform: { newValue in
                 currentBrushSize = baseBrushSize / newValue
@@ -140,7 +138,8 @@ struct EditView: View {
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromPath(scaledSegments,
-                                            lineWidth: maskPoints.configuration.brushSize) {
+                                                       lineWidth: maskPoints.configuration.brushSize)
+        {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
                 photoData = newData
@@ -155,7 +154,8 @@ struct EditView: View {
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromPath(scaledSegments,
-                                                       lineWidth: maskPoints.configuration.brushSize) {
+                                                       lineWidth: maskPoints.configuration.brushSize)
+        {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
                 return newData
@@ -172,7 +172,8 @@ struct EditView: View {
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
-                                            lineWidth: currentBrushSize) {
+                                                            lineWidth: currentBrushSize)
+        {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
                 photoData = newData
