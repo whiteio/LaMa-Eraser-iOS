@@ -131,9 +131,8 @@ struct EditView: View {
             redoablePhotoData.removeAll()
             oldPhotoData.append(photoData)
             photoData = data
+            previousPointsSegments.removeAll()
         }
-
-        previousPointsSegments.removeAll()
     }
 
     func debugAddPathToImageData() {
