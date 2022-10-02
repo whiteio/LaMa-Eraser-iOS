@@ -136,9 +136,10 @@ struct EditView: View {
     func debugAddPathToImageData() {
         let data = photoData
         let image = UIImage(data: data)
+        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
 
         if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+           let newCGImage = cgImage.createMaskFromPath(scaledSegments,
                                             lineWidth: maskPoints.configuration.brushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
@@ -150,9 +151,10 @@ struct EditView: View {
     func getMaskImageDataFromPath() -> Data? {
         let data = photoData
         let image = UIImage(data: data)
+        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
 
         if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+           let newCGImage = cgImage.createMaskFromPath(scaledSegments,
                                                        lineWidth: maskPoints.configuration.brushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
