@@ -53,8 +53,6 @@ extension CGImage {
     }
 
     public func convertToGreyscale() -> CGImage? {
-        let cgImage = self
-
         guard let format = vImage_CGImageFormat(
             bitsPerComponent: 8,
             bitsPerPixel: 32,
@@ -63,7 +61,7 @@ extension CGImage {
             renderingIntent: .defaultIntent) else { return nil }
 
         guard
-            var sourceBuffer = try? vImage_Buffer(cgImage: cgImage,
+            var sourceBuffer = try? vImage_Buffer(cgImage: self,
                                                   format: format) else {
             return nil
         }

@@ -168,9 +168,10 @@ struct EditView: View {
     func addLassoPathToImageData() {
         let data = photoData
         let image = UIImage(data: data)
+        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
 
         if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromLassoPath(previousPointsSegments.scaledSegmentsToPath(imageState: imageState),
+           let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
                                             lineWidth: currentBrushSize) {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
