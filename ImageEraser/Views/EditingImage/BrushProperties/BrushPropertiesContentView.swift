@@ -11,8 +11,16 @@ struct BrushPropertiesContentView: View {
     @Binding var brushSize: Double
 
     var body: some View {
-        Slider(value: $brushSize, in: 10 ... 50, step: 5)
-            .frame(maxWidth: .infinity)
+        VStack {
+            Slider(value: $brushSize, in: 10 ... 50, step: 1)
+                .frame(maxWidth: .infinity)
+            HStack {
+                Text("Brush size:")
+                Circle()
+                    .fill(Color.accentColor)
+                    .frame(width: brushSize, height: brushSize)
+            }
+        }
     }
 }
 
