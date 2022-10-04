@@ -66,8 +66,8 @@ struct EditView: View {
                                      redoableSegments: $redoableSegments,
                                      imageIsProcessing: $imageIsBeingProcessed,
                                      mode: $mode)
-                        .overlay(loadingSpinnerView())
                 }
+                .overlay(loadingSpinnerView())
                 .onChange(of: scrollViewScale, perform: { newValue in
                     currentBrushSize = baseBrushSize / newValue
                 })
