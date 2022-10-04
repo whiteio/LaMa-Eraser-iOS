@@ -50,54 +50,63 @@ struct EditView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            ZoomableScrollView(contentScale: $scrollViewScale) {
-                ImageMaskingView(imageState: $imageState,
-                                 selectedPhotoData: photoData,
-                                 points: $maskPoints,
-                                 previousPointsSegments: $previousPointsSegments,
-                                 brushSize: $currentBrushSize,
-                                 redoableSegments: $redoableSegments,
-                                 imageIsProcessing: $imageIsBeingProcessed)
-                    .overlay(loadingSpinnerView())
-            }
-            .onChange(of: scrollViewScale, perform: { newValue in
-                currentBrushSize = baseBrushSize / newValue
-            })
-
-            HStack(spacing: 8) {
-                Button(action: {
-                    redoablePhotoData.append(photoData)
-                    photoData = oldPhotoData.removeLast()
-                }, label: {
-                    Image(systemName: "arrow.uturn.backward.circle")
-                        .font(.title)
-                })
-                .tint(.white)
-                .disabled(undoDisabled)
-                Button(action: {
-                    oldPhotoData.append(photoData)
-                    photoData = redoablePhotoData.removeLast()
-                }, label: {
-                    Image(systemName: "arrow.uturn.forward.circle")
-                        .font(.title)
-                })
-                .tint(.white)
-                .disabled(redoDisabled)
-
-                Button {
-                    shouldShowBrushPopover = true
-                } label: {
-                    Image(systemName: "pencil.tip.crop.circle")
-                        .font(.title)
-                        .tint(.white)
-                        .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
-                            BrushPropertiesContentView(brushSize: $currentBrushSize)
-                                .padding()
-                        })
+        ZStack(alignment: .bottom) {
+            ZStack(alignment: .topLeading) {
+                ZoomableScrollView(contentScale: $scrollViewScale) {
+                    ImageMaskingView(imageState: $imageState,
+                                     selectedPhotoData: photoData,
+                                     points: $maskPoints,
+                                     previousPointsSegments: $previousPointsSegments,
+                                     brushSize: $currentBrushSize,
+                                     redoableSegments: $redoableSegments,
+                                     imageIsProcessing: $imageIsBeingProcessed)
+                        .overlay(loadingSpinnerView())
                 }
+                .onChange(of: scrollViewScale, perform: { newValue in
+                    currentBrushSize = baseBrushSize / newValue
+                })
+
+                HStack(spacing: 8) {
+                    Button(action: {
+                        redoablePhotoData.append(photoData)
+                        photoData = oldPhotoData.removeLast()
+                    }, label: {
+                        Image(systemName: "arrow.uturn.backward.circle")
+                            .font(.title)
+                    })
+                    .tint(.white)
+                    .disabled(undoDisabled)
+                    Button(action: {
+                        oldPhotoData.append(photoData)
+                        photoData = redoablePhotoData.removeLast()
+                    }, label: {
+                        Image(systemName: "arrow.uturn.forward.circle")
+                            .font(.title)
+                    })
+                    .tint(.white)
+                    .disabled(redoDisabled)
+
+                    Button {
+                        shouldShowBrushPopover = true
+                    } label: {
+                        Image(systemName: "pencil.tip.crop.circle")
+                            .font(.title)
+                            .tint(.white)
+                            .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
+                                BrushPropertiesContentView(brushSize: $currentBrushSize)
+                                    .padding()
+                            })
+                    }
+                }
+                .padding()
             }
-            .padding()
+            SegmentedControlView(selectedIndex: $selectedIndex,
+                                 items: [("Move", "move.3d"),
+                                         ("Lasso", "lasso"),
+                                         ("Brush", "paintbrush")])
+                .onChange(of: selectedIndex, perform: { value in
+                    print("Index changed to \(value)")
+                })
         }
         .navigationTitle("ERASER")
         .navigationBarTitleDisplayMode(.inline)
