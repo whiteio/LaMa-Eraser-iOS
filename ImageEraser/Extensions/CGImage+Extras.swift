@@ -5,13 +5,12 @@
 //  Created by Christopher White on 04/09/2022.
 //
 
+import Accelerate
 import CoreGraphics
 import UIKit
-import Accelerate
 
-extension CGImage {
-
-    public func createMaskFromLassoPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
+public extension CGImage {
+    func createMaskFromLassoPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
         let width = self.width
         let height = self.height
 
@@ -20,17 +19,21 @@ extension CGImage {
         }
 
         bmContext.setFillColor(UIColor.yellow.cgColor)
-        bmContext.setStrokeColor(UIColor.red.cgColor)
+        bmContext.setStrokeColor(UIColor.yellow.cgColor)
         bmContext.setLineWidth(lineWidth)
         bmContext.setLineCap(.round)
         bmContext.setLineJoin(.round)
         bmContext.addPath(path)
         bmContext.drawPath(using: .fillStroke)
 
-        return bmContext.makeImage()
+        let image = bmContext.makeImage()
+
+        let result = image?.convertToGreyscale()
+
+        return result
     }
 
-    public func createMaskFromPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
+    func createMaskFromPath(_ path: CGPath, lineWidth: CGFloat) -> CGImage? {
         let width = self.width
         let height = self.height
 
@@ -52,17 +55,19 @@ extension CGImage {
         return result
     }
 
-    public func convertToGreyscale() -> CGImage? {
+    func convertToGreyscale() -> CGImage? {
         guard let format = vImage_CGImageFormat(
             bitsPerComponent: 8,
             bitsPerPixel: 32,
             colorSpace: CGColorSpaceCreateDeviceRGB(),
             bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),
-            renderingIntent: .defaultIntent) else { return nil }
+            renderingIntent: .defaultIntent
+        ) else { return nil }
 
         guard
             var sourceBuffer = try? vImage_Buffer(cgImage: self,
-                                                  format: format) else {
+                                                  format: format)
+        else {
             return nil
         }
 
@@ -78,13 +83,13 @@ extension CGImage {
         var coefficientsMatrix = [
             Int16(redCoefficient * fDivisor),
             Int16(greenCoefficient * fDivisor),
-            Int16(blueCoefficient * fDivisor)
+            Int16(blueCoefficient * fDivisor),
         ]
 
         // swiftlint:disable force_try
-        var destinationBuffer = try! vImage_Buffer(width: self.width,
-                                              height: self.height,
-                                                         bitsPerPixel: 8)
+        var destinationBuffer = try! vImage_Buffer(width: width,
+                                                   height: height,
+                                                   bitsPerPixel: 8)
 
         vImageMatrixMultiply_ARGB8888ToPlanar8(&sourceBuffer,
                                                &destinationBuffer,
@@ -99,7 +104,8 @@ extension CGImage {
             bitsPerPixel: 8,
             colorSpace: CGColorSpaceCreateDeviceGray(),
             bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
-            renderingIntent: .defaultIntent) else {
+            renderingIntent: .defaultIntent
+        ) else {
             return nil
         }
 

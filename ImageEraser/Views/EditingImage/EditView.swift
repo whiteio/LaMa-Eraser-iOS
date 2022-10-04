@@ -169,7 +169,14 @@ struct EditView: View {
     }
 
     func submitForInpainting() {
-        guard let maskImageData = getMaskImageDataFromPath() else { return }
+        var maskImageData: Data? = Data()
+        if mode == .standardMask {
+            maskImageData = getMaskImageDataFromPath()
+        } else if mode == .lasso {
+            maskImageData = getLassoMaskDataFromPath()
+        }
+
+        guard let data = maskImageData else { return }
 
         withAnimation(.easeInOut(duration: 0.1)) {
             imageIsBeingProcessed = true
@@ -178,7 +185,11 @@ struct EditView: View {
         let originalImageData = photoData
 
         if showDebugMask {
-            debugAddPathToImageData()
+            if mode == .standardMask {
+                debugAddPathToImageData()
+            } else {
+                debugAddLassoPathToImageData()
+            }
         }
 
         let request = AF.upload(
@@ -187,7 +198,7 @@ struct EditView: View {
                                          withName: "image",
                                          fileName: "dog_photo.png",
                                          mimeType: "image/png")
-                multipartFormData.append(maskImageData,
+                multipartFormData.append(data,
                                          withName: "mask",
                                          fileName: "masker_image.png",
                                          mimeType: "image/png")
@@ -226,6 +237,22 @@ struct EditView: View {
         }
     }
 
+    func debugAddLassoPathToImageData() {
+        let data = photoData
+        let image = UIImage(data: data)
+        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
+
+        if let cgImage = image?.cgImage,
+           let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
+                                                            lineWidth: maskPoints.configuration.brushSize)
+        {
+            let newImage = UIImage(cgImage: newCGImage)
+            if let newData = newImage.pngData() {
+                photoData = newData
+            }
+        }
+    }
+
     func getMaskImageDataFromPath() -> Data? {
         let data = photoData
         let image = UIImage(data: data)
@@ -244,7 +271,7 @@ struct EditView: View {
         return nil
     }
 
-    func addLassoPathToImageData() {
+    func getLassoMaskDataFromPath() -> Data? {
         let data = photoData
         let image = UIImage(data: data)
         let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
@@ -255,9 +282,11 @@ struct EditView: View {
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
-                photoData = newData
+                return newData
             }
         }
+
+        return nil
     }
 }
 

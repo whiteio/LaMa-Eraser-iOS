@@ -55,9 +55,13 @@ private struct SegmentedControlButtonView: View {
             }
         }
         .fixedSize(horizontal: false, vertical: true)
-        .background(Color.black.opacity(0.4))
+        .background(Color.black.opacity(0.4).blur(radius: 12))
         .shadow(radius: 12)
         .foregroundColor(.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.white, lineWidth: 5)
+        )
     }
 }
 
