@@ -15,6 +15,7 @@ struct ImageMaskingView: View {
     @Binding var brushSize: Double
     @Binding var redoableSegments: [PointsSegment]
     @Binding var imageIsProcessing: Bool
+    @Binding var mode: Mode
 
     init(imageState: Binding<ImageState>,
          selectedPhotoData: Data,
@@ -22,7 +23,8 @@ struct ImageMaskingView: View {
          previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
          redoableSegments: Binding<[PointsSegment]>,
-         imageIsProcessing: Binding<Bool>)
+         imageIsProcessing: Binding<Bool>,
+         mode: Binding<Mode>)
     {
         _points = points
         _previousPointsSegments = previousPointsSegments
@@ -32,6 +34,7 @@ struct ImageMaskingView: View {
         _imageSize = State(initialValue: selectedPhotoData.getSize())
         _imageState = imageState
         _imageIsProcessing = imageIsProcessing
+        _mode = mode
     }
 
     @State var imageSize: CGSize
@@ -65,30 +68,62 @@ struct ImageMaskingView: View {
             }
     }
 
+    var unwrappedDrag: DragGesture {
+        guard let gesture = drag as? DragGesture else { return DragGesture() }
+
+        return gesture
+    }
+
     var body: some View {
-        VStack(alignment: .trailing) {
-            Image(uiImage: UIImage(data: selectedPhotoData)!)
-                .resizable()
-                .scaledToFit()
-                .clipped()
-                .gesture(drag)
-                .overlay(
-                    GestureMaskShape(previousPointsSegments: previousPointsSegments,
-                                     currentPointsSegment: points)
-                        .stroke(style: StrokeStyle(lineWidth: brushSize,
-                                                   lineCap: .round,
-                                                   lineJoin: .round))
-                        .foregroundColor(.blue.opacity(0.4))
-                )
-                .clipped()
-                .background(
-                    GeometryReader { geometry in
-                        Color.clear
-                            .onAppear {
-                                imageState.rectSize = geometry.size
-                            }
-                    }
-                )
+        if mode == .move {
+            VStack(alignment: .trailing) {
+                Image(uiImage: UIImage(data: selectedPhotoData)!)
+                    .resizable()
+                    .scaledToFit()
+                    .clipped()
+                    .overlay(
+                        GestureMaskShape(previousPointsSegments: previousPointsSegments,
+                                         currentPointsSegment: points)
+                            .stroke(style: StrokeStyle(lineWidth: brushSize,
+                                                       lineCap: .round,
+                                                       lineJoin: .round))
+                            .foregroundColor(.blue.opacity(0.4))
+                    )
+                    .clipped()
+                    .background(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .onAppear {
+                                    imageState.rectSize = geometry.size
+                                }
+                        }
+                    )
+            }
+        } else {
+            VStack(alignment: .trailing) {
+                Image(uiImage: UIImage(data: selectedPhotoData)!)
+                    .resizable()
+                    .scaledToFit()
+                    .clipped()
+                    .gesture(drag)
+                    .overlay(
+                        GestureMaskShape(previousPointsSegments: previousPointsSegments,
+                                         currentPointsSegment: points)
+                            .stroke(style: StrokeStyle(lineWidth: brushSize,
+                                                       lineCap: .round,
+                                                       lineJoin: .round))
+                            .foregroundColor(.blue.opacity(0.4))
+                    )
+                    .clipped()
+                    .background(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .onAppear {
+                                    imageState.rectSize = geometry.size
+                                }
+                        }
+                    )
+            }
         }
     }
 

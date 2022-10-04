@@ -8,6 +8,10 @@
 import Alamofire
 import SwiftUI
 
+enum Mode {
+    case standardMask, lasso, move
+}
+
 struct EditableImage: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation(exporting: \.image)
@@ -21,6 +25,7 @@ struct EditView: View {
     var showDebugMask = false
 
     @EnvironmentObject var navigationStore: NavigationStore
+    @State var mode: Mode = .standardMask
 
     @State var undoDisabled = true
     @State var redoDisabled = true
@@ -59,7 +64,8 @@ struct EditView: View {
                                      previousPointsSegments: $previousPointsSegments,
                                      brushSize: $currentBrushSize,
                                      redoableSegments: $redoableSegments,
-                                     imageIsProcessing: $imageIsBeingProcessed)
+                                     imageIsProcessing: $imageIsBeingProcessed,
+                                     mode: $mode)
                         .overlay(loadingSpinnerView())
                 }
                 .onChange(of: scrollViewScale, perform: { newValue in
@@ -102,12 +108,24 @@ struct EditView: View {
             }
             SegmentedControlView(selectedIndex: $selectedIndex,
                                  items: [("Move", "move.3d"),
-                                         ("Lasso", "lasso"),
-                                         ("Brush", "paintbrush")])
+                                         ("Brush", "paintbrush"),
+                                         ("Lasso", "lasso")])
                 .onChange(of: selectedIndex, perform: { value in
                     print("Index changed to \(value)")
                 })
         }
+        .onChange(of: selectedIndex, perform: { newSelectedIndex in
+            switch newSelectedIndex {
+            case 0:
+                mode = .move
+            case 1:
+                mode = .standardMask
+            case 2:
+                mode = .lasso
+            default:
+                mode = .standardMask
+            }
+        })
         .navigationTitle("ERASER")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
