@@ -67,6 +67,7 @@ struct EditView: View {
                                      imageIsProcessing: $imageIsBeingProcessed,
                                      mode: $mode)
                 }
+                .overlay(opacityLoadingOverlay())
                 .overlay(loadingSpinnerView())
                 .onChange(of: scrollViewScale, perform: { newValue in
                     currentBrushSize = baseBrushSize / newValue
@@ -105,14 +106,15 @@ struct EditView: View {
                     }
                 }
                 .padding()
+                .overlay(opacityLoadingOverlay())
             }
             SegmentedControlView(selectedIndex: $selectedIndex,
                                  items: [("Move", "move.3d"),
-                                         ("Brush", "paintbrush"),
-                                         ("Lasso", "lasso")])
+                                         ("Brush", "paintbrush")])
                 .onChange(of: selectedIndex, perform: { value in
                     print("Index changed to \(value)")
                 })
+                .overlay(opacityLoadingOverlay())
         }
         .onChange(of: selectedIndex, perform: { newSelectedIndex in
             switch newSelectedIndex {
@@ -168,6 +170,12 @@ struct EditView: View {
         }
     }
 
+    @ViewBuilder func opacityLoadingOverlay() -> some View {
+        if imageIsBeingProcessed {
+            Color.black.opacity(0.5)
+        }
+    }
+
     func submitForInpainting() {
         var maskImageData: Data? = Data()
         if mode == .standardMask {
@@ -178,7 +186,7 @@ struct EditView: View {
 
         guard let data = maskImageData else { return }
 
-        withAnimation(.easeInOut(duration: 0.1)) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             imageIsBeingProcessed = true
         }
 
@@ -210,7 +218,7 @@ struct EditView: View {
         request.response { response in
             guard let data = response.data else { return }
 
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 imageIsBeingProcessed = false
             }
 
