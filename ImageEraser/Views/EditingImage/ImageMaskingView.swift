@@ -14,7 +14,7 @@ struct ImageMaskingView: View {
     @Binding var previousPointsSegments: [PointsSegment]
     @Binding var brushSize: Double
     @Binding var imageIsProcessing: Bool
-    @Binding var mode: EditState.Mode
+    @Binding var mode: EditMode
     @State var imageSize: CGSize
     @Binding var imageState: ImagePresentationState
 
@@ -24,7 +24,7 @@ struct ImageMaskingView: View {
          previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
          imageIsProcessing: Binding<Bool>,
-         mode: Binding<EditState.Mode>)
+         mode: Binding<EditMode>)
     {
         _points = points
         _previousPointsSegments = previousPointsSegments

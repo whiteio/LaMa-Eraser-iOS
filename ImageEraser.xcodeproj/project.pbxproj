@@ -35,6 +35,7 @@
 		E399DDCF28F4B01500F07C25 /* EditState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCE28F4B01500F07C25 /* EditState.swift */; };
 		E399DDD128F4B20E00F07C25 /* MaskingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD028F4B20E00F07C25 /* MaskingEngine.swift */; };
 		E399DDD628F4B53000F07C25 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD528F4B53000F07C25 /* StateProtocols.swift */; };
+		E399DDD828F4B97500F07C25 /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD728F4B97500F07C25 /* EditMode.swift */; };
 		E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404328E9F95700FC7801 /* ContentViewController.swift */; };
 		E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404528E9F97600FC7801 /* View+Modifiers.swift */; };
 		E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */; };
@@ -76,6 +77,7 @@
 		E399DDCE28F4B01500F07C25 /* EditState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditState.swift; sourceTree = "<group>"; };
 		E399DDD028F4B20E00F07C25 /* MaskingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskingEngine.swift; sourceTree = "<group>"; };
 		E399DDD528F4B53000F07C25 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
+		E399DDD728F4B97500F07C25 /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
 		E3A9404328E9F95700FC7801 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		E3A9404528E9F97600FC7801 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysPopoverModifier.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				E35232F028C4B066008DB14B /* ImageState.swift */,
 				E35232F628C4B87A008DB14B /* SegmentConfiguration.swift */,
 				E35232FC28C4C091008DB14B /* ImagePixelConstants.swift */,
+				E399DDD728F4B97500F07C25 /* EditMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */,
 				E35232DF28C4A691008DB14B /* GestureMaskShape.swift in Sources */,
 				E35232DC28C4A4C6008DB14B /* Route.swift in Sources */,
+				E399DDD828F4B97500F07C25 /* EditMode.swift in Sources */,
 				E35232F928C4BF23008DB14B /* Data+Extras.swift in Sources */,
 				E35232FF28C4C0B3008DB14B /* CGContext+Extras.swift in Sources */,
 				E35232F128C4B066008DB14B /* ImageState.swift in Sources */,

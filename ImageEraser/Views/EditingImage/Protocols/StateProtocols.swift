@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HasModeState {
-    var mode: EditState.Mode { get }
+    var mode: EditMode { get }
 }
 
 protocol HasImagePresentationState {

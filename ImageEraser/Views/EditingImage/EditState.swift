@@ -13,11 +13,7 @@ typealias StateAbilities = HasModeState & HasImagePresentationState & HasImageDa
     & HasSelectedEditControlIndex
 
 class EditState: ObservableObject, StateAbilities {
-    enum Mode {
-        case standardMask, lasso, move
-    }
-
-    @Published var mode: Mode = .standardMask
+    @Published var mode: EditMode = .standardMask
 
     @Published var imagePresentationState: ImagePresentationState = .init(imageSize: .zero, rectSize: .zero)
     @Published var imageData: Data
