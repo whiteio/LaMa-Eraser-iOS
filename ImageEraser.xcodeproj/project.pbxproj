@@ -31,6 +31,7 @@
 		E399DDCF28F4B01500F07C25 /* EditState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCE28F4B01500F07C25 /* EditState.swift */; };
 		E399DDD628F4B53000F07C25 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD528F4B53000F07C25 /* StateProtocols.swift */; };
 		E399DDD828F4B97500F07C25 /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD728F4B97500F07C25 /* EditMode.swift */; };
+		E399DDDC28F4C08B00F07C25 /* ShareableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDDB28F4C08B00F07C25 /* ShareableImage.swift */; };
 		E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404328E9F95700FC7801 /* ContentViewController.swift */; };
 		E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404528E9F97600FC7801 /* View+Modifiers.swift */; };
 		E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */; };
@@ -68,6 +69,7 @@
 		E399DDCE28F4B01500F07C25 /* EditState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditState.swift; sourceTree = "<group>"; };
 		E399DDD528F4B53000F07C25 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
 		E399DDD728F4B97500F07C25 /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
+		E399DDDB28F4C08B00F07C25 /* ShareableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableImage.swift; sourceTree = "<group>"; };
 		E3A9404328E9F95700FC7801 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		E3A9404528E9F97600FC7801 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysPopoverModifier.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				E35232F628C4B87A008DB14B /* SegmentConfiguration.swift */,
 				E35232FC28C4C091008DB14B /* ImagePixelConstants.swift */,
 				E399DDD728F4B97500F07C25 /* EditMode.swift */,
+				E399DDDB28F4C08B00F07C25 /* ShareableImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */,
+				E399DDDC28F4C08B00F07C25 /* ShareableImage.swift in Sources */,
 				E35232D928C4A451008DB14B /* NavigationStore.swift in Sources */,
 				E35232F728C4B87A008DB14B /* SegmentConfiguration.swift in Sources */,
 				E399DDD628F4B53000F07C25 /* StateProtocols.swift in Sources */,

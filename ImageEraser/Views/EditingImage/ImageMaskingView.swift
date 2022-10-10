@@ -9,25 +9,22 @@ import CoreGraphics
 import SwiftUI
 
 struct ImageMaskingView: View {
+    @ObservedObject var state: EditState
     var selectedPhotoData: Data
-    @Binding var points: PointsSegment
-    @Binding var previousPointsSegments: [PointsSegment]
     @Binding var brushSize: Double
     @Binding var imageIsProcessing: Bool
     @Binding var mode: EditMode
     @State var imageSize: CGSize
     @Binding var imageState: ImagePresentationState
 
-    init(imageState: Binding<ImagePresentationState>,
+    init(editState: EditState,
+         imageState: Binding<ImagePresentationState>,
          selectedPhotoData: Data,
-         points: Binding<PointsSegment>,
-         previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
          imageIsProcessing: Binding<Bool>,
          mode: Binding<EditMode>)
     {
-        _points = points
-        _previousPointsSegments = previousPointsSegments
+        state = editState
         _brushSize = brushSize
         self.selectedPhotoData = selectedPhotoData
         _imageSize = State(initialValue: selectedPhotoData.getSize())
@@ -42,24 +39,24 @@ struct ImageMaskingView: View {
                 guard !imageIsProcessing else { return }
                 guard value.location.isInBounds(imageState.rectSize) else { return }
 
-                points.rectPoints.append(value.location)
+                state.maskPoints.rectPoints.append(value.location)
 
                 let location = value.location
                 let scaledX = location.x * widthScale
                 let scaledY = location.y * heightScale
                 let scaledPoint = CGPoint(x: scaledX, y: scaledY)
-                points.scaledPoints.append(scaledPoint)
+                state.maskPoints.scaledPoints.append(scaledPoint)
             }
             .onEnded { _ in
                 guard !imageIsProcessing else { return }
 
                 imageState.imageSize = imageSize
 
-                points.configuration = SegmentConfiguration(brushSize: brushSize * widthScale)
+                state.maskPoints.configuration = SegmentConfiguration(brushSize: brushSize * widthScale)
 
-                previousPointsSegments.append(points)
-                points.scaledPoints = []
-                points.rectPoints = []
+                state.previousPoints.append(state.maskPoints)
+                state.maskPoints.scaledPoints = []
+                state.maskPoints.rectPoints = []
             }
     }
 
@@ -77,8 +74,8 @@ struct ImageMaskingView: View {
                     .scaledToFit()
                     .clipped()
                     .overlay(
-                        GestureMaskShape(previousPointsSegments: previousPointsSegments,
-                                         currentPointsSegment: points)
+                        GestureMaskShape(previousPointsSegments: state.previousPoints,
+                                         currentPointsSegment: state.maskPoints)
                             .stroke(style: StrokeStyle(lineWidth: 10,
                                                        lineCap: .round,
                                                        lineJoin: .round))
@@ -102,8 +99,8 @@ struct ImageMaskingView: View {
                     .clipped()
                     .gesture(drag)
                     .overlay(
-                        GestureMaskShape(previousPointsSegments: previousPointsSegments,
-                                         currentPointsSegment: points)
+                        GestureMaskShape(previousPointsSegments: state.previousPoints,
+                                         currentPointsSegment: state.maskPoints)
                             .stroke(style: StrokeStyle(lineWidth: brushSize,
                                                        lineCap: .round,
                                                        lineJoin: .round))

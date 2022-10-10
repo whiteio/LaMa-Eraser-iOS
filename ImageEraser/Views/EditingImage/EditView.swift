@@ -8,15 +8,6 @@
 import Alamofire
 import SwiftUI
 
-struct EditableImage: Transferable {
-    static var transferRepresentation: some TransferRepresentation {
-        ProxyRepresentation(exporting: \.image)
-    }
-
-    public var image: Image
-    public var caption: String
-}
-
 struct EditView: View {
     var showDebugMask = false
 
@@ -24,9 +15,11 @@ struct EditView: View {
     @EnvironmentObject var interactor: EditInteractor
     @StateObject var state: EditState
 
-    var currentlyEditablePhoto: EditableImage {
-        guard let image = UIImage(data: state.imageData) else { return EditableImage(image: Image(""), caption: "") }
-        return EditableImage(image: Image(uiImage: image), caption: "Eraser image!")
+    var currentlyEditablePhoto: ShareableImage {
+        guard let image = UIImage(data: state.imageData) else {
+            return ShareableImage(image: Image(""), caption: "")
+        }
+        return ShareableImage(image: Image(uiImage: image), caption: "Eraser image!")
     }
 
     init(photoData: Data) {
@@ -37,10 +30,9 @@ struct EditView: View {
         ZStack(alignment: .bottom) {
             ZStack(alignment: .topLeading) {
                 ZoomableScrollView(contentScale: $state.scrollViewScale) {
-                    ImageMaskingView(imageState: $state.imagePresentationState,
+                    ImageMaskingView(editState: state,
+                                     imageState: $state.imagePresentationState,
                                      selectedPhotoData: state.imageData,
-                                     points: $state.maskPoints,
-                                     previousPointsSegments: $state.previousPoints,
                                      brushSize: $state.brushSize,
                                      imageIsProcessing: $state.imageIsBeingProcessed,
                                      mode: $state.mode)
