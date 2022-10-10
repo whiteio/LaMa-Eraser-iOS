@@ -8,6 +8,10 @@
 import SwiftUI
 
 class EditState: ObservableObject {
+    enum Mode {
+        case standardMask, lasso, move
+    }
+
     @Published var mode: Mode = .standardMask
 
     @Published var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)

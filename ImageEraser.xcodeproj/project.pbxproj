@@ -33,6 +33,7 @@
 		E399DDCB28F4ACAD00F07C25 /* EditControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */; };
 		E399DDCD28F4AF6400F07C25 /* EditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */; };
 		E399DDCF28F4B01500F07C25 /* EditState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCE28F4B01500F07C25 /* EditState.swift */; };
+		E399DDD128F4B20E00F07C25 /* MaskingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD028F4B20E00F07C25 /* MaskingEngine.swift */; };
 		E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404328E9F95700FC7801 /* ContentViewController.swift */; };
 		E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404528E9F97600FC7801 /* View+Modifiers.swift */; };
 		E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */; };
@@ -72,6 +73,7 @@
 		E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditControlView.swift; sourceTree = "<group>"; };
 		E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInteractor.swift; sourceTree = "<group>"; };
 		E399DDCE28F4B01500F07C25 /* EditState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditState.swift; sourceTree = "<group>"; };
+		E399DDD028F4B20E00F07C25 /* MaskingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskingEngine.swift; sourceTree = "<group>"; };
 		E3A9404328E9F95700FC7801 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		E3A9404528E9F97600FC7801 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysPopoverModifier.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */,
 				E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */,
 				E399DDCE28F4B01500F07C25 /* EditState.swift */,
+				E399DDD028F4B20E00F07C25 /* MaskingEngine.swift */,
 			);
 			path = EditingImage;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			files = (
 				E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */,
 				E35232D928C4A451008DB14B /* NavigationStore.swift in Sources */,
+				E399DDD128F4B20E00F07C25 /* MaskingEngine.swift in Sources */,
 				E35232F728C4B87A008DB14B /* SegmentConfiguration.swift in Sources */,
 				E399DDC128F4A08100F07C25 /* EditorInteractor.swift in Sources */,
 				E35232D728C3BCEA008DB14B /* ImageMaskingView.swift in Sources */,

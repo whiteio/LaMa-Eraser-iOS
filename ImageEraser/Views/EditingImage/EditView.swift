@@ -8,10 +8,6 @@
 import Alamofire
 import SwiftUI
 
-enum Mode {
-    case standardMask, lasso, move
-}
-
 struct EditableImage: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation(exporting: \.image)
@@ -25,6 +21,7 @@ struct EditView: View {
     var showDebugMask = false
 
     @EnvironmentObject var navigationStore: NavigationStore
+    @EnvironmentObject var interactor: EditInteractor
     @StateObject var state: EditState
 
     var currentlyEditablePhoto: EditableImage {
@@ -100,7 +97,7 @@ struct EditView: View {
         }
         .onChange(of: state.previousPointsSegments) { segments in
             if !segments.isEmpty {
-                submitForInpainting()
+                interactor.submitForInpainting(state: state)
             }
         }
     }
@@ -119,118 +116,6 @@ struct EditView: View {
         if state.imageIsBeingProcessed {
             Color.black.opacity(0.5)
         }
-    }
-
-    func submitForInpainting() {
-        let maskData = state.mode == .standardMask ? getMaskImageDataFromPath() : getLassoMaskDataFromPath(data: state.photoData)
-        guard let data = maskData else { return }
-
-        withAnimation(.easeInOut(duration: 0.2)) {
-            state.imageIsBeingProcessed = true
-        }
-
-        let originalImageData = state.photoData
-
-        if showDebugMask {
-            if state.mode == .standardMask {
-                debugAddPathToImageData(state.photoData)
-            } else {
-                debugAddLassoPathToImageData(state.photoData)
-            }
-        }
-
-        let request = AF.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(originalImageData,
-                                         withName: "image",
-                                         fileName: "dog_photo.png",
-                                         mimeType: "image/png")
-                multipartFormData.append(data,
-                                         withName: "mask",
-                                         fileName: "masker_image.png",
-                                         mimeType: "image/png")
-
-            }, to: "http://127.0.0.1:9001/inpaint",
-            method: .post
-        )
-
-        request.response { response in
-            guard let data = response.data else { return }
-
-            withAnimation(.easeInOut(duration: 0.2)) {
-                state.imageIsBeingProcessed = false
-            }
-
-            state.redoablePhotoData.removeAll()
-            state.oldPhotoData.append(state.photoData)
-            state.photoData = data
-            state.previousPointsSegments.removeAll()
-        }
-    }
-
-    func debugAddPathToImageData(_ data: Data) {
-        let image = UIImage(data: data)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
-
-        if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromPath(scaledSegments,
-                                                       lineWidth: state.maskPoints.configuration.brushSize)
-        {
-            let newImage = UIImage(cgImage: newCGImage)
-            if let newData = newImage.pngData() {
-                state.photoData = newData
-            }
-        }
-    }
-
-    func debugAddLassoPathToImageData(_ data: Data) {
-        let image = UIImage(data: data)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
-
-        if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
-                                                            lineWidth: state.maskPoints.configuration.brushSize)
-        {
-            let newImage = UIImage(cgImage: newCGImage)
-            if let newData = newImage.pngData() {
-                state.photoData = newData
-            }
-        }
-    }
-
-    func getMaskImageDataFromPath() -> Data? {
-        let data = state.photoData
-        let image = UIImage(data: data)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
-
-        if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromPath(scaledSegments,
-                                                       lineWidth: state.maskPoints.configuration.brushSize)
-        {
-            let newImage = UIImage(cgImage: newCGImage)
-            if let newData = newImage.pngData() {
-                return newData
-            }
-        }
-
-        return nil
-    }
-
-    func getLassoMaskDataFromPath(data: Data) -> Data? {
-        let image = UIImage(data: data)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
-
-        if let cgImage = image?.cgImage,
-           let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
-                                                            lineWidth: state.currentBrushSize)
-        {
-            let newImage = UIImage(cgImage: newCGImage)
-            if let newData = newImage.pngData() {
-                return newData
-            }
-        }
-
-        return nil
     }
 }
 

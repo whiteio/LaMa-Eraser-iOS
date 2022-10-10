@@ -15,7 +15,9 @@ struct ImageMaskingView: View {
     @Binding var brushSize: Double
     @Binding var redoableSegments: [PointsSegment]
     @Binding var imageIsProcessing: Bool
-    @Binding var mode: Mode
+    @Binding var mode: EditState.Mode
+    @State var imageSize: CGSize
+    @Binding var imageState: ImageState
 
     init(imageState: Binding<ImageState>,
          selectedPhotoData: Data,
@@ -24,7 +26,7 @@ struct ImageMaskingView: View {
          brushSize: Binding<Double>,
          redoableSegments: Binding<[PointsSegment]>,
          imageIsProcessing: Binding<Bool>,
-         mode: Binding<Mode>)
+         mode: Binding<EditState.Mode>)
     {
         _points = points
         _previousPointsSegments = previousPointsSegments
@@ -36,9 +38,6 @@ struct ImageMaskingView: View {
         _imageIsProcessing = imageIsProcessing
         _mode = mode
     }
-
-    @State var imageSize: CGSize
-    @Binding var imageState: ImageState
 
     var drag: some Gesture {
         DragGesture(minimumDistance: 0)
