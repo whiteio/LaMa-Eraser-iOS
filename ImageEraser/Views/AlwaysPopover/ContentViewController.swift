@@ -27,7 +27,9 @@ class ContentViewController<V>: UIHostingController<V>, UIPopoverPresentationCon
         preferredContentSize = size
     }
 
-    func adaptivePresentationStyle(for _: UIPresentationController, traitCollection _: UITraitCollection) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for _: UIPresentationController,
+                                   traitCollection _: UITraitCollection) -> UIModalPresentationStyle
+    {
         return .none
     }
 

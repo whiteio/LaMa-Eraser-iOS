@@ -41,7 +41,7 @@ struct ImageMaskingView: View {
     @Binding var imageState: ImageState
 
     var drag: some Gesture {
-        DragGesture()
+        DragGesture(minimumDistance: 0)
             .onChanged { value in
                 guard !imageIsProcessing else { return }
                 guard value.location.isInBounds(imageState.rectSize) else { return }
