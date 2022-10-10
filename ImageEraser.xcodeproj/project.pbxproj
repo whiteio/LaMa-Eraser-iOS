@@ -30,6 +30,7 @@
 		E365F00C28E60322005CC28A /* dog_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E365F00B28E60322005CC28A /* dog_photo.png */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E399DDC128F4A08100F07C25 /* EditorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDC028F4A08100F07C25 /* EditorInteractor.swift */; };
+		E399DDCB28F4ACAD00F07C25 /* EditControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */; };
 		E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404328E9F95700FC7801 /* ContentViewController.swift */; };
 		E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404528E9F97600FC7801 /* View+Modifiers.swift */; };
 		E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */; };
@@ -66,6 +67,7 @@
 		E365F00B28E60322005CC28A /* dog_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog_photo.png; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E399DDC028F4A08100F07C25 /* EditorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorInteractor.swift; sourceTree = "<group>"; };
+		E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditControlView.swift; sourceTree = "<group>"; };
 		E3A9404328E9F95700FC7801 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		E3A9404528E9F97600FC7801 /* View+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifiers.swift"; sourceTree = "<group>"; };
 		E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysPopoverModifier.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
 				E35232B728C2948D008DB14B /* EditView.swift */,
 				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
+				E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */,
 			);
 			path = EditingImage;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				E35232F928C4BF23008DB14B /* Data+Extras.swift in Sources */,
 				E35232FF28C4C0B3008DB14B /* CGContext+Extras.swift in Sources */,
 				E35232F128C4B066008DB14B /* ImageState.swift in Sources */,
+				E399DDCB28F4ACAD00F07C25 /* EditControlView.swift in Sources */,
 				E35232FB28C4BFB5008DB14B /* CGImage+Extras.swift in Sources */,
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
 				E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */,

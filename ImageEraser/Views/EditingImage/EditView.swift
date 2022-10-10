@@ -73,40 +73,10 @@ struct EditView: View {
                     currentBrushSize = baseBrushSize / newValue
                 })
 
-                HStack(spacing: 8) {
-                    Button(action: {
-                        redoablePhotoData.append(photoData)
-                        photoData = oldPhotoData.removeLast()
-                    }, label: {
-                        Image(systemName: "arrow.uturn.backward.circle")
-                            .font(.title)
-                    })
-                    .tint(.white)
-                    .disabled(undoDisabled)
-                    Button(action: {
-                        oldPhotoData.append(photoData)
-                        photoData = redoablePhotoData.removeLast()
-                    }, label: {
-                        Image(systemName: "arrow.uturn.forward.circle")
-                            .font(.title)
-                    })
-                    .tint(.white)
-                    .disabled(redoDisabled)
-
-                    Button {
-                        shouldShowBrushPopover = true
-                    } label: {
-                        Image(systemName: "pencil.tip.crop.circle")
-                            .font(.title)
-                            .tint(.white)
-                            .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
-                                BrushPropertiesContentView(brushSize: $currentBrushSize)
-                                    .padding()
-                            })
-                    }
-                }
-                .padding()
-                .overlay(opacityLoadingOverlay())
+                EditControlView(redoablePhotoData: $redoablePhotoData,
+                                photoData: $photoData,
+                                brushSize: $currentBrushSize)
+                    .overlay(opacityLoadingOverlay())
             }
 
             Picker("Choose an option", selection: $selectedIndex, content: {
@@ -177,7 +147,7 @@ struct EditView: View {
     }
 
     func submitForInpainting() {
-        var maskData = mode == .standardMask ? getMaskImageDataFromPath() : getLassoMaskDataFromPath(data: photoData)
+        let maskData = mode == .standardMask ? getMaskImageDataFromPath() : getLassoMaskDataFromPath(data: photoData)
         guard let data = maskData else { return }
 
         withAnimation(.easeInOut(duration: 0.2)) {
