@@ -108,13 +108,13 @@ struct EditView: View {
                 .padding()
                 .overlay(opacityLoadingOverlay())
             }
-            SegmentedControlView(selectedIndex: $selectedIndex,
-                                 items: [("Move", "move.3d"),
-                                         ("Brush", "paintbrush")])
-                .onChange(of: selectedIndex, perform: { value in
-                    print("Index changed to \(value)")
-                })
-                .overlay(opacityLoadingOverlay())
+
+            Picker("Choose an option", selection: $selectedIndex, content: {
+                Text("Move").tag(0)
+                Text("Brush").tag(1)
+            })
+            .pickerStyle(.segmented)
+            .padding()
         }
         .onChange(of: selectedIndex, perform: { newSelectedIndex in
             switch newSelectedIndex {
