@@ -177,14 +177,8 @@ struct EditView: View {
     }
 
     func submitForInpainting() {
-        var maskImageData: Data? = Data()
-        if mode == .standardMask {
-            maskImageData = getMaskImageDataFromPath()
-        } else if mode == .lasso {
-            maskImageData = getLassoMaskDataFromPath()
-        }
-
-        guard let data = maskImageData else { return }
+        var maskData = mode == .standardMask ? getMaskImageDataFromPath() : getLassoMaskDataFromPath(data: photoData)
+        guard let data = maskData else { return }
 
         withAnimation(.easeInOut(duration: 0.2)) {
             imageIsBeingProcessed = true
@@ -194,9 +188,9 @@ struct EditView: View {
 
         if showDebugMask {
             if mode == .standardMask {
-                debugAddPathToImageData()
+                debugAddPathToImageData(photoData)
             } else {
-                debugAddLassoPathToImageData()
+                debugAddLassoPathToImageData(photoData)
             }
         }
 
@@ -229,8 +223,7 @@ struct EditView: View {
         }
     }
 
-    func debugAddPathToImageData() {
-        let data = photoData
+    func debugAddPathToImageData(_ data: Data) {
         let image = UIImage(data: data)
         let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
 
@@ -245,8 +238,7 @@ struct EditView: View {
         }
     }
 
-    func debugAddLassoPathToImageData() {
-        let data = photoData
+    func debugAddLassoPathToImageData(_ data: Data) {
         let image = UIImage(data: data)
         let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
 
@@ -279,8 +271,7 @@ struct EditView: View {
         return nil
     }
 
-    func getLassoMaskDataFromPath() -> Data? {
-        let data = photoData
+    func getLassoMaskDataFromPath(data: Data) -> Data? {
         let image = UIImage(data: data)
         let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
 

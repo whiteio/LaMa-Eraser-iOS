@@ -14,6 +14,9 @@ only_rules:
   - void_return
   - custom_rules
 
+disabled_rules:
+ - opening_brace
+
 colon:
   apply_to_dictionaries: false
 
