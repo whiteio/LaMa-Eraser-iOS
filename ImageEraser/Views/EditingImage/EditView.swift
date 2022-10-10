@@ -25,7 +25,7 @@ struct EditView: View {
     @StateObject var state: EditState
 
     var currentlyEditablePhoto: EditableImage {
-        guard let image = UIImage(data: state.photoData) else { return EditableImage(image: Image(""), caption: "") }
+        guard let image = UIImage(data: state.imageData) else { return EditableImage(image: Image(""), caption: "") }
         return EditableImage(image: Image(uiImage: image), caption: "Eraser image!")
     }
 
@@ -37,24 +37,23 @@ struct EditView: View {
         ZStack(alignment: .bottom) {
             ZStack(alignment: .topLeading) {
                 ZoomableScrollView(contentScale: $state.scrollViewScale) {
-                    ImageMaskingView(imageState: $state.imageState,
-                                     selectedPhotoData: state.photoData,
+                    ImageMaskingView(imageState: $state.imagePresentationState,
+                                     selectedPhotoData: state.imageData,
                                      points: $state.maskPoints,
-                                     previousPointsSegments: $state.previousPointsSegments,
-                                     brushSize: $state.currentBrushSize,
-                                     redoableSegments: $state.redoableSegments,
+                                     previousPointsSegments: $state.previousPoints,
+                                     brushSize: $state.brushSize,
                                      imageIsProcessing: $state.imageIsBeingProcessed,
                                      mode: $state.mode)
                 }
                 .overlay(opacityLoadingOverlay())
                 .overlay(loadingSpinnerView())
                 .onChange(of: state.scrollViewScale, perform: { newValue in
-                    state.currentBrushSize = state.baseBrushSize / newValue
+                    state.brushSize = state.baseBrushSize / newValue
                 })
 
-                EditControlView(redoablePhotoData: $state.redoablePhotoData,
-                                photoData: $state.photoData,
-                                brushSize: $state.currentBrushSize)
+                EditControlView(redoablePhotoData: $state.redoImageData,
+                                photoData: $state.imageData,
+                                brushSize: $state.brushSize)
                     .overlay(opacityLoadingOverlay())
             }
 
@@ -95,7 +94,7 @@ struct EditView: View {
                                                 image: currentlyEditablePhoto.image))
             }
         }
-        .onChange(of: state.previousPointsSegments) { segments in
+        .onChange(of: state.previousPoints) { segments in
             if !segments.isEmpty {
                 interactor.submitForInpainting(state: state)
             }

@@ -7,29 +7,33 @@
 
 import SwiftUI
 
-class EditState: ObservableObject {
+typealias StateAbilities = HasModeState & HasImagePresentationState & HasImageDataState
+    & HasUndoState & HasRedoState & HasMaskPoints & HasPreviousPoints & HasBrushSize
+    & HasBaseBrushSize & HasScrollViewScale & HasImageIsBeingProcessedState
+    & HasSelectedEditControlIndex
+
+class EditState: ObservableObject, StateAbilities {
     enum Mode {
         case standardMask, lasso, move
     }
 
     @Published var mode: Mode = .standardMask
 
-    @Published var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)
-    @Published var photoData: Data
-    @Published var oldPhotoData: [Data] = []
-    @Published var redoablePhotoData: [Data] = []
+    @Published var imagePresentationState: ImagePresentationState = .init(imageSize: .zero, rectSize: .zero)
+    @Published var imageData: Data
+    @Published var undoImageData: [Data] = []
+    @Published var redoImageData: [Data] = []
     @Published var maskPoints: PointsSegment = .init(configuration: SegmentConfiguration(brushSize: 30),
                                                      rectPoints: [],
                                                      scaledPoints: [])
-    @Published var previousPointsSegments: [PointsSegment] = []
-    @Published var currentBrushSize: Double = 30
-    @Published var redoableSegments: [PointsSegment] = []
+    @Published var previousPoints: [PointsSegment] = []
+    @Published var brushSize: Double = 30
     @Published var baseBrushSize = 30.0
     @Published var scrollViewScale: CGFloat = 1.0
     @Published var imageIsBeingProcessed = false
     @Published var selectedIndex = 1
 
     init(photoData: Data) {
-        self.photoData = photoData
+        imageData = photoData
     }
 }

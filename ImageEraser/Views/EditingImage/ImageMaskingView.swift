@@ -13,25 +13,22 @@ struct ImageMaskingView: View {
     @Binding var points: PointsSegment
     @Binding var previousPointsSegments: [PointsSegment]
     @Binding var brushSize: Double
-    @Binding var redoableSegments: [PointsSegment]
     @Binding var imageIsProcessing: Bool
     @Binding var mode: EditState.Mode
     @State var imageSize: CGSize
-    @Binding var imageState: ImageState
+    @Binding var imageState: ImagePresentationState
 
-    init(imageState: Binding<ImageState>,
+    init(imageState: Binding<ImagePresentationState>,
          selectedPhotoData: Data,
          points: Binding<PointsSegment>,
          previousPointsSegments: Binding<[PointsSegment]>,
          brushSize: Binding<Double>,
-         redoableSegments: Binding<[PointsSegment]>,
          imageIsProcessing: Binding<Bool>,
          mode: Binding<EditState.Mode>)
     {
         _points = points
         _previousPointsSegments = previousPointsSegments
         _brushSize = brushSize
-        _redoableSegments = redoableSegments
         self.selectedPhotoData = selectedPhotoData
         _imageSize = State(initialValue: selectedPhotoData.getSize())
         _imageState = imageState
@@ -61,7 +58,6 @@ struct ImageMaskingView: View {
                 points.configuration = SegmentConfiguration(brushSize: brushSize * widthScale)
 
                 previousPointsSegments.append(points)
-                redoableSegments.removeAll()
                 points.scaledPoints = []
                 points.rectPoints = []
             }

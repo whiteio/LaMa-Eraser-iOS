@@ -1,5 +1,5 @@
 //
-//  ImageState.swift
+//  ImagePresentationState.swift
 //  ImageEraser
 //
 //  Created by Christopher White on 04/09/2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ImageState {
+struct ImagePresentationState {
     var imageSize: CGSize
     var rectSize: CGSize
 }

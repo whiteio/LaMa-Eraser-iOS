@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Array where Element == PointsSegment {
-    func scaledSegmentsToPath(imageState: ImageState) -> CGPath {
+    func scaledSegmentsToPath(imageState: ImagePresentationState) -> CGPath {
         var path = Path()
 
         for point in self {
@@ -17,7 +17,7 @@ extension Array where Element == PointsSegment {
             path.move(to: firstPoint)
 
             path.move(to: firstPoint)
-            for pointIndex in 1..<point.scaledPoints.count {
+            for pointIndex in 1 ..< point.scaledPoints.count {
                 path.addLine(to: point.scaledPoints[pointIndex])
             }
         }

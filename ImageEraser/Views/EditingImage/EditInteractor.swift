@@ -17,7 +17,7 @@ class EditInteractor: ObservableObject {
             state.imageIsBeingProcessed = true
         }
 
-        let originalImageData = state.photoData
+        let originalImageData = state.imageData
 
         if false {
             if state.mode == .standardMask {
@@ -49,16 +49,16 @@ class EditInteractor: ObservableObject {
                 state.imageIsBeingProcessed = false
             }
 
-            state.redoablePhotoData.removeAll()
-            state.oldPhotoData.append(state.photoData)
-            state.photoData = data
-            state.previousPointsSegments.removeAll()
+            state.redoImageData.removeAll()
+            state.undoImageData.append(state.imageData)
+            state.imageData = data
+            state.previousPoints.removeAll()
         }
     }
 
     func debugAddPathToImageData(state: EditState) {
-        let image = UIImage(data: state.photoData)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
+        let image = UIImage(data: state.imageData)
+        let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromPath(scaledSegments,
@@ -66,14 +66,14 @@ class EditInteractor: ObservableObject {
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
-                state.photoData = newData
+                state.imageData = newData
             }
         }
     }
 
     func debugAddLassoPathToImageData(state: EditState) {
-        let image = UIImage(data: state.photoData)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
+        let image = UIImage(data: state.imageData)
+        let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
@@ -81,15 +81,15 @@ class EditInteractor: ObservableObject {
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
-                state.photoData = newData
+                state.imageData = newData
             }
         }
     }
 
     func getMaskImageDataFromPath(state: EditState) -> Data? {
-        let data = state.photoData
+        let data = state.imageData
         let image = UIImage(data: data)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
+        let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromPath(scaledSegments,
@@ -105,12 +105,12 @@ class EditInteractor: ObservableObject {
     }
 
     func getLassoMaskDataFromPath(state: EditState) -> Data? {
-        let image = UIImage(data: state.photoData)
-        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
+        let image = UIImage(data: state.imageData)
+        let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
-                                                            lineWidth: state.currentBrushSize)
+                                                            lineWidth: state.brushSize)
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
