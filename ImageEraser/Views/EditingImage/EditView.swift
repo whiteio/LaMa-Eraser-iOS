@@ -49,26 +49,15 @@ struct EditView: View {
                     .overlay(opacityLoadingOverlay())
             }
 
-            Picker("Choose an option", selection: $state.selectedIndex, content: {
-                Text("Move").tag(0)
-                Text("Brush").tag(1)
-            })
-            .pickerStyle(.segmented)
-            .padding()
-            .overlay(opacityLoadingOverlay())
+            editModePicker()
+                .pickerStyle(.segmented)
+                .padding()
+                .overlay(opacityLoadingOverlay())
+                .onChange(of: state.selectedIndex, perform: { newSelectedIndex in
+                    let newState = getNewState(for: newSelectedIndex)
+                    state.mode = newState
+                })
         }
-        .onChange(of: state.selectedIndex, perform: { newSelectedIndex in
-            switch newSelectedIndex {
-            case 0:
-                state.mode = .move
-            case 1:
-                state.mode = .standardMask
-            case 2:
-                state.mode = .lasso
-            default:
-                state.mode = .standardMask
-            }
-        })
         .navigationTitle("ERASER")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -107,6 +96,30 @@ struct EditView: View {
         if state.imageIsBeingProcessed {
             Color.black.opacity(0.5)
         }
+    }
+
+    func getNewState(for index: Int) -> EditMode {
+        let newState: EditMode
+
+        switch index {
+        case 0:
+            newState = .move
+        case 1:
+            newState = .standardMask
+        case 2:
+            newState = .lasso
+        default:
+            newState = .standardMask
+        }
+
+        return newState
+    }
+
+    fileprivate func editModePicker() -> Picker<Text, Int, TupleView<(some View, some View)>> {
+        return Picker("Choose an option", selection: $state.selectedIndex, content: {
+            Text("Move").tag(0)
+            Text("Brush").tag(1)
+        })
     }
 }
 

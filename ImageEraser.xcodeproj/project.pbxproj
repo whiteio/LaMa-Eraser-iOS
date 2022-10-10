@@ -150,11 +150,10 @@
 		E35232E428C4A91A008DB14B /* EditingImage */ = {
 			isa = PBXGroup;
 			children = (
-				E3A9404B28E9F9DF00FC7801 /* BrushProperties */,
+				E399DDDD28F4C2EE00F07C25 /* ControlView */,
 				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
 				E35232B728C2948D008DB14B /* EditView.swift */,
 				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
-				E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */,
 				E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */,
 				E399DDCE28F4B01500F07C25 /* EditState.swift */,
 			);
@@ -176,6 +175,7 @@
 				E35232F828C4BF23008DB14B /* Data+Extras.swift */,
 				E35232FA28C4BFB5008DB14B /* CGImage+Extras.swift */,
 				E35232FE28C4C0B3008DB14B /* CGContext+Extras.swift */,
+				E3A9404928E9F9A800FC7801 /* UIView+Extension.swift */,
 				E352330028C4C18B008DB14B /* CGPoint+Extras.swift */,
 			);
 			path = Extensions;
@@ -197,13 +197,21 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		E399DDDD28F4C2EE00F07C25 /* ControlView */ = {
+			isa = PBXGroup;
+			children = (
+				E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */,
+				E3A9404B28E9F9DF00FC7801 /* BrushProperties */,
+			);
+			path = ControlView;
+			sourceTree = "<group>";
+		};
 		E3A9404028E9F8C700FC7801 /* AlwaysPopover */ = {
 			isa = PBXGroup;
 			children = (
 				E3A9404328E9F95700FC7801 /* ContentViewController.swift */,
 				E3A9404528E9F97600FC7801 /* View+Modifiers.swift */,
 				E3A9404728E9F99000FC7801 /* AlwaysPopoverModifier.swift */,
-				E3A9404928E9F9A800FC7801 /* UIView+Extension.swift */,
 			);
 			path = AlwaysPopover;
 			sourceTree = "<group>";
