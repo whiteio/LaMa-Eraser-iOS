@@ -5,8 +5,8 @@
 //  Created by Christopher White on 30/08/2022.
 //
 
-import SwiftUI
 import RiveRuntime
+import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var navigationStore: NavigationStore
@@ -32,7 +32,9 @@ struct ContentView: View {
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case let .editPhoto(photoData):
+                    let extractedExpr = EditInteractor()
                     EditView(photoData: photoData)
+                        .environmentObject(extractedExpr)
                 }
             }
             .toolbar(.hidden)
@@ -73,9 +75,10 @@ struct ContentView_Previews: PreviewProvider {
 
 struct VisualEffectView: UIViewRepresentable {
     var effect: UIVisualEffect?
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func makeUIView(context _: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
     func updateUIView(_ uiView: UIVisualEffectView,
-                      context: UIViewRepresentableContext<Self>) {
+                      context _: UIViewRepresentableContext<Self>)
+    {
         uiView.effect = effect
     }
 }

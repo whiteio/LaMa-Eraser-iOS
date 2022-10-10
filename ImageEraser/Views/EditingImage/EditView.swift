@@ -25,58 +25,43 @@ struct EditView: View {
     var showDebugMask = false
 
     @EnvironmentObject var navigationStore: NavigationStore
-    @State var mode: Mode = .standardMask
-
-    @State var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)
-    @State var photoData: Data
-    @State var oldPhotoData: [Data] = []
-    @State var redoablePhotoData: [Data] = []
-    @State var maskPoints: PointsSegment = .init(configuration: SegmentConfiguration(brushSize: 30),
-                                                 rectPoints: [],
-                                                 scaledPoints: [])
-    @State var previousPointsSegments: [PointsSegment] = []
-    @State var currentBrushSize: Double = 30
-    @State var redoableSegments: [PointsSegment] = []
-    @State var baseBrushSize = 30.0
-    @State var scrollViewScale: CGFloat = 1.0
-    @State var imageIsBeingProcessed = false
-    @State var selectedIndex = 1
+    @StateObject var state: EditState
 
     var currentlyEditablePhoto: EditableImage {
-        guard let image = UIImage(data: photoData) else { return EditableImage(image: Image(""), caption: "") }
+        guard let image = UIImage(data: state.photoData) else { return EditableImage(image: Image(""), caption: "") }
         return EditableImage(image: Image(uiImage: image), caption: "Eraser image!")
     }
 
     init(photoData: Data) {
-        _photoData = State(initialValue: photoData)
+        _state = StateObject(wrappedValue: EditState(photoData: photoData))
     }
 
     var body: some View {
         ZStack(alignment: .bottom) {
             ZStack(alignment: .topLeading) {
-                ZoomableScrollView(contentScale: $scrollViewScale) {
-                    ImageMaskingView(imageState: $imageState,
-                                     selectedPhotoData: photoData,
-                                     points: $maskPoints,
-                                     previousPointsSegments: $previousPointsSegments,
-                                     brushSize: $currentBrushSize,
-                                     redoableSegments: $redoableSegments,
-                                     imageIsProcessing: $imageIsBeingProcessed,
-                                     mode: $mode)
+                ZoomableScrollView(contentScale: $state.scrollViewScale) {
+                    ImageMaskingView(imageState: $state.imageState,
+                                     selectedPhotoData: state.photoData,
+                                     points: $state.maskPoints,
+                                     previousPointsSegments: $state.previousPointsSegments,
+                                     brushSize: $state.currentBrushSize,
+                                     redoableSegments: $state.redoableSegments,
+                                     imageIsProcessing: $state.imageIsBeingProcessed,
+                                     mode: $state.mode)
                 }
                 .overlay(opacityLoadingOverlay())
                 .overlay(loadingSpinnerView())
-                .onChange(of: scrollViewScale, perform: { newValue in
-                    currentBrushSize = baseBrushSize / newValue
+                .onChange(of: state.scrollViewScale, perform: { newValue in
+                    state.currentBrushSize = state.baseBrushSize / newValue
                 })
 
-                EditControlView(redoablePhotoData: $redoablePhotoData,
-                                photoData: $photoData,
-                                brushSize: $currentBrushSize)
+                EditControlView(redoablePhotoData: $state.redoablePhotoData,
+                                photoData: $state.photoData,
+                                brushSize: $state.currentBrushSize)
                     .overlay(opacityLoadingOverlay())
             }
 
-            Picker("Choose an option", selection: $selectedIndex, content: {
+            Picker("Choose an option", selection: $state.selectedIndex, content: {
                 Text("Move").tag(0)
                 Text("Brush").tag(1)
             })
@@ -84,16 +69,16 @@ struct EditView: View {
             .padding()
             .overlay(opacityLoadingOverlay())
         }
-        .onChange(of: selectedIndex, perform: { newSelectedIndex in
+        .onChange(of: state.selectedIndex, perform: { newSelectedIndex in
             switch newSelectedIndex {
             case 0:
-                mode = .move
+                state.mode = .move
             case 1:
-                mode = .standardMask
+                state.mode = .standardMask
             case 2:
-                mode = .lasso
+                state.mode = .lasso
             default:
-                mode = .standardMask
+                state.mode = .standardMask
             }
         })
         .navigationTitle("ERASER")
@@ -107,15 +92,13 @@ struct EditView: View {
                     Text("Cancel")
                 })
             }
-        }
-        .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 ShareLink(item: currentlyEditablePhoto,
                           preview: SharePreview("Photo selected",
                                                 image: currentlyEditablePhoto.image))
             }
         }
-        .onChange(of: previousPointsSegments) { segments in
+        .onChange(of: state.previousPointsSegments) { segments in
             if !segments.isEmpty {
                 submitForInpainting()
             }
@@ -123,7 +106,7 @@ struct EditView: View {
     }
 
     @ViewBuilder func loadingSpinnerView() -> some View {
-        if imageIsBeingProcessed {
+        if state.imageIsBeingProcessed {
             ProgressView("Loading")
                 .tint(Color.white)
                 .padding()
@@ -133,26 +116,26 @@ struct EditView: View {
     }
 
     @ViewBuilder func opacityLoadingOverlay() -> some View {
-        if imageIsBeingProcessed {
+        if state.imageIsBeingProcessed {
             Color.black.opacity(0.5)
         }
     }
 
     func submitForInpainting() {
-        let maskData = mode == .standardMask ? getMaskImageDataFromPath() : getLassoMaskDataFromPath(data: photoData)
+        let maskData = state.mode == .standardMask ? getMaskImageDataFromPath() : getLassoMaskDataFromPath(data: state.photoData)
         guard let data = maskData else { return }
 
         withAnimation(.easeInOut(duration: 0.2)) {
-            imageIsBeingProcessed = true
+            state.imageIsBeingProcessed = true
         }
 
-        let originalImageData = photoData
+        let originalImageData = state.photoData
 
         if showDebugMask {
-            if mode == .standardMask {
-                debugAddPathToImageData(photoData)
+            if state.mode == .standardMask {
+                debugAddPathToImageData(state.photoData)
             } else {
-                debugAddLassoPathToImageData(photoData)
+                debugAddLassoPathToImageData(state.photoData)
             }
         }
 
@@ -175,54 +158,54 @@ struct EditView: View {
             guard let data = response.data else { return }
 
             withAnimation(.easeInOut(duration: 0.2)) {
-                imageIsBeingProcessed = false
+                state.imageIsBeingProcessed = false
             }
 
-            redoablePhotoData.removeAll()
-            oldPhotoData.append(photoData)
-            photoData = data
-            previousPointsSegments.removeAll()
+            state.redoablePhotoData.removeAll()
+            state.oldPhotoData.append(state.photoData)
+            state.photoData = data
+            state.previousPointsSegments.removeAll()
         }
     }
 
     func debugAddPathToImageData(_ data: Data) {
         let image = UIImage(data: data)
-        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
+        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromPath(scaledSegments,
-                                                       lineWidth: maskPoints.configuration.brushSize)
+                                                       lineWidth: state.maskPoints.configuration.brushSize)
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
-                photoData = newData
+                state.photoData = newData
             }
         }
     }
 
     func debugAddLassoPathToImageData(_ data: Data) {
         let image = UIImage(data: data)
-        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
+        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
-                                                            lineWidth: maskPoints.configuration.brushSize)
+                                                            lineWidth: state.maskPoints.configuration.brushSize)
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
-                photoData = newData
+                state.photoData = newData
             }
         }
     }
 
     func getMaskImageDataFromPath() -> Data? {
-        let data = photoData
+        let data = state.photoData
         let image = UIImage(data: data)
-        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
+        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromPath(scaledSegments,
-                                                       lineWidth: maskPoints.configuration.brushSize)
+                                                       lineWidth: state.maskPoints.configuration.brushSize)
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
@@ -235,11 +218,11 @@ struct EditView: View {
 
     func getLassoMaskDataFromPath(data: Data) -> Data? {
         let image = UIImage(data: data)
-        let scaledSegments = previousPointsSegments.scaledSegmentsToPath(imageState: imageState)
+        let scaledSegments = state.previousPointsSegments.scaledSegmentsToPath(imageState: state.imageState)
 
         if let cgImage = image?.cgImage,
            let newCGImage = cgImage.createMaskFromLassoPath(scaledSegments,
-                                                            lineWidth: currentBrushSize)
+                                                            lineWidth: state.currentBrushSize)
         {
             let newImage = UIImage(cgImage: newCGImage)
             if let newData = newImage.pngData() {
