@@ -11,13 +11,6 @@
 		E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B928C376B7008DB14B /* ZoomableScrollView.swift */; };
 		E35232C028C38B6F008DB14B /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E35232BF28C38B6F008DB14B /* swiftlint.yml */; };
 		E35232C428C396A9008DB14B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E35232C328C396A9008DB14B /* GoogleService-Info.plist */; };
-		E35232C728C3974C008DB14B /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E35232C628C3974C008DB14B /* FirebaseAnalyticsSwift */; };
-		E35232C928C3974C008DB14B /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = E35232C828C3974C008DB14B /* FirebaseAppCheck */; };
-		E35232CB28C3974C008DB14B /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E35232CA28C3974C008DB14B /* FirebaseAppDistribution-Beta */; };
-		E35232CD28C3974C008DB14B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E35232CC28C3974C008DB14B /* FirebaseAuth */; };
-		E35232CF28C3974C008DB14B /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = E35232CE28C3974C008DB14B /* FirebaseAuthCombine-Community */; };
-		E35232D128C3974C008DB14B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = E35232D028C3974C008DB14B /* FirebaseCrashlytics */; };
-		E35232D328C3974C008DB14B /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = E35232D228C3974C008DB14B /* FirebasePerformance */; };
 		E35232D728C3BCEA008DB14B /* ImageMaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */; };
 		E35232D928C4A451008DB14B /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232D828C4A451008DB14B /* NavigationStore.swift */; };
 		E35232DC28C4A4C6008DB14B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232DB28C4A4C6008DB14B /* Route.swift */; };
@@ -92,14 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E365F00828E5FDB4005CC28A /* Alamofire in Frameworks */,
-				E35232C728C3974C008DB14B /* FirebaseAnalyticsSwift in Frameworks */,
-				E35232CF28C3974C008DB14B /* FirebaseAuthCombine-Community in Frameworks */,
-				E35232CD28C3974C008DB14B /* FirebaseAuth in Frameworks */,
-				E35232D128C3974C008DB14B /* FirebaseCrashlytics in Frameworks */,
-				E35232C928C3974C008DB14B /* FirebaseAppCheck in Frameworks */,
 				E3B5307C28BEAAE200F33E07 /* RiveRuntime in Frameworks */,
-				E35232D328C3974C008DB14B /* FirebasePerformance in Frameworks */,
-				E35232CB28C3974C008DB14B /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,13 +270,6 @@
 			name = ImageEraser;
 			packageProductDependencies = (
 				E3B5307B28BEAAE200F33E07 /* RiveRuntime */,
-				E35232C628C3974C008DB14B /* FirebaseAnalyticsSwift */,
-				E35232C828C3974C008DB14B /* FirebaseAppCheck */,
-				E35232CA28C3974C008DB14B /* FirebaseAppDistribution-Beta */,
-				E35232CC28C3974C008DB14B /* FirebaseAuth */,
-				E35232CE28C3974C008DB14B /* FirebaseAuthCombine-Community */,
-				E35232D028C3974C008DB14B /* FirebaseCrashlytics */,
-				E35232D228C3974C008DB14B /* FirebasePerformance */,
 				E365F00728E5FDB4005CC28A /* Alamofire */,
 			);
 			productName = ImageEraser;
@@ -323,7 +302,6 @@
 			mainGroup = E3B5306028BEA76F00F33E07;
 			packageReferences = (
 				E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */,
-				E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E3B5306A28BEA76F00F33E07 /* Products */;
@@ -605,14 +583,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
 		E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -632,41 +602,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E35232C628C3974C008DB14B /* FirebaseAnalyticsSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsSwift;
-		};
-		E35232C828C3974C008DB14B /* FirebaseAppCheck */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAppCheck;
-		};
-		E35232CA28C3974C008DB14B /* FirebaseAppDistribution-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseAppDistribution-Beta";
-		};
-		E35232CC28C3974C008DB14B /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		E35232CE28C3974C008DB14B /* FirebaseAuthCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseAuthCombine-Community";
-		};
-		E35232D028C3974C008DB14B /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		E35232D228C3974C008DB14B /* FirebasePerformance */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E35232C528C3974C008DB14B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebasePerformance;
-		};
 		E365F00728E5FDB4005CC28A /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */;
