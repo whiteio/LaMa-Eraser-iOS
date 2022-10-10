@@ -27,8 +27,6 @@ struct EditView: View {
     @EnvironmentObject var navigationStore: NavigationStore
     @State var mode: Mode = .standardMask
 
-    @State var undoDisabled = true
-    @State var redoDisabled = true
     @State var imageState: ImageState = .init(imageSize: .zero, rectSize: .zero)
     @State var photoData: Data
     @State var oldPhotoData: [Data] = []
@@ -42,7 +40,6 @@ struct EditView: View {
     @State var baseBrushSize = 30.0
     @State var scrollViewScale: CGFloat = 1.0
     @State var imageIsBeingProcessed = false
-    @State var shouldShowBrushPopover = false
     @State var selectedIndex = 1
 
     var currentlyEditablePhoto: EditableImage {
@@ -85,6 +82,7 @@ struct EditView: View {
             })
             .pickerStyle(.segmented)
             .padding()
+            .overlay(opacityLoadingOverlay())
         }
         .onChange(of: selectedIndex, perform: { newSelectedIndex in
             switch newSelectedIndex {
@@ -117,12 +115,6 @@ struct EditView: View {
                                                 image: currentlyEditablePhoto.image))
             }
         }
-        .onChange(of: redoablePhotoData) { newValue in
-            redoDisabled = newValue.isEmpty
-        }
-        .onChange(of: oldPhotoData, perform: { newValue in
-            undoDisabled = newValue.isEmpty
-        })
         .onChange(of: previousPointsSegments) { segments in
             if !segments.isEmpty {
                 submitForInpainting()
