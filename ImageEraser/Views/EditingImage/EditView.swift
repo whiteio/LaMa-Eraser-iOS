@@ -259,12 +259,3 @@ struct EditView_Previews: PreviewProvider {
         }
     }
 }
-
-struct VerticalLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        VStack {
-            configuration.icon
-            configuration.title
-        }
-    }
-}
