@@ -31,11 +31,11 @@ class EditInteractor: ObservableObject {
             multipartFormData: { multipartFormData in
                 multipartFormData.append(originalImageData,
                                          withName: "image",
-                                         fileName: "dog_photo.png",
+                                         fileName: "input.png",
                                          mimeType: "image/png")
                 multipartFormData.append(data,
                                          withName: "mask",
-                                         fileName: "masker_image.png",
+                                         fileName: "mask.png",
                                          mimeType: "image/png")
 
             }, to: "http://127.0.0.1:9001/inpaint",
