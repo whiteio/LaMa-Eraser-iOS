@@ -13,7 +13,7 @@ LaMa-cleaner backend server needs to be running locally for this to work To set 
 - Xcode 14.1
 
 ## Steps
-1. Select an image from the camera roll
-2. Draw masks on the image to erase parts of the image
+1. Select an image from the photo library
+2. Draw masks on the image to perform inpainting
 3. Once the image processing has finished, the new image is displayed
-4. Rinse and repeat steps 2 and 3 to improve the result
+4. Rinse and repeat steps 2 and 3 to improve the result if needed
