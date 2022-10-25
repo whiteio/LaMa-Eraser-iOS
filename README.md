@@ -1,5 +1,5 @@
 # LaMa-Eraser-iOS
-An image inpainting app made with SwiftUI
+An image inpainting app made with SwiftUI.
 
 ## Prerequisites 
 
