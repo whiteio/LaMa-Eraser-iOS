@@ -4,13 +4,20 @@ An image inpainting app made with SwiftUI.
 ## Prerequisites 
 
 LaMa-cleaner backend server needs to be running locally for this to work To set this up:
-1. Clone https://github.com/Sanster/lama-cleaner.git
-2. Follow the install steps [here](https://github.com/Sanster/lama-cleaner#:~:text=Build%3A%20yarn%20build-,Docker,-You%20can%20use)
-
+1. Clone https://github.com/whiteio/lama-zits
+2. `cd` into `lama-zits` and install required dependencies:
+```
+pip install -r requirements.txt
+```
+3. Run the flask server
+```
+python predict.py
+```
 ## Environment
 - iOS 16
-- Docker server running on localhost
 - Xcode 14.1
+
+Port 5000 is used for the flask server.
 
 ## Steps
 1. Select an image from the photo library
