@@ -38,7 +38,7 @@ class EditInteractor: ObservableObject {
                                          fileName: "mask.png",
                                          mimeType: "image/png")
 
-            }, to: "http://127.0.0.1:8080/inpaint",
+            }, to: "http://127.0.0.1:5000/inpaint",
             method: .post
         )
 
