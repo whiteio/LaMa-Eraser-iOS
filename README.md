@@ -1,6 +1,8 @@
 # LaMa-Eraser-iOS
 An image inpainting app made with SwiftUI.
 
+*See an example of this app [here](https://github.com/whiteio/LaMa-Eraser-iOS/blob/main/examples/lama-example.mov)*
+
 ## Prerequisites 
 
 LaMa-cleaner backend server needs to be running locally for this to work To set this up:
