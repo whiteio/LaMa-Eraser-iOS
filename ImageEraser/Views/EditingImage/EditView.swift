@@ -15,7 +15,7 @@ struct EditView: View {
   // MARK: Lifecycle
 
   init(photoData: Data) {
-    _state = StateObject(wrappedValue: EditState(photoData: photoData))
+    _state = State(wrappedValue: EditState(photoData: photoData))
   }
 
   // MARK: Internal
@@ -24,10 +24,10 @@ struct EditView: View {
 
   @Environment(NavigationStore.self) var navigationStore
   @EnvironmentObject var interactor: EditInteractor
-  @StateObject var state: EditState
+  @State var state: EditState
 
   var currentlyEditablePhoto: ShareableImage {
-    guard let image = UIImage(data: state.imageData) else {
+    guard let data = state.imageData, let image = UIImage(data: data) else {
       return ShareableImage(image: Image(""), caption: "")
     }
     return ShareableImage(image: Image(uiImage: image), caption: "Eraser image!")
@@ -46,11 +46,9 @@ struct EditView: View {
           state.brushSize = state.baseBrushSize / newValue
         }
 
-        EditControlView(
-          redoablePhotoData: $state.redoImageData,
-          photoData: $state.imageData,
-          brushSize: $state.brushSize)
+        EditControlView(state: state)
           .overlay(opacityLoadingOverlay())
+          .environment(state)
       }
 
       editModePicker()

@@ -19,7 +19,7 @@ class EditInteractor: ObservableObject {
       state.imageIsBeingProcessed = true
     }
 
-    let originalImageData = state.imageData
+    guard let originalImageData = state.imageData else { return }
 
     if false {
       if state.mode == .standardMask {
@@ -55,18 +55,20 @@ class EditInteractor: ObservableObject {
   }
 
   func processInpaintingResponse(state: EditState, data: Data) {
+    guard let currentImageData = state.imageData else { return }
     withAnimation(.easeInOut(duration: 0.2)) {
       state.imageIsBeingProcessed = false
     }
 
     state.redoImageData.removeAll()
-    state.undoImageData.append(state.imageData)
+    state.undoImageData.append(currentImageData)
     state.imageData = data
     state.previousPoints.removeAll()
   }
 
   func debugAddPathToImageData(state: EditState) {
-    let image = UIImage(data: state.imageData)
+    guard let currentImageData = state.imageData else { return }
+    let image = UIImage(data: currentImageData)
     let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
     if
@@ -83,7 +85,9 @@ class EditInteractor: ObservableObject {
   }
 
   func debugAddLassoPathToImageData(state: EditState) {
-    let image = UIImage(data: state.imageData)
+    guard let currentImageData = state.imageData else { return }
+
+    let image = UIImage(data: currentImageData)
     let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
     if
@@ -100,7 +104,9 @@ class EditInteractor: ObservableObject {
   }
 
   func getMaskImageDataFromPath(state: EditState) -> Data? {
-    let image = UIImage(data: state.imageData)
+    guard let currentImageData = state.imageData else { return nil }
+
+    let image = UIImage(data: currentImageData)
     let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
     if
@@ -119,7 +125,9 @@ class EditInteractor: ObservableObject {
   }
 
   func getLassoMaskDataFromPath(state: EditState) -> Data? {
-    let image = UIImage(data: state.imageData)
+    guard let currentImageData = state.imageData else { return nil }
+
+    let image = UIImage(data: currentImageData)
     let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
     if

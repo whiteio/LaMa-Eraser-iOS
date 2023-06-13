@@ -5,6 +5,7 @@
 //  Created by Christopher White on 10/10/2022.
 //
 
+import Observation
 import SwiftUI
 
 typealias StateAbilities
@@ -23,7 +24,8 @@ typealias StateAbilities
 
 // MARK: - EditState
 
-class EditState: ObservableObject, StateAbilities {
+@Observable
+class EditState: StateAbilities {
 
   // MARK: Lifecycle
 
@@ -33,20 +35,20 @@ class EditState: ObservableObject, StateAbilities {
 
   // MARK: Internal
 
-  @Published var mode: EditMode = .standardMask
+  var mode: EditMode = .standardMask
 
-  @Published var imagePresentationState: ImagePresentationState = .init(imageSize: .zero, rectSize: .zero)
-  @Published var imageData: Data
-  @Published var undoImageData: [Data] = []
-  @Published var redoImageData: [Data] = []
-  @Published var maskPoints: PointsSegment = .init(
+  var imagePresentationState: ImagePresentationState = .init(imageSize: .zero, rectSize: .zero)
+  var imageData: Data? = nil
+  var undoImageData: [Data] = []
+  var redoImageData: [Data] = []
+  var maskPoints: PointsSegment = .init(
     configuration: SegmentConfiguration(brushSize: 30),
     rectPoints: [],
     scaledPoints: [])
-  @Published var previousPoints: [PointsSegment] = []
-  @Published var brushSize: Double = 30
-  @Published var baseBrushSize = 30.0
-  @Published var scrollViewScale: CGFloat = 1.0
-  @Published var imageIsBeingProcessed = false
-  @Published var selectedIndex = 1
+  var previousPoints: [PointsSegment] = []
+  var brushSize: Double = 30
+  var baseBrushSize = 30.0
+  var scrollViewScale: CGFloat = 1.0
+  var imageIsBeingProcessed = false
+  var selectedIndex = 1
 }

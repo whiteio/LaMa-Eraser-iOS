@@ -22,7 +22,7 @@ protocol HasImagePresentationState {
 // MARK: - HasImageDataState
 
 protocol HasImageDataState {
-  var imageData: Data { get }
+  var imageData: Data? { get }
 }
 
 // MARK: - HasUndoState

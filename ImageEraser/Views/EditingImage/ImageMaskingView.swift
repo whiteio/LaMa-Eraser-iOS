@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ImageMaskingView: View {
 
-  @ObservedObject var state: EditState
+  @Bindable var state: EditState
 
   var drag: some Gesture {
     DragGesture(minimumDistance: 0)
@@ -28,8 +28,9 @@ struct ImageMaskingView: View {
       }
       .onEnded { _ in
         guard !state.imageIsBeingProcessed else { return }
+        guard let imageData = state.imageData else { return }
 
-        state.imagePresentationState.imageSize = state.imageData.getSize()
+        state.imagePresentationState.imageSize = imageData.getSize()
 
         state.maskPoints.configuration = SegmentConfiguration(brushSize: state.brushSize * widthScale)
 
@@ -48,7 +49,7 @@ struct ImageMaskingView: View {
   var body: some View {
     if state.mode == .move {
       VStack(alignment: .trailing) {
-        Image(uiImage: UIImage(data: state.imageData)!)
+        Image(uiImage: UIImage(data: state.imageData!)!)
           .resizable()
           .scaledToFit()
           .clipped()
@@ -72,7 +73,7 @@ struct ImageMaskingView: View {
       }
     } else {
       VStack(alignment: .trailing) {
-        Image(uiImage: UIImage(data: state.imageData)!)
+        Image(uiImage: UIImage(data: state.imageData!)!)
           .resizable()
           .scaledToFit()
           .clipped()
@@ -99,10 +100,12 @@ struct ImageMaskingView: View {
   }
 
   var heightScale: CGFloat {
-    state.imageData.getSize().height / state.imagePresentationState.rectSize.height
+    guard let imageData = state.imageData else { return 0.0 }
+    return imageData.getSize().height / state.imagePresentationState.rectSize.height
   }
 
   var widthScale: CGFloat {
-    state.imageData.getSize().width / state.imagePresentationState.rectSize.width
+    guard let imageData = state.imageData else { return 0.0 }
+    return imageData.getSize().width / state.imagePresentationState.rectSize.width
   }
 }

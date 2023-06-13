@@ -11,29 +11,25 @@ struct EditControlView: View {
 
   // MARK: Internal
 
-  @Binding var redoablePhotoData: [Data]
-  @State var oldPhotoData: [Data] = []
-  @Binding var photoData: Data
-  @Binding var brushSize: Double
+  @Bindable var state: EditState
   @State var shouldShowBrushPopover = false
 
   var body: some View {
     HStack(spacing: 8) {
       Button(action: {
-        redoablePhotoData.append(photoData)
-        photoData = oldPhotoData.removeLast()
+        guard let data = state.imageData else { return }
+        state.redoImageData.append(data)
+        state.imageData = state.undoImageData.removeLast()
       }, label: {
         Image(systemName: "arrow.uturn.backward.circle")
           .font(.title)
       })
-      .onChange(of: photoData) { old, _ in
-        oldPhotoData.append(old)
-      }
       .tint(.white)
       .disabled(undoDisabled)
       Button(action: {
-        oldPhotoData.append(photoData)
-        photoData = redoablePhotoData.removeLast()
+        guard let data = state.imageData else { return }
+        state.undoImageData.append(data)
+        state.imageData = state.redoImageData.removeLast()
       }, label: {
         Image(systemName: "arrow.uturn.forward.circle")
           .font(.title)
@@ -48,7 +44,7 @@ struct EditControlView: View {
           .font(.title)
           .tint(.white)
           .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
-            BrushPropertiesContentView(brushSize: $brushSize)
+            BrushPropertiesContentView(brushSize: $state.brushSize)
               .padding()
           })
       }
@@ -59,10 +55,10 @@ struct EditControlView: View {
   // MARK: Private
 
   private var undoDisabled: Bool {
-    oldPhotoData.isEmpty
+    state.undoImageData.isEmpty
   }
 
   private var redoDisabled: Bool {
-    redoablePhotoData.isEmpty
+    state.redoImageData.isEmpty
   }
 }
