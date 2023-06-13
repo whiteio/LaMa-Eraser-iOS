@@ -27,13 +27,13 @@ struct SplashscreenContentView: View {
         SelectContentView()
       }
       .tint(.black)
-      .onChange(of: selectedItem, initial: false, { _, newItem in
-          Task {
-              if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                  store.navigateToPath(.editPhoto(data))
-              }
+      .onChange(of: selectedItem, initial: false) { _, newItem in
+        Task {
+          if let data = try? await newItem?.loadTransferable(type: Data.self) {
+            store.navigateToPath(.editPhoto(data))
           }
-      })
+        }
+      }
     }
   }
 }

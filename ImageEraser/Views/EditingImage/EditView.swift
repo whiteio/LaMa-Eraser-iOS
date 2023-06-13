@@ -42,9 +42,9 @@ struct EditView: View {
         }
         .overlay(opacityLoadingOverlay())
         .overlay(loadingSpinnerView())
-        .onChange(of: state.scrollViewScale, initial: false, { _, newValue in
-            state.brushSize = state.baseBrushSize / newValue
-        })
+        .onChange(of: state.scrollViewScale, initial: false) { _, newValue in
+          state.brushSize = state.baseBrushSize / newValue
+        }
 
         EditControlView(
           redoablePhotoData: $state.redoImageData,
@@ -57,10 +57,10 @@ struct EditView: View {
         .pickerStyle(.segmented)
         .padding()
         .overlay(opacityLoadingOverlay())
-        .onChange(of: state.selectedIndex, initial: false, { _, newSelectedIndex in
-            let newState = getNewState(for: newSelectedIndex)
-            state.mode = newState
-        })
+        .onChange(of: state.selectedIndex, initial: false) { _, newSelectedIndex in
+          let newState = getNewState(for: newSelectedIndex)
+          state.mode = newState
+        }
     }
     .navigationTitle("ERASER")
     .navigationBarTitleDisplayMode(.inline)
@@ -81,11 +81,11 @@ struct EditView: View {
             image: currentlyEditablePhoto.image))
       }
     }
-    .onChange(of: state.previousPoints, initial: false, { _, newSegments in
-        if !newSegments.isEmpty {
-            interactor.submitForInpainting(state: state)
-        }
-    })
+    .onChange(of: state.previousPoints, initial: false) { _, newSegments in
+      if !newSegments.isEmpty {
+        interactor.submitForInpainting(state: state)
+      }
+    }
   }
 
   @ViewBuilder

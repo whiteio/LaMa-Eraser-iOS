@@ -10,15 +10,13 @@ import SwiftUI
 
 struct ImageMaskingView: View {
 
-  // MARK: Internal
-
   @ObservedObject var state: EditState
 
   var drag: some Gesture {
     DragGesture(minimumDistance: 0)
       .onChanged { value in
-          guard !state.imageIsBeingProcessed else { return }
-          guard value.location.isInBounds(state.imagePresentationState.rectSize) else { return }
+        guard !state.imageIsBeingProcessed else { return }
+        guard value.location.isInBounds(state.imagePresentationState.rectSize) else { return }
 
         state.maskPoints.rectPoints.append(value.location)
 
@@ -29,11 +27,11 @@ struct ImageMaskingView: View {
         state.maskPoints.scaledPoints.append(scaledPoint)
       }
       .onEnded { _ in
-          guard !state.imageIsBeingProcessed else { return }
+        guard !state.imageIsBeingProcessed else { return }
 
-          state.imagePresentationState.imageSize = state.imageData.getSize()
+        state.imagePresentationState.imageSize = state.imageData.getSize()
 
-          state.maskPoints.configuration = SegmentConfiguration(brushSize: state.brushSize * widthScale)
+        state.maskPoints.configuration = SegmentConfiguration(brushSize: state.brushSize * widthScale)
 
         state.previousPoints.append(state.maskPoints)
         state.maskPoints.scaledPoints = []
@@ -48,9 +46,9 @@ struct ImageMaskingView: View {
   }
 
   var body: some View {
-      if state.mode == .move {
+    if state.mode == .move {
       VStack(alignment: .trailing) {
-          Image(uiImage: UIImage(data: state.imageData)!)
+        Image(uiImage: UIImage(data: state.imageData)!)
           .resizable()
           .scaledToFit()
           .clipped()
@@ -68,13 +66,13 @@ struct ImageMaskingView: View {
             GeometryReader { geometry in
               Color.clear
                 .onAppear {
-                    state.imagePresentationState.rectSize = geometry.size
+                  state.imagePresentationState.rectSize = geometry.size
                 }
             })
       }
     } else {
       VStack(alignment: .trailing) {
-          Image(uiImage: UIImage(data: state.imageData)!)
+        Image(uiImage: UIImage(data: state.imageData)!)
           .resizable()
           .scaledToFit()
           .clipped()
@@ -93,7 +91,7 @@ struct ImageMaskingView: View {
             GeometryReader { geometry in
               Color.clear
                 .onAppear {
-                    state.imagePresentationState.rectSize = geometry.size
+                  state.imagePresentationState.rectSize = geometry.size
                 }
             })
       }
@@ -101,10 +99,10 @@ struct ImageMaskingView: View {
   }
 
   var heightScale: CGFloat {
-      state.imageData.getSize().height / state.imagePresentationState.rectSize.height
+    state.imageData.getSize().height / state.imagePresentationState.rectSize.height
   }
 
   var widthScale: CGFloat {
-      state.imageData.getSize().width / state.imagePresentationState.rectSize.width
+    state.imageData.getSize().width / state.imagePresentationState.rectSize.width
   }
 }

@@ -49,5 +49,4 @@ class EditState: ObservableObject, StateAbilities {
   @Published var scrollViewScale: CGFloat = 1.0
   @Published var imageIsBeingProcessed = false
   @Published var selectedIndex = 1
-
 }

@@ -47,18 +47,22 @@ class EditInteractor: ObservableObject {
       }, to: "http://127.0.0.1:\(portNumber)/inpaint",
       method: .post)
 
-    request.response { response in
+    request.response { [weak self] response in
       guard let data = response.data else { return }
 
-      withAnimation(.easeInOut(duration: 0.2)) {
-        state.imageIsBeingProcessed = false
-      }
-
-      state.redoImageData.removeAll()
-      state.undoImageData.append(state.imageData)
-      state.imageData = data
-      state.previousPoints.removeAll()
+      self?.processInpaintingResponse(state: state, data: data)
     }
+  }
+
+  func processInpaintingResponse(state: EditState, data: Data) {
+    withAnimation(.easeInOut(duration: 0.2)) {
+      state.imageIsBeingProcessed = false
+    }
+
+    state.redoImageData.removeAll()
+    state.undoImageData.append(state.imageData)
+    state.imageData = data
+    state.previousPoints.removeAll()
   }
 
   func debugAddPathToImageData(state: EditState) {
@@ -96,8 +100,7 @@ class EditInteractor: ObservableObject {
   }
 
   func getMaskImageDataFromPath(state: EditState) -> Data? {
-    let data = state.imageData
-    let image = UIImage(data: data)
+    let image = UIImage(data: state.imageData)
     let scaledSegments = state.previousPoints.scaledSegmentsToPath(imageState: state.imagePresentationState)
 
     if
