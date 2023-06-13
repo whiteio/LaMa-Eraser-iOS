@@ -23,8 +23,8 @@ pip install -r requirements.txt
 python predict.py
 ```
 ## Environment
-- iOS 16
-- Xcode 14.1
+- iOS 17
+- Xcode 15
 
 Port 5000 is used for the flask server.
 
