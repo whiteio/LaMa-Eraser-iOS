@@ -38,12 +38,7 @@ struct EditView: View {
       ZStack(alignment: .topLeading) {
         ZoomableScrollView(contentScale: $state.scrollViewScale) {
           ImageMaskingView(
-            editState: state,
-            imageState: $state.imagePresentationState,
-            selectedPhotoData: state.imageData,
-            brushSize: $state.brushSize,
-            imageIsProcessing: $state.imageIsBeingProcessed,
-            mode: $state.mode)
+            state: state)
         }
         .overlay(opacityLoadingOverlay())
         .overlay(loadingSpinnerView())

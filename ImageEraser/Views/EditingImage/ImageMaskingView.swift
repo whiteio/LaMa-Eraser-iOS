@@ -10,40 +10,15 @@ import SwiftUI
 
 struct ImageMaskingView: View {
 
-  // MARK: Lifecycle
-
-  init(
-    editState: EditState,
-    imageState: Binding<ImagePresentationState>,
-    selectedPhotoData: Data,
-    brushSize: Binding<Double>,
-    imageIsProcessing: Binding<Bool>,
-    mode: Binding<EditMode>)
-  {
-    state = editState
-    _brushSize = brushSize
-    self.selectedPhotoData = selectedPhotoData
-    _imageSize = State(initialValue: selectedPhotoData.getSize())
-    _imageState = imageState
-    _imageIsProcessing = imageIsProcessing
-    _mode = mode
-  }
-
   // MARK: Internal
 
   @ObservedObject var state: EditState
-  var selectedPhotoData: Data
-  @Binding var brushSize: Double
-  @Binding var imageIsProcessing: Bool
-  @Binding var mode: EditMode
-  @State var imageSize: CGSize
-  @Binding var imageState: ImagePresentationState
 
   var drag: some Gesture {
     DragGesture(minimumDistance: 0)
       .onChanged { value in
-        guard !imageIsProcessing else { return }
-        guard value.location.isInBounds(imageState.rectSize) else { return }
+          guard !state.imageIsBeingProcessed else { return }
+          guard value.location.isInBounds(state.imagePresentationState.rectSize) else { return }
 
         state.maskPoints.rectPoints.append(value.location)
 
@@ -54,11 +29,11 @@ struct ImageMaskingView: View {
         state.maskPoints.scaledPoints.append(scaledPoint)
       }
       .onEnded { _ in
-        guard !imageIsProcessing else { return }
+          guard !state.imageIsBeingProcessed else { return }
 
-        imageState.imageSize = imageSize
+          state.imagePresentationState.imageSize = state.imageData.getSize()
 
-        state.maskPoints.configuration = SegmentConfiguration(brushSize: brushSize * widthScale)
+          state.maskPoints.configuration = SegmentConfiguration(brushSize: state.brushSize * widthScale)
 
         state.previousPoints.append(state.maskPoints)
         state.maskPoints.scaledPoints = []
@@ -73,9 +48,9 @@ struct ImageMaskingView: View {
   }
 
   var body: some View {
-    if mode == .move {
+      if state.mode == .move {
       VStack(alignment: .trailing) {
-        Image(uiImage: UIImage(data: selectedPhotoData)!)
+          Image(uiImage: UIImage(data: state.imageData)!)
           .resizable()
           .scaledToFit()
           .clipped()
@@ -93,13 +68,13 @@ struct ImageMaskingView: View {
             GeometryReader { geometry in
               Color.clear
                 .onAppear {
-                  imageState.rectSize = geometry.size
+                    state.imagePresentationState.rectSize = geometry.size
                 }
             })
       }
     } else {
       VStack(alignment: .trailing) {
-        Image(uiImage: UIImage(data: selectedPhotoData)!)
+          Image(uiImage: UIImage(data: state.imageData)!)
           .resizable()
           .scaledToFit()
           .clipped()
@@ -109,7 +84,7 @@ struct ImageMaskingView: View {
               previousPointsSegments: state.previousPoints,
               currentPointsSegment: state.maskPoints)
               .stroke(style: StrokeStyle(
-                lineWidth: brushSize,
+                lineWidth: state.brushSize,
                 lineCap: .round,
                 lineJoin: .round))
               .foregroundColor(.blue.opacity(0.4)))
@@ -118,7 +93,7 @@ struct ImageMaskingView: View {
             GeometryReader { geometry in
               Color.clear
                 .onAppear {
-                  imageState.rectSize = geometry.size
+                    state.imagePresentationState.rectSize = geometry.size
                 }
             })
       }
@@ -126,10 +101,10 @@ struct ImageMaskingView: View {
   }
 
   var heightScale: CGFloat {
-    imageSize.height / imageState.rectSize.height
+      state.imageData.getSize().height / state.imagePresentationState.rectSize.height
   }
 
   var widthScale: CGFloat {
-    imageSize.width / imageState.rectSize.width
+      state.imageData.getSize().width / state.imagePresentationState.rectSize.width
   }
 }
