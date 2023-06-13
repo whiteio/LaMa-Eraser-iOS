@@ -11,8 +11,7 @@ import SwiftUI
 struct ImageEraserApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView()
-        .environmentObject(NavigationStore())
+      ContentView(navigationStore: NavigationStore())
         .preferredColorScheme(.dark)
     }
   }

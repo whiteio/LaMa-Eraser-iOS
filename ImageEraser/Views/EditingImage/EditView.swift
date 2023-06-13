@@ -22,7 +22,7 @@ struct EditView: View {
 
   var showDebugMask = false
 
-  @EnvironmentObject var navigationStore: NavigationStore
+  @Environment(NavigationStore.self) var navigationStore
   @EnvironmentObject var interactor: EditInteractor
   @StateObject var state: EditState
 

@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Observation
 import SwiftUI
 
-class NavigationStore: ObservableObject {
-  @Published var paths: [Route] = []
+@Observable
+class NavigationStore {
+  var paths: [Route] = []
 
   func navigateToPath(_ route: Route) {
     paths.append(route)

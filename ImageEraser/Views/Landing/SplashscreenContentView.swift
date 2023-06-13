@@ -9,7 +9,7 @@ import PhotosUI
 import SwiftUI
 
 struct SplashscreenContentView: View {
-  @EnvironmentObject var store: NavigationStore
+  @Environment(NavigationStore.self) var store
 
   @State var selectedItem: PhotosPickerItem?
 

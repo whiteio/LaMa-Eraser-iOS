@@ -11,12 +11,13 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
-  @EnvironmentObject var navigationStore: NavigationStore
+  @Bindable var navigationStore: NavigationStore
 
   var body: some View {
     NavigationStack(path: $navigationStore.paths) {
       VStack {
         SplashscreenContentView()
+          .environment(navigationStore)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(
@@ -35,6 +36,7 @@ struct ContentView: View {
           let extractedExpr = EditInteractor()
           EditView(photoData: photoData)
             .environmentObject(extractedExpr)
+            .environment(navigationStore)
         }
       }
       .toolbar(.hidden)
@@ -70,7 +72,7 @@ struct SelectContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    ContentView(navigationStore: NavigationStore())
       .preferredColorScheme(.dark)
   }
 }
