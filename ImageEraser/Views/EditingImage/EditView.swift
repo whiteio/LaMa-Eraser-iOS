@@ -23,7 +23,7 @@ struct EditView: View {
   var showDebugMask = false
 
   @Environment(NavigationStore.self) var navigationStore
-  @EnvironmentObject var interactor: EditInteractor
+  @Environment(EditInteractor.self) var interactor
   @State var state: EditState
 
   var currentlyEditablePhoto: ShareableImage {

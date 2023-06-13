@@ -6,9 +6,11 @@
 //
 
 import Alamofire
+import Observation
 import SwiftUI
 
-class EditInteractor: ObservableObject {
+@Observable
+class EditInteractor {
   func submitForInpainting(state: EditState) {
     let maskData = state.mode == .standardMask
       ? getMaskImageDataFromPath(state: state)

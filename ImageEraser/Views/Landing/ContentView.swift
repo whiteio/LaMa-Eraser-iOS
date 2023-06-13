@@ -35,7 +35,7 @@ struct ContentView: View {
         case .editPhoto(let photoData):
           let extractedExpr = EditInteractor()
           EditView(photoData: photoData)
-            .environmentObject(extractedExpr)
+            .environment(extractedExpr)
             .environment(navigationStore)
         }
       }
