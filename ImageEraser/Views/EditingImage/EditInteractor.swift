@@ -29,6 +29,8 @@ class EditInteractor: ObservableObject {
       }
     }
 
+      guard let portNumber = Bundle.main.infoDictionary?["PortNumber"] as? Int else { return }
+
     let request = AF.upload(
       multipartFormData: { multipartFormData in
         multipartFormData.append(
@@ -42,7 +44,7 @@ class EditInteractor: ObservableObject {
           fileName: "mask.png",
           mimeType: "image/png")
 
-      }, to: "http://127.0.0.1:5000/inpaint",
+      }, to: "http://127.0.0.1:\(portNumber)/inpaint",
       method: .post)
 
     request.response { response in
