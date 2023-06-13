@@ -4,7 +4,7 @@ An image inpainting app made with SwiftUI.
 
 | Before | After |
 |------|-------|
-| ![Simulator Screenshot - iPhone 14 Pro - 2023-06-13 at 22 26 26](https://github.com/whiteio/LaMa-Eraser-iOS/assets/84482442/10e61c3f-4900-4619-b97a-8847e62ccd23) | ![simulator_screenshot_8A32B201-1383-4CDE-B687-3DAA977CCFC2](https://github.com/whiteio/LaMa-Eraser-iOS/assets/84482442/c7e259a2-2438-48b2-8df8-a6e3439596c3) |
+| <img src="https://github.com/whiteio/LaMa-Eraser-iOS/assets/84482442/10e61c3f-4900-4619-b97a-8847e62ccd23" height=500> | <img src="https://github.com/whiteio/LaMa-Eraser-iOS/assets/84482442/c7e259a2-2438-48b2-8df8-a6e3439596c3" height=500> |
 
 
 
