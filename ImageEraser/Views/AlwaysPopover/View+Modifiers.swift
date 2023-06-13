@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-public extension View {
-    func alwaysPopover<Content>(isPresented: Binding<Bool>,
-                                @ViewBuilder content: @escaping () -> Content) -> some View where Content: View
-    {
-        modifier(AlwaysPopoverModifier(isPresented: isPresented, contentBlock: content))
-    }
+extension View {
+  public func alwaysPopover(
+    isPresented: Binding<Bool>,
+    @ViewBuilder content: @escaping () -> some View)
+    -> some View
+  {
+    modifier(AlwaysPopoverModifier(isPresented: isPresented, contentBlock: content))
+  }
 }

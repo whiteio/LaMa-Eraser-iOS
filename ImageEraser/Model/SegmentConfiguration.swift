@@ -8,5 +8,5 @@
 import Foundation
 
 struct SegmentConfiguration: Equatable {
-    var brushSize: Double
+  var brushSize: Double
 }

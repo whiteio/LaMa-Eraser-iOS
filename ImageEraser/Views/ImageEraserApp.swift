@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct ImageEraserApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .environmentObject(NavigationStore())
-                .preferredColorScheme(.dark)
-        }
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(NavigationStore())
+        .preferredColorScheme(.dark)
     }
+  }
 }

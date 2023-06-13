@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 class NavigationStore: ObservableObject {
-    @Published var paths: [Route] = []
+  @Published var paths: [Route] = []
 
-    func navigateToPath(_ route: Route) {
-        paths.append(route)
-    }
+  func navigateToPath(_ route: Route) {
+    paths.append(route)
+  }
 
-    func dismissView() {
-        paths.removeLast()
-    }
+  func dismissView() {
+    paths.removeLast()
+  }
 }

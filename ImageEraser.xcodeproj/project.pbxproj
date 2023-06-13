@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E35232B828C2948D008DB14B /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B728C2948D008DB14B /* EditView.swift */; };
 		E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232B928C376B7008DB14B /* ZoomableScrollView.swift */; };
-		E35232C028C38B6F008DB14B /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E35232BF28C38B6F008DB14B /* swiftlint.yml */; };
 		E35232D728C3BCEA008DB14B /* ImageMaskingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */; };
 		E35232D928C4A451008DB14B /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232D828C4A451008DB14B /* NavigationStore.swift */; };
 		E35232DC28C4A4C6008DB14B /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35232DB28C4A4C6008DB14B /* Route.swift */; };
@@ -48,7 +47,6 @@
 /* Begin PBXFileReference section */
 		E35232B728C2948D008DB14B /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		E35232B928C376B7008DB14B /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
-		E35232BF28C38B6F008DB14B /* swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMaskingView.swift; sourceTree = "<group>"; };
 		E35232D828C4A451008DB14B /* NavigationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 		E35232DB28C4A4C6008DB14B /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 		E3B5306028BEA76F00F33E07 = {
 			isa = PBXGroup;
 			children = (
-				E35232BF28C38B6F008DB14B /* swiftlint.yml */,
 				E3B5306B28BEA76F00F33E07 /* ImageEraser */,
 				E3B5306A28BEA76F00F33E07 /* Products */,
 			);
@@ -341,7 +338,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3B5308028BEAB1100F33E07 /* button.riv in Resources */,
-				E35232C028C38B6F008DB14B /* swiftlint.yml in Resources */,
 				E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */,
 				E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */,
 				E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */,

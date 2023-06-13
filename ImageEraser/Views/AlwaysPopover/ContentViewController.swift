@@ -8,32 +8,40 @@
 import SwiftUI
 
 class ContentViewController<V>: UIHostingController<V>, UIPopoverPresentationControllerDelegate where V: View {
-    var isPresented: Binding<Bool>
 
-    init(rootView: V, isPresented: Binding<Bool>) {
-        self.isPresented = isPresented
-        super.init(rootView: rootView)
-    }
+  // MARK: Lifecycle
 
-    @available(*, unavailable)
-    @MainActor @objc dynamic required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  init(rootView: V, isPresented: Binding<Bool>) {
+    self.isPresented = isPresented
+    super.init(rootView: rootView)
+  }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  @available(*, unavailable)
+  @MainActor @objc
+  dynamic required init?(coder _: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
-        let size = sizeThatFits(in: UIView.layoutFittingExpandedSize)
-        preferredContentSize = size
-    }
+  // MARK: Internal
 
-    func adaptivePresentationStyle(for _: UIPresentationController,
-                                   traitCollection _: UITraitCollection) -> UIModalPresentationStyle
-    {
-        return .none
-    }
+  var isPresented: Binding<Bool>
 
-    func presentationControllerDidDismiss(_: UIPresentationController) {
-        isPresented.wrappedValue = false
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    let size = sizeThatFits(in: UIView.layoutFittingExpandedSize)
+    preferredContentSize = size
+  }
+
+  func adaptivePresentationStyle(
+    for _: UIPresentationController,
+    traitCollection _: UITraitCollection)
+    -> UIModalPresentationStyle
+  {
+    .none
+  }
+
+  func presentationControllerDidDismiss(_: UIPresentationController) {
+    isPresented.wrappedValue = false
+  }
 }

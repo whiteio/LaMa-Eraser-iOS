@@ -7,50 +7,74 @@
 
 import Foundation
 
+// MARK: - HasModeState
+
 protocol HasModeState {
-    var mode: EditMode { get }
+  var mode: EditMode { get }
 }
+
+// MARK: - HasImagePresentationState
 
 protocol HasImagePresentationState {
-    var imagePresentationState: ImagePresentationState { get }
+  var imagePresentationState: ImagePresentationState { get }
 }
+
+// MARK: - HasImageDataState
 
 protocol HasImageDataState {
-    var imageData: Data { get }
+  var imageData: Data { get }
 }
+
+// MARK: - HasUndoState
 
 protocol HasUndoState {
-    var undoImageData: [Data] { get }
+  var undoImageData: [Data] { get }
 }
+
+// MARK: - HasRedoState
 
 protocol HasRedoState {
-    var redoImageData: [Data] { get }
+  var redoImageData: [Data] { get }
 }
+
+// MARK: - HasMaskPoints
 
 protocol HasMaskPoints {
-    var maskPoints: PointsSegment { get }
+  var maskPoints: PointsSegment { get }
 }
+
+// MARK: - HasPreviousPoints
 
 protocol HasPreviousPoints {
-    var previousPoints: [PointsSegment] { get }
+  var previousPoints: [PointsSegment] { get }
 }
+
+// MARK: - HasBrushSize
 
 protocol HasBrushSize {
-    var brushSize: Double { get }
+  var brushSize: Double { get }
 }
+
+// MARK: - HasBaseBrushSize
 
 protocol HasBaseBrushSize {
-    var baseBrushSize: Double { get }
+  var baseBrushSize: Double { get }
 }
+
+// MARK: - HasScrollViewScale
 
 protocol HasScrollViewScale {
-    var scrollViewScale: CGFloat { get }
+  var scrollViewScale: CGFloat { get }
 }
+
+// MARK: - HasImageIsBeingProcessedState
 
 protocol HasImageIsBeingProcessedState {
-    var imageIsBeingProcessed: Bool { get }
+  var imageIsBeingProcessed: Bool { get }
 }
 
+// MARK: - HasSelectedEditControlIndex
+
 protocol HasSelectedEditControlIndex {
-    var selectedIndex: Int { get }
+  var selectedIndex: Int { get }
 }

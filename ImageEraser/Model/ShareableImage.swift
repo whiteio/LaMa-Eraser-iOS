@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ShareableImage: Transferable {
-    static var transferRepresentation: some TransferRepresentation {
-        ProxyRepresentation(exporting: \.image)
-    }
+  static var transferRepresentation: some TransferRepresentation {
+    ProxyRepresentation(exporting: \.image)
+  }
 
-    public var image: Image
-    public var caption: String
+  public var image: Image
+  public var caption: String
 }

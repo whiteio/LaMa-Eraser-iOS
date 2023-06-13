@@ -2,58 +2,71 @@ import SwiftUI
 import UIKit
 
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
-    private var content: Content
-    @Binding var contentScale: CGFloat
 
-    init(contentScale: Binding<CGFloat>, @ViewBuilder content: () -> Content) {
-        self.content = content()
-        self._contentScale = contentScale
+  // MARK: Lifecycle
+
+  init(contentScale: Binding<CGFloat>, @ViewBuilder content: () -> Content) {
+    self.content = content()
+    _contentScale = contentScale
+  }
+
+  // MARK: Internal
+
+  // MARK: - Coordinator
+
+  class Coordinator: NSObject, UIScrollViewDelegate {
+
+    // MARK: Lifecycle
+
+    init(hostingController: UIHostingController<Content>, zoomScale: Binding<CGFloat>) {
+      self.hostingController = hostingController
+      _zoomScale = zoomScale
     }
 
-    func makeUIView(context: Context) -> UIScrollView {
-        let scrollView = UIScrollView()
-        scrollView.delegate = context.coordinator
-        scrollView.maximumZoomScale = 5
-        scrollView.minimumZoomScale = 1
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.bouncesZoom = true
+    // MARK: Internal
 
-        let hostedView = context.coordinator.hostingController.view!
-        hostedView.translatesAutoresizingMaskIntoConstraints = true
-        hostedView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scrollView.addSubview(hostedView)
+    @Binding var zoomScale: CGFloat
 
-        return scrollView
+    var hostingController: UIHostingController<Content>
+
+    func viewForZooming(in _: UIScrollView) -> UIView? {
+      hostingController.view
     }
 
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(hostingController: UIHostingController(rootView: self.content), zoomScale: $contentScale)
+    func scrollViewDidEndZooming(_: UIScrollView, with _: UIView?, atScale scale: CGFloat) {
+      zoomScale = scale
     }
+  }
 
-    func updateUIView(_ uiView: UIScrollView, context: Context) {
-        context.coordinator.hostingController.rootView = self.content
-        assert(context.coordinator.hostingController.view.superview == uiView)
-    }
+  @Binding var contentScale: CGFloat
 
-    // MARK: - Coordinator
+  func makeUIView(context: Context) -> UIScrollView {
+    let scrollView = UIScrollView()
+    scrollView.delegate = context.coordinator
+    scrollView.maximumZoomScale = 5
+    scrollView.minimumZoomScale = 1
+    scrollView.showsVerticalScrollIndicator = false
+    scrollView.showsHorizontalScrollIndicator = false
+    scrollView.bouncesZoom = true
 
-    class Coordinator: NSObject, UIScrollViewDelegate {
-        @Binding var zoomScale: CGFloat
+    let hostedView = context.coordinator.hostingController.view!
+    hostedView.translatesAutoresizingMaskIntoConstraints = true
+    hostedView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    scrollView.addSubview(hostedView)
 
-        var hostingController: UIHostingController<Content>
+    return scrollView
+  }
 
-        init(hostingController: UIHostingController<Content>, zoomScale: Binding<CGFloat>) {
-            self.hostingController = hostingController
-            self._zoomScale = zoomScale
-        }
+  func makeCoordinator() -> Coordinator {
+    Coordinator(hostingController: UIHostingController(rootView: content), zoomScale: $contentScale)
+  }
 
-        func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-            return hostingController.view
-        }
+  func updateUIView(_ uiView: UIScrollView, context: Context) {
+    context.coordinator.hostingController.rootView = content
+    assert(context.coordinator.hostingController.view.superview == uiView)
+  }
 
-        func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-            zoomScale = scale
-        }
-    }
+  // MARK: Private
+
+  private var content: Content
 }

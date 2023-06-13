@@ -8,53 +8,58 @@
 import SwiftUI
 
 struct EditControlView: View {
-    @Binding var redoablePhotoData: [Data]
-    @State var oldPhotoData: [Data] = []
-    @Binding var photoData: Data
-    @Binding var brushSize: Double
-    @State var shouldShowBrushPopover = false
 
-    var body: some View {
-        HStack(spacing: 8) {
-            Button(action: {
-                redoablePhotoData.append(photoData)
-                photoData = oldPhotoData.removeLast()
-            }, label: {
-                Image(systemName: "arrow.uturn.backward.circle")
-                    .font(.title)
-            })
-            .tint(.white)
-            .disabled(undoDisabled)
-            Button(action: {
-                oldPhotoData.append(photoData)
-                photoData = redoablePhotoData.removeLast()
-            }, label: {
-                Image(systemName: "arrow.uturn.forward.circle")
-                    .font(.title)
-            })
-            .tint(.white)
-            .disabled(redoDisabled)
+  // MARK: Internal
 
-            Button {
-                shouldShowBrushPopover = true
-            } label: {
-                Image(systemName: "pencil.tip.crop.circle")
-                    .font(.title)
-                    .tint(.white)
-                    .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
-                        BrushPropertiesContentView(brushSize: $brushSize)
-                            .padding()
-                    })
-            }
-        }
-        .padding()
+  @Binding var redoablePhotoData: [Data]
+  @State var oldPhotoData: [Data] = []
+  @Binding var photoData: Data
+  @Binding var brushSize: Double
+  @State var shouldShowBrushPopover = false
+
+  var body: some View {
+    HStack(spacing: 8) {
+      Button(action: {
+        redoablePhotoData.append(photoData)
+        photoData = oldPhotoData.removeLast()
+      }, label: {
+        Image(systemName: "arrow.uturn.backward.circle")
+          .font(.title)
+      })
+      .tint(.white)
+      .disabled(undoDisabled)
+      Button(action: {
+        oldPhotoData.append(photoData)
+        photoData = redoablePhotoData.removeLast()
+      }, label: {
+        Image(systemName: "arrow.uturn.forward.circle")
+          .font(.title)
+      })
+      .tint(.white)
+      .disabled(redoDisabled)
+
+      Button {
+        shouldShowBrushPopover = true
+      } label: {
+        Image(systemName: "pencil.tip.crop.circle")
+          .font(.title)
+          .tint(.white)
+          .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
+            BrushPropertiesContentView(brushSize: $brushSize)
+              .padding()
+          })
+      }
     }
+    .padding()
+  }
 
-    private var undoDisabled: Bool {
-        oldPhotoData.isEmpty
-    }
+  // MARK: Private
 
-    private var redoDisabled: Bool {
-        redoablePhotoData.isEmpty
-    }
+  private var undoDisabled: Bool {
+    oldPhotoData.isEmpty
+  }
+
+  private var redoDisabled: Bool {
+    redoablePhotoData.isEmpty
+  }
 }

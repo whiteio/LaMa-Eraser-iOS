@@ -8,6 +8,6 @@
 import Foundation
 
 struct ImagePresentationState {
-    var imageSize: CGSize
-    var rectSize: CGSize
+  var imageSize: CGSize
+  var rectSize: CGSize
 }

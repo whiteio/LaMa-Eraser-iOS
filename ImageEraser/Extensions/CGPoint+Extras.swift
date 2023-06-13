@@ -8,10 +8,10 @@
 import Foundation
 
 extension CGPoint {
-    func isInBounds(_ bounds: CGSize) -> Bool {
-        x >= 0 &&
-        y >= 0 &&
-        x <= bounds.width &&
-        y <= bounds.height
-    }
+  func isInBounds(_ bounds: CGSize) -> Bool {
+    x >= 0 &&
+      y >= 0 &&
+      x <= bounds.width &&
+      y <= bounds.height
+  }
 }
