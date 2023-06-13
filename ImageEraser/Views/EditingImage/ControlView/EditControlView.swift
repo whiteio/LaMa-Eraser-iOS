@@ -26,6 +26,9 @@ struct EditControlView: View {
         Image(systemName: "arrow.uturn.backward.circle")
           .font(.title)
       })
+      .onChange(of: photoData, { old, new in
+          oldPhotoData.append(old)
+      })
       .tint(.white)
       .disabled(undoDisabled)
       Button(action: {
