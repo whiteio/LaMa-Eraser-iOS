@@ -29,7 +29,7 @@ class EditInteractor: ObservableObject {
       }
     }
 
-      guard let portNumber = Bundle.main.infoDictionary?["PortNumber"] as? Int else { return }
+    guard let portNumber = Bundle.main.infoDictionary?["PortNumber"] as? Int else { return }
 
     let request = AF.upload(
       multipartFormData: { multipartFormData in
