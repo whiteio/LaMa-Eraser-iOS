@@ -10,7 +10,7 @@ import Observation
 import SwiftUI
 
 @Observable
-class EditInteractor {
+class EditViewModel {
   func submitForInpainting(state: EditState) {
     let maskData = state.mode == .standardMask
       ? getMaskImageDataFromPath(state: state)

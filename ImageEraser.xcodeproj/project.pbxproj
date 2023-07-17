@@ -26,7 +26,7 @@
 		E365F00828E5FDB4005CC28A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E365F00728E5FDB4005CC28A /* Alamofire */; };
 		E37DFBB528BEAD3A0060AEBF /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = E37DFBB428BEAD3A0060AEBF /* shapes.riv */; };
 		E399DDCB28F4ACAD00F07C25 /* EditControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */; };
-		E399DDCD28F4AF6400F07C25 /* EditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */; };
+		E399DDCD28F4AF6400F07C25 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCC28F4AF6400F07C25 /* EditViewModel.swift */; };
 		E399DDCF28F4B01500F07C25 /* EditState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDCE28F4B01500F07C25 /* EditState.swift */; };
 		E399DDD628F4B53000F07C25 /* StateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD528F4B53000F07C25 /* StateProtocols.swift */; };
 		E399DDD828F4B97500F07C25 /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399DDD728F4B97500F07C25 /* EditMode.swift */; };
@@ -40,8 +40,12 @@
 		E3B5306F28BEA76F00F33E07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5306E28BEA76F00F33E07 /* ContentView.swift */; };
 		E3B5307128BEA77100F33E07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307028BEA77100F33E07 /* Assets.xcassets */; };
 		E3B5307428BEA77100F33E07 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307328BEA77100F33E07 /* Preview Assets.xcassets */; };
-		E3B5307C28BEAAE200F33E07 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = E3B5307B28BEAAE200F33E07 /* RiveRuntime */; };
 		E3B5308028BEAB1100F33E07 /* button.riv in Resources */ = {isa = PBXBuildFile; fileRef = E3B5307F28BEAB1100F33E07 /* button.riv */; };
+		E3E486652A65D74500D78C9F /* SplashscreenPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E486642A65D74500D78C9F /* SplashscreenPlaceholderView.swift */; };
+		E3E486672A65D76400D78C9F /* SelectContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E486662A65D76400D78C9F /* SelectContentView.swift */; };
+		E3E486692A65D77700D78C9F /* MainScreenBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E486682A65D77700D78C9F /* MainScreenBackgroundView.swift */; };
+		E3E4866B2A65D78B00D78C9F /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E4866A2A65D78B00D78C9F /* Polygon.swift */; };
+		E3E4866D2A65D79B00D78C9F /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E4866C2A65D79B00D78C9F /* ActionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +67,7 @@
 		E352330028C4C18B008DB14B /* CGPoint+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extras.swift"; sourceTree = "<group>"; };
 		E37DFBB428BEAD3A0060AEBF /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 		E399DDCA28F4ACAD00F07C25 /* EditControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditControlView.swift; sourceTree = "<group>"; };
-		E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInteractor.swift; sourceTree = "<group>"; };
+		E399DDCC28F4AF6400F07C25 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		E399DDCE28F4B01500F07C25 /* EditState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditState.swift; sourceTree = "<group>"; };
 		E399DDD528F4B53000F07C25 /* StateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateProtocols.swift; sourceTree = "<group>"; };
 		E399DDD728F4B97500F07C25 /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
@@ -80,6 +84,11 @@
 		E3B5307328BEA77100F33E07 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E3B5307F28BEAB1100F33E07 /* button.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = button.riv; sourceTree = "<group>"; };
 		E3D2B6552A38DB240088B7EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3E486642A65D74500D78C9F /* SplashscreenPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashscreenPlaceholderView.swift; sourceTree = "<group>"; };
+		E3E486662A65D76400D78C9F /* SelectContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectContentView.swift; sourceTree = "<group>"; };
+		E3E486682A65D77700D78C9F /* MainScreenBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenBackgroundView.swift; sourceTree = "<group>"; };
+		E3E4866A2A65D78B00D78C9F /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
+		E3E4866C2A65D79B00D78C9F /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +97,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E365F00828E5FDB4005CC28A /* Alamofire in Frameworks */,
-				E3B5307C28BEAAE200F33E07 /* RiveRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				E35232DE28C4A691008DB14B /* GestureMaskShape.swift */,
+				E3E4866A2A65D78B00D78C9F /* Polygon.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -142,6 +151,10 @@
 			children = (
 				E3B5306E28BEA76F00F33E07 /* ContentView.swift */,
 				E35232E128C4A81B008DB14B /* SplashscreenContentView.swift */,
+				E3E486642A65D74500D78C9F /* SplashscreenPlaceholderView.swift */,
+				E3E486662A65D76400D78C9F /* SelectContentView.swift */,
+				E3E486682A65D77700D78C9F /* MainScreenBackgroundView.swift */,
+				E3E4866C2A65D79B00D78C9F /* ActionView.swift */,
 			);
 			path = Landing;
 			sourceTree = "<group>";
@@ -153,7 +166,7 @@
 				E35232B928C376B7008DB14B /* ZoomableScrollView.swift */,
 				E35232B728C2948D008DB14B /* EditView.swift */,
 				E35232D628C3BCEA008DB14B /* ImageMaskingView.swift */,
-				E399DDCC28F4AF6400F07C25 /* EditInteractor.swift */,
+				E399DDCC28F4AF6400F07C25 /* EditViewModel.swift */,
 				E399DDCE28F4B01500F07C25 /* EditState.swift */,
 			);
 			path = EditingImage;
@@ -290,7 +303,6 @@
 			);
 			name = ImageEraser;
 			packageProductDependencies = (
-				E3B5307B28BEAAE200F33E07 /* RiveRuntime */,
 				E365F00728E5FDB4005CC28A /* Alamofire */,
 			);
 			productName = ImageEraser;
@@ -322,7 +334,6 @@
 			);
 			mainGroup = E3B5306028BEA76F00F33E07;
 			packageReferences = (
-				E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */,
 				E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E3B5306A28BEA76F00F33E07 /* Products */;
@@ -377,7 +388,9 @@
 				E3A9404828E9F99000FC7801 /* AlwaysPopoverModifier.swift in Sources */,
 				E399DDDC28F4C08B00F07C25 /* ShareableImage.swift in Sources */,
 				E35232D928C4A451008DB14B /* NavigationStore.swift in Sources */,
+				E3E486652A65D74500D78C9F /* SplashscreenPlaceholderView.swift in Sources */,
 				E35232F728C4B87A008DB14B /* SegmentConfiguration.swift in Sources */,
+				E3E4866B2A65D78B00D78C9F /* Polygon.swift in Sources */,
 				E399DDD628F4B53000F07C25 /* StateProtocols.swift in Sources */,
 				E35232D728C3BCEA008DB14B /* ImageMaskingView.swift in Sources */,
 				E399DDCF28F4B01500F07C25 /* EditState.swift in Sources */,
@@ -394,10 +407,13 @@
 				E3B5306D28BEA76F00F33E07 /* ImageEraserApp.swift in Sources */,
 				E3A9404428E9F95700FC7801 /* ContentViewController.swift in Sources */,
 				E35232BA28C376B7008DB14B /* ZoomableScrollView.swift in Sources */,
+				E3E4866D2A65D79B00D78C9F /* ActionView.swift in Sources */,
 				E3A9404628E9F97600FC7801 /* View+Modifiers.swift in Sources */,
+				E3E486672A65D76400D78C9F /* SelectContentView.swift in Sources */,
 				E3A9404A28E9F9A800FC7801 /* UIView+Extension.swift in Sources */,
 				E35232FD28C4C091008DB14B /* ImagePixelConstants.swift in Sources */,
-				E399DDCD28F4AF6400F07C25 /* EditInteractor.swift in Sources */,
+				E3E486692A65D77700D78C9F /* MainScreenBackgroundView.swift in Sources */,
+				E399DDCD28F4AF6400F07C25 /* EditViewModel.swift in Sources */,
 				E35232EF28C4AF4D008DB14B /* PointsSegment_Array+Extras.swift in Sources */,
 				E3A9404D28E9FA0300FC7801 /* BrushPropertiesContentView.swift in Sources */,
 				E352330128C4C18B008DB14B /* CGPoint+Extras.swift in Sources */,
@@ -615,14 +631,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rive-app/rive-ios.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -630,11 +638,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E365F00628E5FDB4005CC28A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		E3B5307B28BEAAE200F33E07 /* RiveRuntime */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E3B5307A28BEAAE200F33E07 /* XCRemoteSwiftPackageReference "rive-ios" */;
-			productName = RiveRuntime;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
