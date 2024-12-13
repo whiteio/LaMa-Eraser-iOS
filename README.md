@@ -23,7 +23,7 @@ pip install -r requirements.txt
 python predict.py
 ```
 ## Environment
-- iOS 17
+- iOS 17 (Simulator)
 - Xcode 15
 
 Port 5000 is used for the flask server.
