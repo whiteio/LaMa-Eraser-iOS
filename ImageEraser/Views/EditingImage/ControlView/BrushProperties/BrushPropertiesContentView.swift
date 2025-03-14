@@ -23,6 +23,8 @@ struct BrushPropertiesContentView: View {
           .frame(width: brushSize, height: brushSize)
       }
     }
+    .frame(maxWidth: .infinity)
+    .fixedSize()
   }
 }
 

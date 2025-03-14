@@ -43,10 +43,11 @@ struct EditControlView: View {
         Image(systemName: "pencil.tip.crop.circle")
           .font(.title)
           .tint(.white)
-          .alwaysPopover(isPresented: $shouldShowBrushPopover, content: {
-            BrushPropertiesContentView(brushSize: $state.brushSize)
-              .padding()
-          })
+          .popover(isPresented: $shouldShowBrushPopover) {
+              BrushPropertiesContentView(brushSize: $state.brushSize)
+                  .padding()
+                  .presentationCompactAdaptation(.popover)
+          }
       }
     }
     .padding()
