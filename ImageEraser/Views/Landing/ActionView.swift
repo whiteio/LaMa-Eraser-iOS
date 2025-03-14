@@ -34,6 +34,7 @@ struct ActionView: View {
                     if let data = try? await newItem?.loadTransferable(type: Data.self) {
                         store.navigateToPath(.editPhoto(data))
                     }
+                  selectedItem = nil
                 }
             }
         }
