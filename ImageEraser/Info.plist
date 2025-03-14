@@ -7,7 +7,5 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>PortNumber</key>
-	<integer>5000</integer>
 </dict>
 </plist>

@@ -31,8 +31,6 @@ class EditViewModel {
       }
     }
 
-    guard let portNumber = Bundle.main.infoDictionary?["PortNumber"] as? Int else { return }
-
     let request = AF.upload(
       multipartFormData: { multipartFormData in
         multipartFormData.append(
@@ -46,7 +44,7 @@ class EditViewModel {
           fileName: "mask.png",
           mimeType: "image/png")
 
-      }, to: "http://127.0.0.1:\(portNumber)/inpaint",
+      }, to: "http://127.0.0.1:5000/inpaint",
       method: .post)
 
     request.response { [weak self] response in
