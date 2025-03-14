@@ -44,7 +44,7 @@ class EditViewModel {
           fileName: "mask.png",
           mimeType: "image/png")
 
-      }, to: "http://127.0.0.1:5000/inpaint",
+      }, to: "http://127.0.0.1:8080/inpaint",
       method: .post)
 
     request.response { [weak self] response in
