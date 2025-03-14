@@ -26,7 +26,7 @@ python predict.py
 - iOS 17 (Simulator)
 - Xcode 15
 
-Port 5000 is used for the flask server.
+Port 8080 is used for the flask server.
 
 ## Steps
 1. Select an image from the photo library
